@@ -13,7 +13,7 @@ public class PaymentFactory {
         return new Payment.Builder()
                 .setPaymentId(paymentId)
                 .setPaymentType(paymentType)
-                .setPaymentTotal(paymentTotal) // This line sets the payment total
+                .setPaymentTotal(paymentTotal)
                 .build();
     }
 
@@ -27,7 +27,7 @@ public class PaymentFactory {
         return new Payment.Builder()
                 .setPaymentId(paymentId)
                 .setPaymentType(paymentType)
-                .setPaymentTotal(paymentTotal)  // This line sets the payment total
+                .setPaymentTotal(paymentTotal)
                 .build();
     }
 }
