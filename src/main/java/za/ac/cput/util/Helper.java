@@ -1,6 +1,10 @@
 package za.ac.cput.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -42,5 +46,21 @@ public class Helper {
 
     public static boolean isNullOrZeroDouble(Double value) {
         return value == null || value == 0.0;
+    }
+    public static Date isDateValid (String dateString, List<String> formatStrings) {
+        for (String formatString : formatStrings) {
+            try {
+                return new SimpleDateFormat(formatString).parse(dateString);
+            } catch (ParseException e) {
+            }
+        }
+        return null;
+    }
+
+    public static List<String> getLocalDateFormats() {
+        return Arrays.asList("dd/MM/yyyy", "yyyy-MM-dd");
+    }
+    public static <T> boolean isListEmpty(List<T> list) {
+        return list == null || list.isEmpty();
     }
 }
