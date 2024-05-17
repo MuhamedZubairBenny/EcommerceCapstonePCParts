@@ -1,4 +1,10 @@
 package za.ac.cput.domain;
+/*
+Author:
+Imaan Sadien - 221752838
+GitHub Repo:
+https://github.com/Elentiya10/EcommercePCParts
+ */
 
 import java.util.Objects;
 

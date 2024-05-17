@@ -33,4 +33,12 @@ public class Helper {
                 .matcher(emailAddress)
                 .matches();
     }
+    public static boolean isNullOrZero(Integer i) {
+        return i == null || i == 0;
+    }
+
+    public static boolean isNullOrZero(Double value) {
+        return value == null || value == 0.0;
+    }
+
 }
