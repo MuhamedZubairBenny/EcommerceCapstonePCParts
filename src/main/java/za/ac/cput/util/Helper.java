@@ -10,6 +10,20 @@ public class Helper {
         return false;
     }
 
+    public static boolean isLessThanZero(int i){
+        if(i==0)
+            return true;
+        return false;
+    }
+
+    public static boolean isLessZero(double d){
+        if(d==0)
+            return true;
+        return false;
+    }
+
+
+
     public static String generateId() {
         return UUID.randomUUID().toString();
     }

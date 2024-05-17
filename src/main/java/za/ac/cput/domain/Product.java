@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Product{
     private String productId;
-    private String product;
+    private String productName;
     private ProductCategory category;
     private Brand brand;
     private String description;
@@ -17,7 +17,7 @@ public class Product{
 
     public Product(Builder builder){
         this.productId = builder.productId;
-        this.product = builder.product;
+        this.productName = builder.productName;
         this.category = builder.category;
         this.brand = builder.brand;
         this.description = builder.description;
@@ -32,8 +32,8 @@ public class Product{
         return productId;
     }
 
-    public String getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
     public ProductCategory getCategory() {
@@ -68,19 +68,19 @@ public class Product{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product product1)) return false;
-        return Double.compare(getPrice(), product1.getPrice()) == 0 && getStockQuantity() == product1.getStockQuantity() && Objects.equals(getProductId(), product1.getProductId()) && Objects.equals(getProduct(), product1.getProduct()) && Objects.equals(getCategory(), product1.getCategory()) && Objects.equals(getBrand(), product1.getBrand()) && Objects.equals(getDescription(), product1.getDescription()) && Objects.equals(getDimension(), product1.getDimension()) && Objects.equals(getWarranty(), product1.getWarranty());
+        return Double.compare(getPrice(), product1.getPrice()) == 0 && getStockQuantity() == product1.getStockQuantity() && Objects.equals(getProductId(), product1.getProductId()) && Objects.equals(getProductName(), product1.getProductName()) && Objects.equals(getCategory(), product1.getCategory()) && Objects.equals(getBrand(), product1.getBrand()) && Objects.equals(getDescription(), product1.getDescription()) && Objects.equals(getDimension(), product1.getDimension()) && Objects.equals(getWarranty(), product1.getWarranty());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProductId(), getProduct(), getCategory(), getBrand(), getDescription(), getPrice(), getStockQuantity(), getDimension(), getWarranty());
+        return Objects.hash(getProductId(), getProductName(), getCategory(), getBrand(), getDescription(), getPrice(), getStockQuantity(), getDimension(), getWarranty());
     }
 
     @Override
     public String toString() {
         return "Product{" +
                 "productId='" + productId + '\'' +
-                ", product='" + product + '\'' +
+                ", productName='" + productName + '\'' +
                 ", category=" + category +
                 ", brand=" + brand +
                 ", description='" + description + '\'' +
@@ -93,7 +93,7 @@ public class Product{
 
     public static class Builder{
         private String productId;
-        private String product;
+        private String productName;
         private ProductCategory category;
         private Brand brand;
         private String description;
@@ -107,8 +107,8 @@ public class Product{
             return this;
         }
 
-        public Builder setProduct(String product) {
-            this.product = product;
+        public Builder setProductName(String productName) {
+            this.productName = productName;
             return this;
         }
 
@@ -149,7 +149,7 @@ public class Product{
 
         public Builder copy(Product product){
             this.productId = product.productId;
-            this.product = product.product;
+            this.productName = product.productName;
             this.category = product.category;
             this.brand = product.brand;
             this.description = product.description;
