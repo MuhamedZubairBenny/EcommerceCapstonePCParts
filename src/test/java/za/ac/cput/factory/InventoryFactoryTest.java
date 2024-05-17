@@ -22,7 +22,7 @@ class InventoryFactoryTest {
     @Order(1)
      void buildInventory() {
         Product product = new Product.Builder().setProductId("1256").
-                setProduct("GPU").setDescription("Graphic Processing Unit").
+                setProductName("GPU").setDescription("Graphic Processing Unit").
                 setPrice(1500.00).setDimension("270mm").
                 setWarranty("12 Months").build();
         Inventory inventory = InventoryFactory.buildInventory(product, 125);
@@ -34,7 +34,7 @@ class InventoryFactoryTest {
     @Order(3)
     void buildInventoryFail() {
         Product product = new Product.Builder().setProductId("").
-                setProduct("GPU").setDescription("Graphic Processing Unit").
+                setProductName("GPU").setDescription("Graphic Processing Unit").
                 setPrice(1500.00).setDimension("270mm").
                 setWarranty("12 Months").build();
         Inventory inventory = InventoryFactory.buildInventory(product, 125);
