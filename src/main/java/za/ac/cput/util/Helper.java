@@ -12,6 +12,20 @@ public class Helper {
         return false;
     }
 
+    public static boolean isLessThanZero(int i){
+        if(i==0)
+            return true;
+        return false;
+    }
+
+    public static boolean isLessZero(double d){
+        if(d==0)
+            return true;
+        return false;
+    }
+
+
+
     public static String generateId() {
         return UUID.randomUUID().toString();
     }
@@ -21,5 +35,12 @@ public class Helper {
                 .matcher(emailAddress)
                 .matches();
     }
+  
+    public static boolean isNullOrZeroInt(Integer i) {
+        return i == null || i == 0;
+    }
 
+    public static boolean isNullOrZeroDouble(Double value) {
+        return value == null || value == 0.0;
+    }
 }
