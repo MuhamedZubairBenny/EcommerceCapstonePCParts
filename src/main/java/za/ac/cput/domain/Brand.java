@@ -1,4 +1,68 @@
 package za.ac.cput.domain;
 
-public class Brand {
+import java.util.Objects;
+
+public class Brand extends ProductCategory{
+    private String brandId;
+    private String brandName;
+
+    protected Brand(){}
+
+    public Brand(Builder builder){
+        this.brandId = builder.brandId;
+        this.brandName = builder.brandName;
+    }
+
+    public String getBrandId() {
+        return brandId;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Brand brand)) return false;
+        return Objects.equals(getBrandId(), brand.getBrandId()) && Objects.equals(getBrandName(), brand.getBrandName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBrandId(), getBrandName());
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "brandId='" + brandId + '\'' +
+                ", brandName='" + brandName + '\'' +
+                '}';
+    }
+
+    public static class Builder{
+        private String brandId;
+        private String brandName;
+
+        public Builder setBrandId(String brandId) {
+            this.brandId = brandId;
+            return this;
+        }
+
+        public Builder setBrandName(String brandName) {
+            this.brandName = brandName;
+            return this;
+        }
+
+        public Builder copy(Brand brand){
+            this.brandId = brand.brandId;
+            this.brandName = brand.brandName;
+            return this;
+        }
+
+        public Brand build(){
+            return new Brand(this);
+        }
+    }
 }
