@@ -2,7 +2,7 @@ package za.ac.cput.domain;
 
 import java.util.Objects;
 
-public class Brand extends ProductCategory{
+public class Brand{
     private String brandId;
     private String brandName;
 
