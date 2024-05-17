@@ -9,6 +9,7 @@ https://github.com/Elentiya10/EcommercePCParts
 import java.util.Objects;
 
 public class Inventory {
+    private String inventoryId;
     private Product product;
         private int stockQuantity;
 
@@ -16,9 +17,14 @@ public class Inventory {
     protected Inventory() {}
 
     public Inventory(Builder builder){
+        this.inventoryId = builder.inventoryId;
         this.product = builder.product;
         this.stockQuantity = builder.stockQuantity;
 
+    }
+
+    public String getInventoryId() {
+        return inventoryId;
     }
 
     public Product getProduct() {
@@ -34,25 +40,32 @@ public class Inventory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Inventory inventory = (Inventory) o;
-        return stockQuantity == inventory.stockQuantity && Objects.equals(product, inventory.product);
+        return stockQuantity == inventory.stockQuantity && Objects.equals(inventoryId, inventory.inventoryId) && Objects.equals(product, inventory.product);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product, stockQuantity);
+        return Objects.hash(inventoryId, product, stockQuantity);
     }
 
     @Override
     public String toString() {
         return "Inventory{" +
-                "product=" + product +
+                "inventoryId='" + inventoryId + '\'' +
+                ", product=" + product +
                 ", stockQuantity=" + stockQuantity +
                 '}';
     }
 
     public static class Builder{
+        private String inventoryId;
         private Product product;
         private int stockQuantity;
+
+        public Builder setInventoryId(String inventoryId) {
+            this.inventoryId = inventoryId;
+            return this;
+        }
 
         public Builder setProduct(Product product) {
             this.product = product;
@@ -65,6 +78,7 @@ public class Inventory {
         }
 
         public Builder copy(Inventory inventory){
+            this.inventoryId = inventory.inventoryId;
             this.product = inventory.product;
             this.stockQuantity = inventory.stockQuantity;
             return this;
