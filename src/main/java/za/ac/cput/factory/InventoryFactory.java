@@ -12,9 +12,9 @@ import za.ac.cput.domain.Inventory;
 
 public class InventoryFactory {
     public static Inventory buildInventory(Product product, int stockQuantity){
-        if(Helper.isNullOrZero(stockQuantity) || Helper.isNullOrEmpty(product.getProductId()) ||
-                Helper.isNullOrEmpty(product.getProduct()) || Helper.isNullOrEmpty(product.getDescription()) ||
-                Helper.isNullOrZero(product.getPrice()) || Helper.isNullOrEmpty(product.getDimension()) ||
+        if(Helper.isNullOrZeroInt(stockQuantity) || Helper.isNullOrEmpty(product.getProductId()) ||
+                Helper.isNullOrEmpty(product.getProductName()) || Helper.isNullOrEmpty(product.getDescription()) ||
+                Helper.isNullOrZeroDouble(product.getPrice()) || Helper.isNullOrEmpty(product.getDimension()) ||
                 Helper.isNullOrEmpty(product.getWarranty()))
             return null;
 
@@ -23,13 +23,13 @@ public class InventoryFactory {
     }
 
     public static Inventory buildInventory(int stockQuantity, String productId, String product, String description, double price, String dimension, String warranty){
-        if(Helper.isNullOrZero(stockQuantity) || Helper.isNullOrEmpty(productId) ||
+        if(Helper.isNullOrZeroInt(stockQuantity) || Helper.isNullOrEmpty(productId) ||
                 Helper.isNullOrEmpty(product) || Helper.isNullOrEmpty(description) ||
-                Helper.isNullOrZero(price) || Helper.isNullOrEmpty(dimension) ||
+                Helper.isNullOrZeroDouble(price) || Helper.isNullOrEmpty(dimension) ||
                 Helper.isNullOrEmpty(warranty))
             return null;
         Product productInfo = new Product.Builder().setProductId(productId).
-                setProduct(product).setDescription(description).
+                setProductName(product).setDescription(description).
                 setPrice(price).setDimension(dimension).
                 setWarranty(warranty).build();
 
