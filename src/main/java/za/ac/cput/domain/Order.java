@@ -5,6 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -14,7 +15,7 @@ public class Order {
     private double overallPrice;
     private Delivery delivery;
     private Customer customer;
-    private OrderItem orderItem;
+    private List<OrderItem> orderItem;
 
     protected Order(){}
 
@@ -42,7 +43,7 @@ public class Order {
         return customer;
     }
 
-    public OrderItem getOrderItem() {
+    public List<OrderItem> getOrderItem() {
         return orderItem;
     }
 
@@ -75,7 +76,7 @@ public class Order {
         private double overallPrice;
         private Delivery delivery;
         private Customer customer;
-        private OrderItem orderItem;
+        private  List<OrderItem> orderItem;
 
         public Builder setOrderId(String orderId) {
             this.orderId = orderId;
@@ -97,7 +98,7 @@ public class Order {
             return this;
         }
 
-        public Builder setOrderItem(OrderItem orderItem) {
+        public Builder setOrderItem( List<OrderItem> orderItem) {
             this.orderItem = orderItem;
             return this;
         }
