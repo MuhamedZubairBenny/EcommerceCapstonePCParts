@@ -21,6 +21,9 @@ public class Security {
         this.roles = builder.roles;
     }
 
+    public Security(String username, String password) {
+    }
+
     public String getUsername() {
         return username;
     }
