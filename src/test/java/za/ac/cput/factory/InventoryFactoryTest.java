@@ -25,7 +25,7 @@ class InventoryFactoryTest {
                 setProductName("GPU").setDescription("Graphic Processing Unit").
                 setPrice(1500.00).setDimension("270mm").
                 setWarranty("12 Months").build();
-        Inventory inventory = InventoryFactory.buildInventory(product, 125);
+        Inventory inventory = InventoryFactory.buildInventory("1569", product, 125);
         assertNotNull(inventory);
         System.out.println(inventory);
     }
@@ -37,14 +37,14 @@ class InventoryFactoryTest {
                 setProductName("GPU").setDescription("Graphic Processing Unit").
                 setPrice(1500.00).setDimension("270mm").
                 setWarranty("12 Months").build();
-        Inventory inventory = InventoryFactory.buildInventory(product, 125);
+        Inventory inventory = InventoryFactory.buildInventory("1569", product, 125);
         assertNotNull(inventory);
         System.out.println(inventory);
     }
     @Test
     @Order(2)
     void testBuildInventory() {
-        Inventory inventory = InventoryFactory.buildInventory(125, "1256", "GPU", "Graphic Processing Unit", 1500.00, "270mm", "12 months");
+        Inventory inventory = InventoryFactory.buildInventory("1569",125, "1256", "GPU", "Graphic Processing Unit", 1500.00, "270mm", "12 months");
         assertNotNull(inventory);
         System.out.println(inventory);
     }
@@ -52,7 +52,7 @@ class InventoryFactoryTest {
     @Test
     @Order(4)
     void testBuildInventoryFail() {
-        Inventory inventory = InventoryFactory.buildInventory(125, "", "GPU", "Graphic Processing Unit", 1500.00, "270mm", "12 months");
+        Inventory inventory = InventoryFactory.buildInventory("1569",125, "", "GPU", "Graphic Processing Unit", 1500.00, "270mm", "12 months");
         assertNotNull(inventory);
         System.out.println(inventory);
     }
