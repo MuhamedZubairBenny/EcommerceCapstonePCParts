@@ -1,5 +1,7 @@
 package za.ac.cput.util;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -33,12 +35,12 @@ public class Helper {
                 .matcher(emailAddress)
                 .matches();
     }
-    public static boolean isNullOrZero(Integer i) {
+  
+    public static boolean isNullOrZeroInt(Integer i) {
         return i == null || i == 0;
     }
 
-    public static boolean isNullOrZero(Double value) {
+    public static boolean isNullOrZeroDouble(Double value) {
         return value == null || value == 0.0;
     }
-
 }
