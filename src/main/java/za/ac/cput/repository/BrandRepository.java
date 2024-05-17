@@ -18,6 +18,9 @@ public class BrandRepository implements IBrandRepository {
 
     @Override
     public Brand create(Brand brand) {
+        boolean success = brandList.add(brand);
+        if(success)
+            return brand;
         return null;
     }
 
