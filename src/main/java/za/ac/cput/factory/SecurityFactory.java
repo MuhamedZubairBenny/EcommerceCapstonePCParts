@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class SecurityFactory {
- public static Security buildSecurity(String username, String password, int failedLoginAttempts, List<String> roles, String accountCreationDate) {
+ public static Security buildSecurity(String username, String password, int failedLoginAttempts, String roles, String accountCreationDate) {
   List<String> dateFormats = Helper.getLocalDateFormats();
   if (Helper.isNullOrEmpty(username) || Helper.isNullOrEmpty(password) || roles.isEmpty() || Helper.isNullOrEmpty(accountCreationDate))
    return null;
