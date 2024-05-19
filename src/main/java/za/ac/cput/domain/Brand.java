@@ -1,10 +1,18 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Brand{
+    @Id
     private String brandId;
     private String brandName;
+
 
     protected Brand(){}
 
