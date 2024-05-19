@@ -1,18 +1,19 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
-
+@Entity
 public class OrderItem{
-
+@Id
     private String itemId;
     private String item;
     private Double price;
     private String description;
     private int quantity;
+    @ManyToOne(fetch = FetchType.LAZY)
+private Order order;
     protected OrderItem(){}
 
     public OrderItem(Builder builder){
