@@ -44,6 +44,12 @@ public class OrderService implements IOrderService {
         }
         return null;
     }
+
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<Order> getAll() {

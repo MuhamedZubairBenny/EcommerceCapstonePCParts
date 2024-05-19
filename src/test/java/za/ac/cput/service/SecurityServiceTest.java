@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -58,10 +59,16 @@ class SecurityServiceTest {
         assertNotNull(updated);
         System.out.println(updated);
     }
-    /*@Test
-    void e_getAll(){
+
+    @Test
+    @Disabled
+    void e_delete(){
+        securityService.delete(security1.getUsername());
+    }
+    @Test
+    void f_getAll(){
         System.out.println(securityService.getAll());
-    } */
+    }
 
 
 

@@ -1,10 +1,18 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+
 import java.util.Objects;
 
+@Entity
 public class Payment {
+    @Id
     private String paymentId;
+    @OneToOne
     private Order order;
+    @OneToOne
     private Customer customer;
     private String paymentType;
     private double paymentTotal;

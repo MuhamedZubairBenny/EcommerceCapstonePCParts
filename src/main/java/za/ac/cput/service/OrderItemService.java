@@ -36,6 +36,11 @@ public class OrderItemService implements IOrderItemService{
     }
 
     @Override
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<OrderItem> getAll() {
         return repository.findAll();
