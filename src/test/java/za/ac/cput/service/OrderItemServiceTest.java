@@ -67,7 +67,12 @@ public class OrderItemServiceTest {
         System.out.println("Delete successful");
     }
     @Test
-    void e_getAll() {
+    @Disabled
+    void e_delete() {
+        orderItemService.delete(orderItem1.getItemId());
+    }
+    @Test
+    void f_getAll() {
         System.out.println(orderItemService.getAll());
     }
 }

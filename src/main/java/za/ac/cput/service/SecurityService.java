@@ -8,7 +8,7 @@ import za.ac.cput.repository.SecurityRepository;
 import java.util.List;
 
 @Service
-public class SecurityService implements IService <Security, String>{
+public class SecurityService implements ISecurityService {
     private final SecurityRepository repository;
     @Autowired
     SecurityService(SecurityRepository repository){this.repository = repository;}
@@ -22,4 +22,13 @@ public class SecurityService implements IService <Security, String>{
     @Override
     public Security update(Security security){return repository.save(security);}
 
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public List<Security> getAll() {
+        return repository.findAll();
+    }
 }

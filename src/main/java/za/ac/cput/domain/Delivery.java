@@ -6,12 +6,21 @@ GitHub Repo:
 https://github.com/Elentiya10/EcommercePCParts
  */
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
+import java.util.Objects;
+@Entity
 public class Delivery {
+    @Id
     private String deliveryId;
+    @OneToOne
     private Customer customer;
+    @OneToMany
     private Order order;
+    @OneToMany
     private Payment payment;
     private String transitDate;
     private String deliveryDate;

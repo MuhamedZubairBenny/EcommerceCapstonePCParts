@@ -35,10 +35,12 @@ public class OrderItemService implements IOrderItemService{
         return repository.save(orderItem);
     }
     @Override
-    public void delete(String id) {repository.deleteById(id);
+    public void delete(String id) {
+        repository.deleteById(id);
     }
-    @Override
 
+    @Override
+    @Transactional(readOnly = true)
     public List<OrderItem> getAll() {
         return repository.findAll();
     }

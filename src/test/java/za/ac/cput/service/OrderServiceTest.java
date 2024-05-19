@@ -86,7 +86,13 @@ public class OrderServiceTest {
 
     }
     @Test
-    void e_getAll() {
+    @Disabled
+    void e_delete() {
+        orderService.delete(order1.getOrderId());
+    }
+
+    @Test
+    void f_getAll() {
         System.out.println(orderService.getAll());
     }
 }
