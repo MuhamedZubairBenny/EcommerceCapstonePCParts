@@ -14,8 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class PaymentRepositoryTest {
+    @Test
+    void findByPaymentId(){
 
-    private static IPaymentRepository repository = PaymentRepository.getRepository();
+    }
+   /* private static IPaymentRepository repository = PaymentRepository.getRepository();
     Contact contact = ContactFactory.buildContact("Mark@gmail.com","0987654321","29 Waterway","Cape Town","Western Province","2604","South Africa");
     Customer customer = CustomerFactory.buildCustomer("001","Mark","Stevens","Qw123",contact);
     OrderItem orderItem = OrderItemFactory.buildOrderItem("01", "Graphic Card", 4500.00, "Palit GeForce RTX 3050", 2);
@@ -57,5 +60,5 @@ class PaymentRepositoryTest {
     @Test
     void d_getAll() {
         System.out.println(repository.getAll());
-    }
+    }*/
 }

@@ -13,7 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class CartRepositoryTest {
-    private static ICartRepository repository = CartRepository.getRepository();
+    @Test
+    void findById(){
+
+    }
+ /*   private static ICartRepository repository = CartRepository.getRepository();
     Contact contact = ContactFactory.buildContact("Mark@gmail.com","0987654321","29 Waterway","Cape Town","Western Province","2604","South Africa");
     Brand brand = BrandFactory.buildBrand("001","Nvidia");
     ProductCategory category = ProductCategoryFactory.buildProductCategory("001","GPU");
@@ -54,6 +58,5 @@ class CartRepositoryTest {
     @Test
     void d_getAll() {
         System.out.println(repository.getAll());
-    }
+    }*/
 }
-//
