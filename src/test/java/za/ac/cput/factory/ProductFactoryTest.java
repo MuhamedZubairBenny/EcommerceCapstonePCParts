@@ -13,7 +13,7 @@ class ProductFactoryTest {
     void buildProduct() {
         ProductCategory category = new ProductCategoryFactory().buildProductCategory("2345", "Motherboard");
         Brand brand = new BrandFactory().buildBrand("3456", "Asus");
-        Product p = ProductFactory.buildProducts("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
+        Product p = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
         assertNotNull(p);
         System.out.println(p.toString());
     }
@@ -22,7 +22,7 @@ class ProductFactoryTest {
     void buildProductFail() {
         ProductCategory category = new ProductCategoryFactory().buildProductCategory("2345", "Motherboard");
         Brand brand = new BrandFactory().buildBrand("3456", "Asus");
-        Product p = ProductFactory.buildProducts("", "ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
+        Product p = ProductFactory.buildProduct("", "ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
         assertNotNull(p);
         System.out.println(p.toString());
     }

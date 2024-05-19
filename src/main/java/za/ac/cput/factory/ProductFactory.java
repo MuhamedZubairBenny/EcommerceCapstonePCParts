@@ -7,7 +7,7 @@ import za.ac.cput.util.Helper;
 
 public class ProductFactory {
 
-    public static Product buildProducts(String productId, String productName, ProductCategory category, Brand brand,
+    public static Product buildProduct(String productId, String productName, ProductCategory category, Brand brand,
                                        String description, double price, int stockQuantity, String dimension, String warranty){
 
         if(Helper.isNullOrEmpty(productId) || Helper.isNullOrEmpty(productName) || Helper.isNullOrEmpty(category.getCategoryId())

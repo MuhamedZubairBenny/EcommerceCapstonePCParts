@@ -1,12 +1,15 @@
 package za.ac.cput.repository;
 
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.domain.ProductCategory;
 import za.ac.cput.factory.ProductCategoryFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation .class)
 class ProductCategoryRepositoryTest {
     private static IProductCategoryRepository repository = ProductCategoryRepository.getRepository();
     private ProductCategory category = ProductCategoryFactory.buildProductCategory("1234", "Motherboard" );
@@ -29,7 +32,7 @@ class ProductCategoryRepositoryTest {
     @Test
     @Order(3)
     void update() {
-        ProductCategory updated = repository.update(new ProductCategory.Builder().copy(category).setCategoryId("5678").build());
+        ProductCategory updated = repository.update(new ProductCategory.Builder().copy(category).setCategoryName("CPU").build());
         assertNotNull(updated);
         System.out.println(updated);
     }
@@ -42,7 +45,7 @@ class ProductCategoryRepositoryTest {
     }
 
     @Test
-    @Order(6)
+    @Order(4)
     void getAll() {
         System.out.println(repository.getAll());
     }

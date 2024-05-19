@@ -1,12 +1,15 @@
 package za.ac.cput.repository;
 
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.domain.Brand;
 import za.ac.cput.factory.BrandFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class BrandRepositoryTest {
     private static IBrandRepository repository = BrandRepository.getRepository();
     private Brand brand = BrandFactory.buildBrand("4567", "Asus" );
@@ -29,7 +32,7 @@ class BrandRepositoryTest {
     @Test
     @Order(3)
     void update() {
-        Brand updated = repository.update(new Brand.Builder().copy(brand).setBrandId("1234").build());
+        Brand updated = repository.update(new Brand.Builder().copy(brand).setBrandName("MSI").build());
         assertNotNull(updated);
         System.out.println(updated);
     }

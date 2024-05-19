@@ -28,9 +28,9 @@ public class InventoryRepository implements IinventoryRepository {
     }
 
     @Override
-    public Inventory read(String inventory){
+    public Inventory read(String id){
         for(Inventory i : inventoryList){
-            if(i.getInventoryId().equals(inventory))
+            if(i.getInventoryId().equals(id))
                 return i;
         }
         return null;
@@ -42,7 +42,7 @@ public class InventoryRepository implements IinventoryRepository {
 
         boolean success = inventoryList.remove(inventoryOld);
         if(success){
-            if(inventoryList.remove(inventoryOld))
+            if(inventoryList.add(inventoryOld))
                 return inventory;
         }
         return null;

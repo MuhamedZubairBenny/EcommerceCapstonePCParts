@@ -29,9 +29,9 @@ public class PaymentRepository implements IPaymentRepository {
     }
 
     @Override
-    public Payment read(String paymentId) {
+    public Payment read(String id) {
         for (Payment p : paymentList) {
-            if (p.getPaymentId().equals(paymentId))
+            if (p.getPaymentId().equals(id))
                 return p;
         }
         return null;

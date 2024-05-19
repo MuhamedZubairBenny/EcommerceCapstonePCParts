@@ -35,9 +35,9 @@ public class BrandRepository implements IBrandRepository {
 
     @Override
     public Brand update(Brand brand){
-        Brand brandName = read(brand.getBrandName());
+        Brand brandOld = read(brand.getBrandId());
 
-        boolean success = brandList.remove(brandName);
+        boolean success = brandList.remove(brandOld);
         if(success){
             if(brandList.add(brand))
                 return brand;

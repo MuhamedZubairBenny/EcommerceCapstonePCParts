@@ -18,7 +18,9 @@ public class InventoryFactory {
                 Helper.isNullOrEmpty(product.getDimension()) || Helper.isNullOrEmpty(product.getWarranty()))
             return null;
 
-        return new Inventory.Builder().setInventoryId(inventoryId).setProduct(product).setStockQuantity(stockQuantity).
+        return new Inventory.Builder().setInventoryId(inventoryId)
+                .setProduct(product)
+                .setStockQuantity(stockQuantity).
                 build();
     }
 
@@ -32,10 +34,11 @@ public class InventoryFactory {
                 Helper.isNullOrEmpty(dimension) ||
                 Helper.isNullOrEmpty(warranty))
             return null;
-        Product productInfo = new Product.Builder().setProductId(productId).
-                setProductName(productName).setDescription(description).
-                setPrice(price).setDimension(dimension).
-                setWarranty(warranty).build();
+        Product productInfo = new Product.Builder().setProductId(productId)
+                .setProductName(productName)
+                .setDescription(description)
+                .setPrice(price).setDimension(dimension)
+                .setWarranty(warranty).build();
 
 
         return new Inventory.Builder().setInventoryId(inventoryId).setStockQuantity(stockQuantity).setProduct(productInfo).build();

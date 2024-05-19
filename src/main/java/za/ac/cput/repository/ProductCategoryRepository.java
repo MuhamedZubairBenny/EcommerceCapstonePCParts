@@ -35,13 +35,13 @@ public class ProductCategoryRepository implements IProductCategoryRepository {
     }
 
     @Override
-    public ProductCategory update(ProductCategory product){
-        ProductCategory categoryName = read(product.getCategoryName());
+    public ProductCategory update(ProductCategory productCategory){
+        ProductCategory categoryOld = read(productCategory.getCategoryId());
 
-        boolean success = productCategorytList.remove(categoryName);
+        boolean success = productCategorytList.remove(categoryOld);
         if(success){
-            if(productCategorytList.add(product))
-                return product;
+            if(productCategorytList.add(productCategory))
+                return productCategory;
         }
         return null;
     }

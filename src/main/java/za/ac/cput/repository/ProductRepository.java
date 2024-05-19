@@ -35,9 +35,9 @@ public class ProductRepository implements IProductRepository{
 
     @Override
     public Product update(Product product){
-        Product productName = read(product.getProductName());
+        Product productOld = read(product.getProductId());
 
-        boolean success = productList.remove(productName);
+        boolean success = productList.remove(productOld);
         if(success){
             if(productList.add(product))
                 return product;

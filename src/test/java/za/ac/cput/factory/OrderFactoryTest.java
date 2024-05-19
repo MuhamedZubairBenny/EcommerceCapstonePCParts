@@ -36,4 +36,12 @@ class OrderFactoryTest {
         assertNotNull(order1);
         System.out.println(order1);
     }
+
+    @Test
+    void buildOrderFail(){
+        Customer customer = new CustomerFactory().buildCustomer( "43", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa"  );
+        Order order1 = OrderFactory.buildOrder("", 9000.00,customer, "01", "Graphic Card", 4500.00, "Palit GeForce RTX 3050", 2);
+        assertNotNull(order1);
+        System.out.println(order1);
+    }
 }
