@@ -1,11 +1,19 @@
 package za.ac.cput.domain;
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
+import java.util.Objects;
+@Entity
 public class Product{
+    @Id
     private String productId;
     private String productName;
+    @OneToOne
     private ProductCategory category;
+    @OneToMany
     private Brand brand;
     private String description;
     private double price;
