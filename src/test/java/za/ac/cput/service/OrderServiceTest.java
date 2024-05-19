@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -70,7 +71,13 @@ public class OrderServiceTest {
     }
 
     @Test
-    void e_getAll() {
+    @Disabled
+    void e_delete() {
+        orderService.delete(order1.getOrderId());
+    }
+
+    @Test
+    void f_getAll() {
         System.out.println(orderService.getAll());
     }
 }
