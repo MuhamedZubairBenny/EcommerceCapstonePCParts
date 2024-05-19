@@ -17,6 +17,4 @@ class PaymentRepositoryTest {
     @Test
     void findByPaymentId(){
 
-    }
-
 }

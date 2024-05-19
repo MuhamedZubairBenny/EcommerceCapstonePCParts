@@ -6,12 +6,18 @@ GitHub Repo:
 https://github.com/Elentiya10/EcommercePCParts
  */
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
+import java.util.Objects;
+@Entity
 public class Inventory {
+    @Id
     private String inventoryId;
+    @OneToOne
     private Product product;
-        private int stockQuantity;
+    private int stockQuantity;
 
 
     protected Inventory() {}
