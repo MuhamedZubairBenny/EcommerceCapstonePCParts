@@ -8,7 +8,7 @@ public class Security {
     private String password;
     private int failedLoginAttempts;
     private List<String> roles;
-    private LocalDate accountCreationDate;
+    private String accountCreationDate;
 
     protected Security() {
     }
@@ -40,7 +40,7 @@ public class Security {
         return roles;
     }
 
-    public LocalDate getAccountCreationDate() {
+    public String getAccountCreationDate() {
         return accountCreationDate;
     }
 
@@ -73,14 +73,14 @@ public class Security {
         private String password;
         private int failedLoginAttempts;
         private List<String> roles;
-        private LocalDate accountCreationDate;
+        private String accountCreationDate;
 
         public Builder setUsername(String username){
             this.username = username;
             return this;
         }
         public Builder setPassword(String Password){
-            this.password = password;
+            this.password = Password;
             return this;
         }
         public Builder setFailedLoginAttempts(int failedLoginAttempts){
@@ -92,7 +92,7 @@ public class Security {
             return this;
         }
 
-        public Builder setAccountCreationDate(LocalDate accountCreationDate){
+        public Builder setAccountCreationDate(String accountCreationDate){
             this.accountCreationDate = accountCreationDate;
             return this;
         }

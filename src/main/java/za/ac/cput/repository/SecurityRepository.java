@@ -1,12 +1,14 @@
 package za.ac.cput.repository;
 
+import za.ac.cput.domain.OrderItem;
 import za.ac.cput.domain.Security;
 
 import java.util.ArrayList;
 import java.util.List;
 public class SecurityRepository implements ISecurityRepository {
     private static ISecurityRepository repository = null;
-    private List<Security> securityList = new ArrayList<>();
+    private List<Security> securityList;
+    private SecurityRepository(){securityList = new ArrayList<Security>();}
 
     public static ISecurityRepository getRepository(){
         if(repository == null){
@@ -15,17 +17,17 @@ public class SecurityRepository implements ISecurityRepository {
     }
     @Override
     public Security create(Security security) {
-        this.securityList.add(security);
-        return security;
+        boolean success = securityList.add(security);
+        if(success)
+            return security;
+        return null;
     }
     @Override
-
     public Security read(String username) {
         for (Security s : securityList) {
-            if (s.getUsername().equals(username)) {
+            if (s.getUsername().equals(username))
                 return s;
             }
-        }
         return null;
     }
     @Override
@@ -42,17 +44,14 @@ public class SecurityRepository implements ISecurityRepository {
     @Override
     public boolean delete(String username) {
         Security security = read(username);
-        if (security != null) {
-            securityList.remove(security);
-            return true;
-        }
-        return false;
+        boolean success = securityList.remove(security);
+        return success;
     }
 
 
     @Override
     public List<Security> getAll() {
-        return null;
+        return securityList;
     }
 }
 
