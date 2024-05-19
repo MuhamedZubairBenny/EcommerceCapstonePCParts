@@ -1,12 +1,19 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+
 import java.util.Objects;
 
+@Entity
 public class Customer {
+    @Id
     private String customerId;
     private String firstName;
     private String lastName;
     private String password;
+    @OneToOne
     private Contact contact;
 
     protected Customer() {}
