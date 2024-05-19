@@ -49,8 +49,8 @@ class ContactServiceTest {
     void d_update() {
         Contact newContact = new Contact.Builder().copy(contact1).setCity("Johannesburg").build();
         Contact updated = contactService.update(newContact);
-        assertNotNull(newContact);
-        System.out.println(newContact);
+        assertNotNull(updated);
+        System.out.println(updated);
     }
 
     @Test
