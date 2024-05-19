@@ -52,7 +52,7 @@ class CustomerServiceTest {
     @Test
     void d_update() {
         Customer newCustomer = new Customer.Builder().copy(customer1).setFirstName("Muhamed Zubair").build();
-        Customer updatedCustomer = customerService.update(newCustomer)
+        Customer updatedCustomer = customerService.update(newCustomer);
         assertNotNull(updatedCustomer);
         System.out.println(updatedCustomer);
     }
