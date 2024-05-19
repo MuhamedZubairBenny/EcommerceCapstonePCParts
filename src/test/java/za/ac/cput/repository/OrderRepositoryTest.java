@@ -28,6 +28,7 @@ class OrderRepositoryTest {
             , 2);
     OrderItem orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 10000.00, "Sapphire Pure AMD Radeon RX 7700"
             , 1);
+    //This is a list
    private static List<OrderItem> orderItemList = new ArrayList<OrderItem>();
     {
         orderItemList.add(orderItem1);
