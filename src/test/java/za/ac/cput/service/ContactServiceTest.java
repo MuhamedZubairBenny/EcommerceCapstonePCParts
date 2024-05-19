@@ -8,56 +8,53 @@ import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Contact;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.factory.ContactFactory;
-import za.ac.cput.factory.CustomerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
-class CustomerServiceTest {
+class ContactServiceTest {
     @Autowired
-    private CustomerService customerService;
-
+    private ContactService contactService;
     private static Contact contact1;
     private static Contact contact2;
-    private static Customer customer1;
-    private static Customer customer2;
 
     @Test
     void a_setup(){
         contact1 = ContactFactory.buildContact("zbenny@gmail.com","012 345 6789", "21 Jump Street", "Cape Town" ,"Western Cape" , "7540", "South Africa");
-        customer1 = CustomerFactory.buildCustomer("01","Zubair", "Benny", "123", contact1);
-        assertNotNull(customer1);
+        assertNotNull(contact1);
+        System.out.println(contact1);
         contact2 = ContactFactory.buildContact("dprins@gmail.com","098 765 4321", "40 Champion Street", "Cape Town" ,"Western Cape" , "7607", "South Africa");
-        customer2 = CustomerFactory.buildCustomer("02","Duane", "Prins", "321", contact2);
-        assertNotNull(customer2);
+        assertNotNull(contact2);
+        System.out.println(contact2);
     }
     @Test
     void b_create() {
-        Customer created1 = customerService.create(customer1);
+        Contact created1 = contactService.create(contact1);
         assertNotNull(created1);
         System.out.println(created1);
-        Customer created2 = customerService.create(customer2);
+        Contact created2 = contactService.create(contact2);
         assertNotNull(created2);
         System.out.println(created2);
     }
 
     @Test
     void c_read() {
-        Customer read = customerService.read(customer1.getCustomerId());
+        Contact read = contactService.read(contact1.getEmail());
         assertNotNull(read);
         System.out.println(read);
     }
 
     @Test
     void d_update() {
-        Customer newCustomer = new Customer.Builder().copy(customer1).setFirstName("Muhamed Zubair").build();
-        assertNotNull(newCustomer);
-        System.out.println(newCustomer);
+        Contact newContact = new Contact.Builder().copy(contact1).setCity("Johannesburg").build();
+        Contact updated = contactService.update(newContact);
+        assertNotNull(newContact);
+        System.out.println(newContact);
     }
 
     @Test
     void e_getAll() {
-        System.out.println(customerService.getAll());
+        System.out.println(contactService.getAll());
     }
 }
