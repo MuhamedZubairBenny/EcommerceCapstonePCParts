@@ -24,7 +24,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Order read(String id) {
         Order order = repository.findById(id).orElse(null);
         if (order != null) {
@@ -45,7 +45,10 @@ public class OrderService implements IOrderService {
         return null;
     }
     @Override
-    @Transactional(readOnly = true)
+    public void delete(String id) {repository.deleteById(id);
+    }
+    @Override
+    @Transactional
     public List<Order> getAll() {
         List<Order> orders = repository.findAll();
         for (Order order : orders) {

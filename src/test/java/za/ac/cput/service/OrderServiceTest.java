@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -26,7 +27,7 @@ public class OrderServiceTest {
     private OrderService orderService;
 
     private static Order order1;
-
+    private static Order order2;
 
 
     @Test
@@ -45,12 +46,20 @@ public class OrderServiceTest {
       Customer customer1 = CustomerFactory.buildCustomer("01","Isa", "Hassan", "123",contact1);
       order1 = OrderFactory.buildOrder("001",45000,customer1,orderItem);
         assertNotNull(order1);
+        Contact contact2 = ContactFactory.buildContact("thassan@gmail.com","012 5643 6789", "22 Jump Street", "Cape Town" ,"Western Cape" , "7540", "South Africa");
+        Customer customer2 = CustomerFactory.buildCustomer("02","Tariq", "Hassan", "1234",contact2);
+        order2 = OrderFactory.buildOrder("002",43000,customer2,orderItem);
+        assertNotNull(order2);
     }
+
     @Test
     void b_create() {
         Order createdOrder1 = orderService.create(order1);
         assertNotNull(createdOrder1);
         System.out.println(createdOrder1);
+        Order createdOrder2 = orderService.create(order2);
+        assertNotNull(createdOrder2);
+        System.out.println(createdOrder2);
 
     }
 
@@ -68,7 +77,14 @@ public class OrderServiceTest {
         assertNotNull(updateOrder);
         System.out.println(updateOrder);
     }
+    @Test
+    @Disabled
+    //Delete item before order
+    void e_delete(){
+        orderService.delete(order2.getOrderId());
+        System.out.println("Delete successful");
 
+    }
     @Test
     void e_getAll() {
         System.out.println(orderService.getAll());
