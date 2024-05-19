@@ -13,7 +13,6 @@ public class Order {
 
     private String orderId;
     private double overallPrice;
-    private Delivery delivery;
     private Customer customer;
     private List<OrderItem> orderItem;
 
@@ -22,7 +21,6 @@ public class Order {
     public Order(Builder builder){
     this.orderId = builder.orderId;
     this.overallPrice = builder.overallPrice;
-    this.delivery = builder.delivery;
     this.customer = builder.customer;
     this.orderItem = builder.orderItem;
     }
@@ -33,10 +31,6 @@ public class Order {
 
     public double getOverallPrice() {
         return overallPrice;
-    }
-
-    public Delivery getDelivery() {
-        return delivery;
     }
 
     public Customer getCustomer() {
@@ -52,12 +46,12 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Double.compare(overallPrice, order.overallPrice) == 0 && Objects.equals(orderId, order.orderId) && Objects.equals(delivery, order.delivery) && Objects.equals(customer, order.customer) && Objects.equals(orderItem, order.orderItem);
+        return Double.compare(overallPrice, order.overallPrice) == 0 && Objects.equals(orderId, order.orderId) && Objects.equals(customer, order.customer) && Objects.equals(orderItem, order.orderItem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, overallPrice, delivery, customer, orderItem);
+        return Objects.hash(orderId, overallPrice, customer, orderItem);
     }
 
     @Override
@@ -65,7 +59,6 @@ public class Order {
         return "Order{" +
                 "orderId='" + orderId + '\'' +
                 ", overallPrice=" + overallPrice +
-                ", delivery=" + delivery +
                 ", customer=" + customer +
                 ", orderItem=" + orderItem +
                 '}';
@@ -74,7 +67,6 @@ public class Order {
     public static class Builder{
         private String orderId;
         private double overallPrice;
-        private Delivery delivery;
         private Customer customer;
         private  List<OrderItem> orderItem;
 
@@ -85,11 +77,6 @@ public class Order {
 
         public Builder setOverallPrice(double overallPrice) {
             this.overallPrice = overallPrice;
-            return this;
-        }
-
-        public Builder setDelivery(Delivery delivery) {
-            this.delivery = delivery;
             return this;
         }
 
@@ -107,7 +94,6 @@ public class Order {
             this.orderItem = order.orderItem;
             this.overallPrice = order.overallPrice;
             this.customer = order.customer;
-            this.delivery = order.delivery;
             return this;
         }
         public Order build(){

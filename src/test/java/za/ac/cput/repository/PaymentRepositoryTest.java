@@ -18,15 +18,14 @@ class PaymentRepositoryTest {
     private static IPaymentRepository repository = PaymentRepository.getRepository();
     Contact contact = ContactFactory.buildContact("Mark@gmail.com","0987654321","29 Waterway","Cape Town","Western Province","2604","South Africa");
     Customer customer = CustomerFactory.buildCustomer("001","Mark","Stevens","Qw123",contact);
-    Delivery delivery = DeliveryFactory.buildDelivery("05-03-2024", "10-03-2024");
-    OrderItem orderItem = OrderItemFactory.buildOrderItem("01", "Graphic Card", 4500.00, "Palit GeForce RTX 3050"
-            , 2);
+    Order order = OrderFactory.buildOrder("001",1000.00,customer,orderItemList);
+    OrderItem orderItem = OrderItemFactory.buildOrderItem("01", "Graphic Card", 4500.00, "Palit GeForce RTX 3050", 2);
     private static List<OrderItem> orderItemList = new ArrayList<OrderItem>();{
         orderItemList.add(orderItem);
     }
-    Order order = OrderFactory.buildOrder("001",1000.00,delivery,customer,orderItemList);
-
     Payment payment = PaymentFactory.buildPayment("001",customer,order,"Credit card",1000.00);
+    Delivery delivery = DeliveryFactory.buildDelivery(customer, order, payment, "01/06/2024","05/06/2024");
+
     @Test
     void a_create() {
         Payment created = repository.create(payment);

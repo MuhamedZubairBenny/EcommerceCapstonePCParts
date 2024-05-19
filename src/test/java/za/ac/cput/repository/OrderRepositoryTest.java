@@ -34,11 +34,8 @@ class OrderRepositoryTest {
         orderItemList.add(orderItem1);
         orderItemList.add(orderItem2);
     }
-
-    private Delivery delivery1 = DeliveryFactory.buildDelivery("11/01/2024","20/01/2024");
-    private Customer customer1 = CustomerFactory.buildCustomer("101", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"
-            ," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
-    private Order order = OrderFactory.buildOrder("001", 14500.00, delivery1,customer1,orderItemList);
+    private Customer customer1 = CustomerFactory.buildCustomer("101", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
+    private Order order = OrderFactory.buildOrder("001", 14500.00,customer1,orderItemList);
 
 
     @Test

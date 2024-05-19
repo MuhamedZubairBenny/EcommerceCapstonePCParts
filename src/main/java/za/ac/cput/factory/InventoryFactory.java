@@ -22,18 +22,18 @@ public class InventoryFactory {
                 build();
     }
 
-    public static Inventory buildInventory(String inventoryId, int stockQuantity, String productId, String product, String description, double price, String dimension, String warranty){
+    public static Inventory buildInventory(String inventoryId, int stockQuantity, String productId,  String productName, String description, double price, String dimension, String warranty){
         if(Helper.isNullOrEmpty(inventoryId) ||
                 Helper.isNullOrZeroInt(stockQuantity) ||
                 Helper.isNullOrEmpty(productId) ||
-                Helper.isNullOrEmpty(product) ||
+                Helper.isNullOrEmpty(productName) ||
                 Helper.isNullOrEmpty(description) ||
                 Helper.isNullOrZeroDouble(price) ||
                 Helper.isNullOrEmpty(dimension) ||
                 Helper.isNullOrEmpty(warranty))
             return null;
         Product productInfo = new Product.Builder().setProductId(productId).
-                setProductName(product).setDescription(description).
+                setProductName(productName).setDescription(description).
                 setPrice(price).setDimension(dimension).
                 setWarranty(warranty).build();
 
