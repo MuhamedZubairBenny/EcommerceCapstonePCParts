@@ -1,5 +1,7 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+
 import java.util.Objects;
 
 public class Product{
