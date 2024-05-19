@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -58,7 +59,12 @@ class CustomerServiceTest {
     }
 
     @Test
-    void e_getAll() {
+    @Disabled
+    void e_delete(){
+        customerService.delete(customer2.getCustomerId());
+    }
+    @Test
+    void f_getAll() {
         System.out.println(customerService.getAll());
     }
 }

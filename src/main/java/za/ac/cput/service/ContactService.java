@@ -32,6 +32,10 @@ public class ContactService implements IContactService{
     }
 
     @Override
+    public void delete(String id) {repository.deleteById(id);
+    }
+
+    @Override
     public List<Contact> getAll() {
         return repository.findAll();
     }

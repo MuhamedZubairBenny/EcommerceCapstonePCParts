@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -54,7 +55,14 @@ class ContactServiceTest {
     }
 
     @Test
-    void e_getAll() {
+    @Disabled
+    //Delete customer before contact
+    void e_delete() {
+        contactService.delete(contact2.getEmail());
+    }
+
+    @Test
+    void f_getAll() {
         System.out.println(contactService.getAll());
     }
 }
