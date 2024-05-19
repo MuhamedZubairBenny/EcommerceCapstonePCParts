@@ -15,5 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class PaymentRepositoryTest {
     @Test
-    void findByPaymentId(){}
+    void findByPaymentId(){
+
 }
