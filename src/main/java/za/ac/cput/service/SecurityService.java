@@ -17,6 +17,9 @@ public class SecurityService implements ISecurityService {
     @Override
     public Security read(String username){ return repository.findByUsername(username);}
     @Override
+    public void delete(String id) {repository.deleteById(id);
+    }
+    @Override
     public Security update(Security security){return repository.save(security);}
 
     @Override

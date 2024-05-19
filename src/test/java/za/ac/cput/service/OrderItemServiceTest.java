@@ -24,14 +24,18 @@ public class OrderItemServiceTest {
 
     private static OrderItem orderItem1;
     private static OrderItem orderItem2;
+    private static OrderItem orderItem3;
 
     @Test
     void a_setup() {
     orderItem1 = new OrderItemFactory().buildOrderItem("01", "Graphic Card", 4500.00, "Palit GeForce RTX 3050", 2);
         assertNotNull(orderItem1);
        orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 10000.00, "Palit GeForce RTX 4090", 1);
-        assertNotNull(orderItem1);
-    }
+        assertNotNull(orderItem2);
+
+    orderItem3 = new OrderItemFactory().buildOrderItem("03", "Graphic Card", 33000.00, "Palit GeForce Nvida 1060", 6);
+    assertNotNull(orderItem3);
+}
     @Test
     void b_create() {
             OrderItem createdOrderItem1 = orderItemService.create(orderItem1);
@@ -56,7 +60,12 @@ public class OrderItemServiceTest {
         assertNotNull(updateOrderItem);
         System.out.println(updateOrderItem);
     }
-
+    @Test
+    @Disabled
+    void e_delete(){
+        orderItemService.delete(orderItem3.getItemId());
+        System.out.println("Delete successful");
+    }
     @Test
     @Disabled
     void e_delete() {

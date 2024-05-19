@@ -18,23 +18,22 @@ public class OrderItemService implements IOrderItemService{
     }
 
     @Override
-    @Transactional
+
     public OrderItem create(OrderItem orderItem) {
         return repository.save(orderItem);
     }
 
     @Override
-    @Transactional(readOnly = true)
+
     public OrderItem read(String id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    @Transactional
+
     public OrderItem update(OrderItem orderItem) {
         return repository.save(orderItem);
     }
-
     @Override
     public void delete(String id) {
         repository.deleteById(id);
