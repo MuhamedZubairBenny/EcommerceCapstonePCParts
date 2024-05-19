@@ -5,23 +5,36 @@ import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Product;
 import za.ac.cput.util.Helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartFactory {
-    public static Cart buildCart(String cartId, String customerId, String productName, double productPrice, double totalPrice) {
-        if (Helper.isNullOrEmpty(cartId) || Helper.isNullOrEmpty(customerId) || Helper.isNullOrEmpty(productName) || productPrice <= 0 || totalPrice <= 0) {
+
+    public static Cart buildCart(String cartId, List<Product> productList, Customer customer, double totalPrice) {
+        if (Helper.isNullOrEmpty(cartId) || Helper.isLessZero(totalPrice) || Helper.isListEmpty(productList)) {
             return null;
         }
-
-        List<Product> products = List.of(new Product(productName, productPrice));
-
-        Customer customer = new Customer(customerId);
 
         return new Cart.Builder()
                 .setCartId(cartId)
                 .setCustomer(customer)
-                .setProducts(products)
+                .setProducts(productList)
                 .setTotalPrice(totalPrice)
                 .build();
     }
+
+    public static Cart buildCart(List<Product> productList, Customer customer, double totalPrice) {
+        if (Helper.isLessZero(totalPrice) || Helper.isListEmpty(productList))
+            return null;
+        String cartId = Helper.generateId();
+
+
+        return new Cart.Builder()
+                .setCartId(cartId)
+                .setCustomer(customer)
+                .setProducts(productList)
+                .setTotalPrice(totalPrice)
+                .build();
+    }
+
 }

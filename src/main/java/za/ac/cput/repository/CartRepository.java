@@ -10,7 +10,7 @@ public class CartRepository implements ICartRepository {
     private List<Cart> cartList;
 
     private CartRepository() {
-        cartList = new ArrayList<>();
+        cartList = new ArrayList<Cart>();
     }
 
     public static ICartRepository getRepository() {
@@ -39,9 +39,9 @@ public class CartRepository implements ICartRepository {
 
     @Override
     public Cart update(Cart cart) {
-        Cart cartToUpdate = read(cart.getCartId());
+        Cart cartOld = read(cart.getCartId());
 
-        boolean success = cartList.remove(cartToUpdate);
+        boolean success = cartList.remove(cartOld);
         if (success) {
             if (cartList.add(cart))
                 return cart;
