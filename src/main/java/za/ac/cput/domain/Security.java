@@ -1,13 +1,20 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+@Entity
 public class Security {
+    @Id
     private String username;
     private String password;
     private int failedLoginAttempts;
-    private List<String> roles;
+
+    private String roles;
     private String accountCreationDate;
 
     protected Security() {
@@ -36,7 +43,7 @@ public class Security {
         return failedLoginAttempts;
     }
 
-    public List<String> getRoles() {
+    public String getRoles() {
         return roles;
     }
 
@@ -72,7 +79,7 @@ public class Security {
         private String username;
         private String password;
         private int failedLoginAttempts;
-        private List<String> roles;
+        private String roles;
         private String accountCreationDate;
 
         public Builder setUsername(String username){
@@ -87,7 +94,7 @@ public class Security {
             this.failedLoginAttempts = failedLoginAttempts;
             return this;
         }
-        public Builder setRoles(List<String> roles){
+        public Builder setRoles(String roles){
             this.roles = roles;
             return this;
         }

@@ -11,7 +11,8 @@ class SecurityFactoryTest {
     void buildSecurityThatPasses(){
         List<String> roles = Arrays.asList("user", "admin");
         LocalDate accountCreationDate = LocalDate.of(2022, 5, 17);
-        Security s = SecurityFactory.buildSecurity("username", "runner", 0, roles, "02/02/2024");
+        String selectedRole = roles.get(1);
+        Security s = SecurityFactory.buildSecurity("username", "runner", 0, selectedRole, "02/02/2024");
         assertNotNull(s);
         System.out.println(s);
     }
@@ -19,7 +20,8 @@ class SecurityFactoryTest {
     @Test
     void buildSecurity_nullDate() {
         List<String> roles = Arrays.asList("user", "admin");
-        Security s = SecurityFactory.buildSecurity("Bob", "runner", 0, roles, "22/03-2024");
+        String selectedRole = roles.get(2);
+        Security s = SecurityFactory.buildSecurity("Bob", "runner", 0, selectedRole, "22/03-2024");
         assertNotNull(s);
         System.out.println(s);
     }

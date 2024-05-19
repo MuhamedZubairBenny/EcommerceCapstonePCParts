@@ -1,19 +1,19 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
 
-
+@Entity
+@Table(name = "orders")
 public class Order {
-
+@Id
     private String orderId;
     private double overallPrice;
+    @OneToOne
     private Customer customer;
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItem;
 
     protected Order(){}

@@ -2,6 +2,7 @@ package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.events.Event;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.repository.CustomerRepository;
 
@@ -28,6 +29,11 @@ public class CustomerService implements ICustomerService{
     @Override
     public Customer update(Customer customer) {
         return repository.save(customer);
+    }
+
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 
     @Override
