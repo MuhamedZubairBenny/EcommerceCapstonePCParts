@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import za.ac.cput.domain.Order;
 
+import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.Payment;
 import za.ac.cput.repository.OrderRepository;
 
 import java.util.List;
@@ -18,43 +20,26 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    @Transactional
     public Order create(Order order) {
         return repository.save(order);
     }
 
     @Override
-    @Transactional
+
     public Order read(String id) {
-        Order order = repository.findById(id).orElse(null);
-        if (order != null) {
-            order.getOrderItem().size();
-        }
-        return order;
+        return repository.findById(id).orElse(null);
     }
 
-
     @Override
-    @Transactional
     public Order update(Order order) {
-        Order existingOrder = repository.findById(order.getOrderId()).orElse(null);
-        if (existingOrder != null) {
-            existingOrder.getOrderItem().size();
-            return repository.save(order);
-        }
-        return null;
-    }
-
-    @Override
-    public void delete(String id) {repository.deleteById(id);
+        return repository.save(order);
     }
     @Override
-    @Transactional
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
+    @Override
     public List<Order> getAll() {
-        List<Order> orders = repository.findAll();
-        for (Order order : orders) {
-            order.getOrderItem().size();
-        }
-        return orders;
+        return repository.findAll();
     }
 }
