@@ -13,7 +13,7 @@ public class Order {
     private double overallPrice;
     @OneToOne
     private Customer customer;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order" , fetch = FetchType.EAGER)
     private List<OrderItem> orderItem;
 
     protected Order(){}

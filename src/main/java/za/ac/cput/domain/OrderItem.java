@@ -12,7 +12,7 @@ public class OrderItem{
     private Double price;
     private String description;
     private int quantity;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
 private Order order;
     protected OrderItem(){}
 

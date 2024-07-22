@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.Payment;
 import za.ac.cput.repository.OrderItemRepository;
 
 import java.util.List;
@@ -39,9 +40,8 @@ public class OrderItemService implements IOrderItemService{
         repository.deleteById(id);
     }
 
+
     @Override
-    @Transactional(readOnly = true)
     public List<OrderItem> getAll() {
         return repository.findAll();
-    }
-}
+    }}
