@@ -46,11 +46,6 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void delete(String id) {
-        repository.deleteById(id);
-    }
-
-    @Override
     public void delete(String id) {repository.deleteById(id);
     }
     @Override

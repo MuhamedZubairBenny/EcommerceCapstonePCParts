@@ -38,7 +38,7 @@ class ProductServiceTest {
 
 
     @Test
-    void create() {
+    void b_create() {
         Product created1 = productService.create(product1);
         assertNotNull(created1);
         System.out.println(created1);
@@ -48,14 +48,14 @@ class ProductServiceTest {
     }
 
     @Test
-    void read() {
+    void c_read() {
         Product read = productService.read(product1.getProductId());
         assertNotNull(read);
         System.out.println(read);
     }
 
     @Test
-    void update() {
+    void d_update() {
         Product newProduct = new Product.Builder().copy(product1).setStockQuantity(10).build();
         Product updated = productService.update(newProduct);
         assertNotNull(updated);
@@ -63,12 +63,12 @@ class ProductServiceTest {
     }
 
     @Test
-    void e_delete(){
+    void f_delete(){
         productService.delete(product1.getProductId());
     }
 
     @Test
-    void getAll() {
+    void e_getAll() {
         System.out.println(productService.getAll());
     }
 }

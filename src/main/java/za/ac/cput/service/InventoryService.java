@@ -32,6 +32,9 @@ public class InventoryService implements IInventoryService{
     }
 
     @Override
+    public void delete(String id) {repository.deleteById(id);}
+
+    @Override
     public List<Inventory> getAll(){
         return repository.findAll();
     }

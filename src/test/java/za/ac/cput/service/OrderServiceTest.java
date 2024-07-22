@@ -85,11 +85,6 @@ public class OrderServiceTest {
         System.out.println("Delete successful");
 
     }
-    @Test
-    @Disabled
-    void e_delete() {
-        orderService.delete(order1.getOrderId());
-    }
 
     @Test
     void f_getAll() {

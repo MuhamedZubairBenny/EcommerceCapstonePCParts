@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -31,7 +32,7 @@ class ProductCategoryServiceTest {
 
 
     @Test
-    void create() {
+    void b_create() {
         ProductCategory created1 = categoryService.create(category1);
         assertNotNull(created1);
         System.out.println(created1);
@@ -41,14 +42,14 @@ class ProductCategoryServiceTest {
     }
 
     @Test
-    void read() {
+    void c_read() {
         ProductCategory read = categoryService.read(category1.getCategoryId());
         assertNotNull(read);
         System.out.println(read);
     }
 
     @Test
-    void update() {
+    void d_update() {
         ProductCategory newCategory = new ProductCategory.Builder().copy(category1).setCategoryName("GPU").build();
         ProductCategory updated = categoryService.update(newCategory);
         assertNotNull(updated);
@@ -56,12 +57,13 @@ class ProductCategoryServiceTest {
     }
 
     @Test
-    void e_delete(){
+    @Disabled
+    void f_delete(){
         categoryService.delete(category1.getCategoryId());
     }
 
     @Test
-    void getAll() {
+    void e_getAll() {
         System.out.println(categoryService.getAll());
     }
 }

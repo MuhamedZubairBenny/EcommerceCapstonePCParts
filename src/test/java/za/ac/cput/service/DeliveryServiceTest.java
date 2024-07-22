@@ -32,9 +32,9 @@ class DeliveryServiceTest {
     @Test
     void a_setup(){
         Contact contact = ContactFactory.buildContact("imaan@gmail.com","0631249584","20 Berry Lane", "Cape Town", "Western Cape", "7264", "South Africa");
-        Customer customer = CustomerFactory.buildCustomer("1236", "Imaan", "Sadien", "ryanreynolds", contact );
+        Customer customer = CustomerFactory.buildCustomer("01", "Imaan", "Sadien", "ryanreynolds", contact );
         OrderItem orderItem = OrderItemFactory.buildOrderItem("6245", "SSD", 820.00, "Solid State Drive", 1);
-        Order order = OrderFactory.buildOrder("1624", 820.00, customer, orderItem.getItemId(), orderItem.getItem(), 820.00, "Solid State Drive", 1);
+        Order order = OrderFactory.buildOrder("001", 820.00, customer, orderItem.getItemId(), orderItem.getItem(), 820.00, "Solid State Drive", 1);
         Payment payment = PaymentFactory.buildPayment("2564", customer, order, "Card",820.00);
         delivery1 = DeliveryFactory.buildDelivery(customer,order, payment,"15/05/2024","23/05/2024");
         assertNotNull(delivery1);

@@ -30,6 +30,9 @@ public class DeliveryService implements IDeliveryService {
     }
 
     @Override
+    public void delete(String id) { repository.deleteById(id);}
+
+    @Override
     public List<Delivery> getAll(){
         return repository.findAll();
     }

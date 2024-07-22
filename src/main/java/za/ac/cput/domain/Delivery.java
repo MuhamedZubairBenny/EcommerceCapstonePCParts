@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class Delivery {
@@ -18,9 +19,9 @@ public class Delivery {
     private String deliveryId;
     @OneToOne
     private Customer customer;
-    @OneToMany
+    @OneToOne
     private Order order;
-    @OneToMany
+    @OneToOne
     private Payment payment;
     private String transitDate;
     private String deliveryDate;
