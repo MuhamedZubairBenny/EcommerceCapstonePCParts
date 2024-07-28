@@ -31,15 +31,18 @@ public class OrderItemControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/pcparts/order";
-    private static OrderItem orderItem1, orderItem2;
+    private final String BASE_URL = "http://localhost:8080/pcparts/orderItem";
+    private static OrderItem orderItem1, orderItem2, orderItem3;
 
     @BeforeAll
     public static void setUp() {
         orderItem1 = new OrderItemFactory().buildOrderItem("01", "Graphic Card", 3000.00, "Palit GeForce RTX 3050", 2);
-
+        assertNotNull(orderItem1);
         orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 12000.00, "Palit GeForce RTX 4090", 1);
+        assertNotNull(orderItem2);
 
+        orderItem3 = new OrderItemFactory().buildOrderItem("03", "Graphic Card", 33000.00, "Palit GeForce Nvida 1060", 6);
+        assertNotNull(orderItem3);
     }
 
     @Test
