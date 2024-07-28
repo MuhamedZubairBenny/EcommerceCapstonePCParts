@@ -25,7 +25,7 @@ public class OrderController {
     @PostMapping("/update")
     public Order update(@RequestBody Order order) {return orderService.update(order);}
 
-    @DeleteMapping("/delete/{id)")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable String id) {orderService.delete(id);}
 
     @GetMapping("/getall")
