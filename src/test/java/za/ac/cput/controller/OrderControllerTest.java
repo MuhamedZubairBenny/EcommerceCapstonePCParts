@@ -45,9 +45,14 @@ public class OrderControllerTest {
         order1 = OrderFactory.buildOrder("001", 45000, customer1, orderItems);
         assertNotNull(order1);
 
+        OrderItem orderItem3 = new OrderItemFactory().buildOrderItem("03", "Graphic Card", 33000.00, "Palit GeForce Nvida 1060", 6);
+        assertNotNull(orderItem3);
+        List<OrderItem> orderItems3 = new ArrayList<>();
+        orderItems3.add(orderItem3);
+
         Contact contact2 = ContactFactory.buildContact("thassan@gmail.com", "012 5643 6789", "22 Jump Street", "Cape Town", "Western Cape", "7540", "South Africa");
         Customer customer2 = CustomerFactory.buildCustomer("02", "Tariq", "Hassan", "1234", contact2);
-        order2 = OrderFactory.buildOrder("002", 43000, customer2, orderItems);
+        order2 = OrderFactory.buildOrder("002", 43000, customer2, orderItems3);
         assertNotNull(order2);
     }
 

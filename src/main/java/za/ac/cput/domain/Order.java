@@ -1,6 +1,8 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +16,7 @@ public class Order {
     @OneToOne
     private Customer customer;
     @OneToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "order_id")
     private List<OrderItem> orderItem;
 

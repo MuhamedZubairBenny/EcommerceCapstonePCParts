@@ -39,6 +39,9 @@ public class OrderItemServiceTest {
         OrderItem createdOrderItem2 = orderItemService.create(orderItem2);
         assertNotNull(createdOrderItem2);
         System.out.println(createdOrderItem2);
+        OrderItem createdOrderItem3 = orderItemService.create(orderItem3);
+        assertNotNull(createdOrderItem3);
+        System.out.println(createdOrderItem3);
     }
 
     @Test
