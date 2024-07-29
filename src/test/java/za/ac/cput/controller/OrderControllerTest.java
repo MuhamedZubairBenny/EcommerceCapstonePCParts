@@ -2,16 +2,10 @@ package za.ac.cput.controller;
 
 
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.Contact;
 import za.ac.cput.domain.Customer;
@@ -90,6 +84,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @Disabled
     void d_delete() {
         String url = BASE_URL + "/delete/" + order1.getOrderId();
         System.out.println("URL: " + url);

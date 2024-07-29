@@ -13,7 +13,8 @@ public class Order {
     private double overallPrice;
     @OneToOne
     private Customer customer;
-    @OneToMany(mappedBy = "order" , fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
     private List<OrderItem> orderItem;
 
     protected Order(){}

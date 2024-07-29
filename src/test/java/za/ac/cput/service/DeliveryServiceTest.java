@@ -11,12 +11,7 @@ import za.ac.cput.domain.Contact;
 import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
 import za.ac.cput.domain.Payment;
-import za.ac.cput.factory.DeliveryFactory;
-import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.ContactFactory;
-import za.ac.cput.factory.OrderItemFactory;
-import za.ac.cput.factory.OrderFactory;
-import za.ac.cput.factory.PaymentFactory;
+import za.ac.cput.factory.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
