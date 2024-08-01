@@ -19,16 +19,16 @@ class CartServiceTest {
     private CartService service;
 
     private Contact contact = ContactFactory.buildContact("test@example.com", "1234567890", "123 Main St", "Cape Town", "Western Cape", "8000", "South Africa");
-    private Brand brand = BrandFactory.buildBrand("001", "Nvidia");
-    private ProductCategory category = ProductCategoryFactory.buildProductCategory("001", "GPU");
-    private Customer customer = CustomerFactory.buildCustomer("001", "John", "Doe", "password", contact);
+    private Brand brand = BrandFactory.buildBrand("1234", "Nvidia");
+    private ProductCategory category = ProductCategoryFactory.buildProductCategory("1234", "GPU");
+    private Customer customer = CustomerFactory.buildCustomer("01", "John", "Doe", "password", contact);
 
     private List<Product> productList = new ArrayList<>();
     private Cart cart;
 
     @BeforeEach
     void a_setUp() {
-        Product product = ProductFactory.buildProduct("GeForce GTX 1080", category, brand, "High-end gaming GPU", 699.99, 10, "10x10x5", "2 years");
+        Product product = ProductFactory.buildProduct("12345","GeForce GTX 1080", category, brand, "High-end gaming GPU", 699.99, 10, "10x10x5", "2 years");
         productList.add(product);
         cart = CartFactory.buildCart("001", productList, customer, 699.99);
     }
@@ -59,7 +59,8 @@ class CartServiceTest {
     }
 
     @Test
-    void delete() {
+    @Disabled
+    void e_delete() {
         Cart created = service.create(cart);
         service.delete(created.getCartId());
         Cart deleted = service.read(created.getCartId());

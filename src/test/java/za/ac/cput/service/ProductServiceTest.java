@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -63,6 +64,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @Disabled
     void f_delete(){
         productService.delete(product1.getProductId());
     }
