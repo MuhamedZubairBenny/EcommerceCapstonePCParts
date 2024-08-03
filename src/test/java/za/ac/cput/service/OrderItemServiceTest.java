@@ -1,17 +1,11 @@
 package za.ac.cput.service;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Contact;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
-import za.ac.cput.factory.ContactFactory;
-import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.OrderItemFactory;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,6 +22,7 @@ public class OrderItemServiceTest {
 
     @Test
     void a_setup() {
+
     orderItem1 = new OrderItemFactory().buildOrderItem("01", "Graphic Card", 3000.00, "Palit GeForce RTX 3050", 2);
         assertNotNull(orderItem1);
        orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 12000.00, "Palit GeForce RTX 4090", 1);
@@ -44,6 +39,9 @@ public class OrderItemServiceTest {
         OrderItem createdOrderItem2 = orderItemService.create(orderItem2);
         assertNotNull(createdOrderItem2);
         System.out.println(createdOrderItem2);
+        OrderItem createdOrderItem3 = orderItemService.create(orderItem3);
+        assertNotNull(createdOrderItem3);
+        System.out.println(createdOrderItem3);
     }
 
     @Test
