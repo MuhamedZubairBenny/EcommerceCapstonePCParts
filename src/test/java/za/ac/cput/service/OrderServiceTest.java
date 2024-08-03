@@ -34,18 +34,24 @@ public class OrderServiceTest {
         OrderItem orderItem1 = new OrderItemFactory().buildOrderItem("01", "Graphic Card", 4000.00, "Palit GeForce RTX 3060", 2);
         OrderItem orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 12000.00, "Sapphire Pure AMD Radeon RX 8700", 1);
 
-        List<OrderItem> orderItems = new ArrayList<>();
-        orderItems.add(orderItem1);
-        orderItems.add(orderItem2);
+        List<OrderItem> orderItem = new ArrayList<>();
+        orderItem.add(orderItem1);
+        orderItem.add(orderItem2);
 
         Contact contact1 = ContactFactory.buildContact("ihassan@gmail.com", "012 345 6789", "21 Jump Street", "Cape Town", "Western Cape", "7540", "South Africa");
         Customer customer1 = CustomerFactory.buildCustomer("01", "Isa", "Hassan", "123", contact1);
-        order1 = OrderFactory.buildOrder("001", 45000, customer1, orderItems);
+        order1 = OrderFactory.buildOrder("001", 45000, customer1, orderItem);
         assertNotNull(order1);
+
+        OrderItem orderItem3 = new OrderItemFactory().buildOrderItem("03", "Graphic Card", 33000.00, "Palit GeForce Nvida 1060", 6);
+        assertNotNull(orderItem3);
+
+        List<OrderItem> orderItemList = new ArrayList<>();
+        orderItemList.add(orderItem3);
 
         Contact contact2 = ContactFactory.buildContact("thassan@gmail.com", "012 5643 6789", "22 Jump Street", "Cape Town", "Western Cape", "7540", "South Africa");
         Customer customer2 = CustomerFactory.buildCustomer("02", "Tariq", "Hassan", "1234", contact2);
-        order2 = OrderFactory.buildOrder("002", 43000, customer2, orderItems);
+        order2 = OrderFactory.buildOrder("002", 43000, customer2, orderItemList);
         assertNotNull(order2);
     }
 
