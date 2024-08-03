@@ -1,5 +1,6 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -13,7 +14,7 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String password;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Contact contact;
 
     protected Customer() {}
