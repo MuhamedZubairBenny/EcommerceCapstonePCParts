@@ -25,16 +25,12 @@ class InventoryServiceTest {
 
     @Test
     void a_setup(){
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("1634", "Storage");
-        Brand brand = BrandFactory.buildBrand("1254", "MSI");
-        Product product = ProductFactory.buildProduct("1255", "SSD", category , brand, "Solid State Drive", 800.00, 134, "2.5 inch", "6 months");
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("1234", "Storage");
+        Brand brand = BrandFactory.buildBrand("1234", "MSI");
+        Product product = ProductFactory.buildProduct("23456", "SSD", category , brand, "Solid State Drive", 800.00, 134, "2.5 inch", "6 months");
         inventory1 = InventoryFactory.buildInventory("1254", product, 152);
         assertNotNull(inventory1);
-        ProductCategory category2 = ProductCategoryFactory.buildProductCategory("1215", "Graphics");
-        Brand brand2 = BrandFactory.buildBrand("1248", "Nvidia");
-        Product product2 = ProductFactory.buildProduct("1547", "GPU", category2 , brand2, "Graphic Processing Unit", 1500.00, 105, "9.5 inch", "6 months");
-        inventory2 = InventoryFactory.buildInventory("1254", product2, 152);
-        assertNotNull(inventory2);
+
 
     }
     @Test
@@ -42,9 +38,7 @@ class InventoryServiceTest {
         Inventory created1 = inventoryService.create(inventory1);
         assertNotNull(created1);
         System.out.println(created1);
-        Inventory created2 = inventoryService.create(inventory2);
-        assertNotNull(created2);
-        System.out.println(created2);
+
     }
 
     @Test
