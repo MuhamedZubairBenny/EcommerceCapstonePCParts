@@ -32,7 +32,7 @@ class PaymentServiceTest {
     @BeforeEach
     void a_setUp() {
         contact = ContactFactory.buildContact("Mark@gmail.com", "0987654321", "29 Waterway", "Cape Town", "Western Province", "2604", "South Africa");
-        customer = CustomerFactory.buildCustomer("001", "Mark", "Stevens", "Qw123", contact);
+        customer = CustomerFactory.buildCustomer("01", "Mark", "Stevens", "Qw123", contact);
         orderItem = OrderItemFactory.buildOrderItem("01", "Graphic Card", 4500.00, "GeForce RTX 3050", 2);
         orderItemList = new ArrayList<>();
         orderItemList.add(orderItem);
