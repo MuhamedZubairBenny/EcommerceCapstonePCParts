@@ -10,7 +10,7 @@ import java.util.List;
 public class SecurityFactory {
  public static Security buildSecurity(String username, String password, int failedLoginAttempts, String roles, String accountCreationDate) {
   List<String> dateFormats = Helper.getLocalDateFormats();
-  if (Helper.isNullOrEmpty(username) || Helper.isNullOrEmpty(password) || roles.isEmpty() || Helper.isNullOrEmpty(accountCreationDate))
+  if (Helper.isNullOrEmpty(username) || Helper.isNullOrEmpty(password) || roles == null || roles.isEmpty() || Helper.isNullOrEmpty(accountCreationDate))
    return null;
   Date accountCreationDateTime = Helper.isDateValid(accountCreationDate, dateFormats);
   if (accountCreationDateTime == null) {
