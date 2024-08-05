@@ -1,8 +1,10 @@
 <!-- src/App.vue -->
 <template>
   <div id="app">
-    <Navigation />
+    <Navigation @nav-toggle="handleNavToggle"/>
+    <div :class="{ 'content-shift': isNavExpanded }">
     <router-view/>
+    </div>
   </div>
 </template>
 
@@ -13,10 +15,22 @@ export default {
   name: 'App',
   components: {
     Navigation
+  },
+  data() {
+    return {
+      isNavExpanded: false
+    };
+  },
+  methods: {
+    handleNavToggle(isExpanded) {
+      this.isNavExpanded = isExpanded;
+    }
   }
 }
 </script>
 
 <style>
-/* Global styles here */
+.content-shift {
+  margin-top: 200px; /* Adjust this value based on the height of your expanded navbar */
+}
 </style>

@@ -1,6 +1,14 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -63,10 +71,12 @@ export default {
     toggleIntelNav() {
       this.showIntelNav = !this.showIntelNav;
       this.showNvidiaNav = false; // Hide Nvidia nav when Intel nav is shown
+      this.$emit('nav-toggle', this.showIntelNav || this.showNvidiaNav);
     },
     toggleNvidiaNav() {
       this.showNvidiaNav = !this.showNvidiaNav;
       this.showIntelNav = false; // Hide Intel nav when Nvidia nav is shown
+      this.$emit('nav-toggle', this.showIntelNav || this.showNvidiaNav);
     }
   }
 }
