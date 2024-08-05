@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'CustomerTest',
   data() {
     return {
       customers: [] // Array to store fetched data
