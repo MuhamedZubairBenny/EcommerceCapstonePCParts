@@ -8,7 +8,7 @@
     <p>Hello World</p>
   </div>
   <a class="navbar-brand" href="#" @click="toggleIntelNav">
-    <img src="@/assets/Star.png" alt="Intel Components" class="navbar-image" />
+    <img src="../../assets/Star.png" alt="Intel Components" class="navbar-image" />
   </a>
 </template>
 

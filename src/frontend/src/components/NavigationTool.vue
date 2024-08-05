@@ -27,16 +27,16 @@
     <div v-if="showIntelNav" class="secondary-navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/CPU">Intel Core i9 Processors</router-link>
+          <router-link class="nav-link" to="/i9">Intel Core i9 Processors</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/CPU">Intel Core i7 Processors</router-link>
+          <router-link class="nav-link" to="/i7">Intel Core i7 Processors</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/CPU">Intel Core i5 Processors</router-link>
+          <router-link class="nav-link" to="/i5">Intel Core i5 Processors</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/CPU">Intel Core i3 Processors</router-link>
+          <router-link class="nav-link" to="/i3">Intel Core i3 Processors</router-link>
         </li>
       </ul>
     </div>
@@ -53,67 +53,67 @@
     <div v-if="show3000SeriesNav" class="quaternary-navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 3090</router-link>
+          <router-link class="nav-link" to="/RTX3090">RTX 3090</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 3080</router-link>
+          <router-link class="nav-link" to="/RTX3080">RTX 3080</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 3070</router-link>
+          <router-link class="nav-link" to="/RTX3070">RTX 3070</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 3060</router-link>
+          <router-link class="nav-link" to="/RTX3060">RTX 3060</router-link>
         </li>
       </ul>
     </div>
     <div v-if="show4000SeriesNav" class="quaternary-navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 4090</router-link>
+          <router-link class="nav-link" to="/RTX4090">RTX 4090</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 4080</router-link>
+          <router-link class="nav-link" to="/RTX4080">RTX 4080</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 4070</router-link>
+          <router-link class="nav-link" to="/RTX4070">RTX 4070</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RTX 4060</router-link>
+          <router-link class="nav-link" to="/RTX4060">RTX 4060</router-link>
         </li>
       </ul>
     </div>
     <div v-if="showAMDNav" class="AMD-navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/CPU">AMD Ryzen 9 Processors</router-link>
+          <router-link class="nav-link" to="/AmdRyzen9">AMD Ryzen 9 Processors</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/CPU">AMD Ryzen 7 Processors</router-link>
+          <router-link class="nav-link" to="/AmdRyzen7">AMD Ryzen 7 Processors</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/CPU">AMD Ryzen 5 Processors</router-link>
+          <router-link class="nav-link" to="/AmdRyzen5">AMD Ryzen 5 Processors</router-link>
         </li>
       </ul>
     </div>
     <div v-if="showRyzenNav" class="Ryzen-navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RX 7900 XTX </router-link>
+          <router-link class="nav-link" to="/RX7900XTX">RX 7900 XTX </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU">RX 7900 XT </router-link>
+          <router-link class="nav-link" to="/RX7900XT">RX 7900 XT </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU"> RX 7800 XT</router-link>
+          <router-link class="nav-link" to="/RX7800XT"> RX 7800 XT</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU"> RX 7700 XT</router-link>
+          <router-link class="nav-link" to="/RX7700XT"> RX 7700 XT</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU"> RX 7600 XT</router-link>
+          <router-link class="nav-link" to="/RX7600XT"> RX 7600 XT</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/GPU"> RX 7600 </router-link>
+          <router-link class="nav-link" to="/RX7600"> RX 7600 </router-link>
         </li>
       </ul>
     </div>
