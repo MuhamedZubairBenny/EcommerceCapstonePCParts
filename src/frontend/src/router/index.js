@@ -20,7 +20,7 @@ const router = createRouter({
             component: IntelCoreI9
         },
         {
-            path: '/Customer',
+            path: '/CustomerTest',
             name: 'CustomerTest',
             component: CustomerTest
         }
