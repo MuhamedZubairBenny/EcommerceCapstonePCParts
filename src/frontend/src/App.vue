@@ -10,6 +10,7 @@
 
 <script>
 import Navigation from './components/NavigationTool.vue';
+import 'swiper/swiper-bundle.css';
 
 export default {
   name: 'App',
