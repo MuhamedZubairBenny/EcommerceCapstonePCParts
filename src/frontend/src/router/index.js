@@ -1,7 +1,7 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'; // Import the correct functions
 import HomePage from '@/components/HomePage.vue';
-import HelloWorld from '@/components/HelloWorld.vue';
+import CustomerTest from "@/components/CustomerTest.vue";
 
 // Create a router instance
 const router = createRouter({
@@ -13,9 +13,9 @@ const router = createRouter({
             component: HomePage
         },
         {
-            path: '/hello',
-            name: 'HelloWorld',
-            component: HelloWorld
+            path: '/Customer',
+            name: 'CustomerTest',
+            component: CustomerTest
         }
     ]
 });

@@ -8,6 +8,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="/Home">Home</a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/Customer">Customer</a>
+        </li>
       </nav>
     </div>
   </nav>
