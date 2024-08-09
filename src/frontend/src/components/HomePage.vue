@@ -4,6 +4,7 @@
     <h1 class="text-center">Welcome to the Home Page!</h1>
     <p class="text-muted text-center">This is where your homepage content goes.</p>
   </div>
+
 </template>
 
 <script>
@@ -13,5 +14,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add styles for the home page here */
+
 </style>
