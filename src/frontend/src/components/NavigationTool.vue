@@ -1,7 +1,10 @@
 <template>
   <div class="header-container">
     <div class="header-content">
-      <h1 class="website-heading" >Computer Components</h1>
+      <a class="navbar-brand" href="#" @click="toggleMainNav">
+        <img src="@/assets/icon.png" alt="Home" class="navbar-image" />
+      </a>
+      <h1 class="website-heading">Computer Components</h1>
       <input
           type="text"
           placeholder="Search..."
@@ -10,6 +13,24 @@
           @keyup.enter="handleSearch"
       />
     </div>
+
+    <div v-if="showMainNav" class="main-navbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link class="nav-link" to="/cart">Cart</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/account">Account Information</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/payment">Payment Options</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/address">Address</router-link>
+        </li>
+      </ul>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/Home">
         <img src="@/assets/home.png" alt="Home" class="navbar-image" />
@@ -124,11 +145,11 @@
 </template>
 
 <script>
-
 export default {
   name: 'NavbarTool',
   data() {
     return {
+      showMainNav: false,
       showIntelNav: false,
       showNvidiaNav: false,
       show3000SeriesNav: false,
@@ -139,43 +160,72 @@ export default {
     };
   },
   methods: {
+    toggleMainNav() {
+      this.showMainNav = !this.showMainNav;
+      if (this.showMainNav) {
+        this.showIntelNav = false;
+        this.showNvidiaNav = false;
+        this.show3000SeriesNav = false;
+        this.show4000SeriesNav = false;
+        this.showAMDNav = false;
+        this.showRyzenNav = false;
+      }
+    },
     toggleIntelNav() {
       this.showIntelNav = !this.showIntelNav;
-      this.showNvidiaNav = false;
-      this.show3000SeriesNav = false;
-      this.show4000SeriesNav = false;
-      this.showAMDNav = false;
-      this.showRyzenNav = false;
+      if (this.showIntelNav) {
+        this.showMainNav = false;
+        this.showNvidiaNav = false;
+        this.show3000SeriesNav = false;
+        this.show4000SeriesNav = false;
+        this.showAMDNav = false;
+        this.showRyzenNav = false;
+      }
     },
     toggleNvidiaNav() {
       this.showNvidiaNav = !this.showNvidiaNav;
-      this.showIntelNav = false;
-      this.show3000SeriesNav = false;
-      this.show4000SeriesNav = false;
-      this.showAMDNav = false;
-      this.showRyzenNav = false;
+      if (this.showNvidiaNav) {
+        this.showMainNav = false;
+        this.showIntelNav = false;
+        this.show3000SeriesNav = false;
+        this.show4000SeriesNav = false;
+        this.showAMDNav = false;
+        this.showRyzenNav = false;
+      }
     },
     toggleAMDNav() {
       this.showAMDNav = !this.showAMDNav;
-      this.showIntelNav = false;
-      this.showNvidiaNav = false;
-      this.show3000SeriesNav = false;
-      this.show4000SeriesNav = false;
-      this.showRyzenNav = false;
+      if (this.showAMDNav) {
+        this.showMainNav = false;
+        this.showIntelNav = false;
+        this.showNvidiaNav = false;
+        this.show3000SeriesNav = false;
+        this.show4000SeriesNav = false;
+        this.showRyzenNav = false;
+      }
     },
     toggleRyzenNav() {
       this.showRyzenNav = !this.showRyzenNav;
-      this.showIntelNav = false;
-      this.showNvidiaNav = false;
-      this.show3000SeriesNav = false;
-      this.show4000SeriesNav = false;
-      this.showAMDNav = false;
+      if (this.showRyzenNav) {
+        this.showMainNav = false;
+        this.showIntelNav = false;
+        this.showNvidiaNav = false;
+        this.show3000SeriesNav = false;
+        this.show4000SeriesNav = false;
+        this.showAMDNav = false;
+      }
     },
     toggle3000SeriesNav() {
       this.show3000SeriesNav = !this.show3000SeriesNav;
+      if (this.show3000SeriesNav) {
+        this.show4000SeriesNav = false;
+      }
     },
     toggle4000SeriesNav() {
       this.show4000SeriesNav = !this.show4000SeriesNav;
+      if (this.show4000SeriesNav) {
+        this.show3000SeriesNav = false;
+      }
     },
     handleSearch() {
       const query = this.searchQuery.trim().toLowerCase();

@@ -23,6 +23,10 @@ import RX7800XT from "@/components/ryzen/RX7800XT.vue";
 import RX7700XT from "@/components/ryzen/RX7700XT.vue";
 import RX7600XT from "@/components/ryzen/RX7600XT.vue";
 import RX7600 from "@/components/ryzen/RX7600.vue";
+import AccountInformation from "@/components/Profile/AccountInformation.vue";
+import Cart from "@/components/Profile/Cart.vue";
+import ShippingAddress from "@/components/Profile/ShippingAddress.vue";
+import Payment from "@/components/Profile/Payment.vue";
 // Create a router instance
 const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
@@ -36,6 +40,30 @@ const router = createRouter({
             path: '/hello',
             name: 'HelloWorld',
             component: HelloWorld
+        },
+//*****************************************************
+//Profile Information
+//*****************************************************
+        {
+            path: '/account',
+            name: 'AccountInformation',
+            component: AccountInformation
+        },
+        {
+            path: '/cart',
+            name: 'ProductCart',
+            component: Cart
+        },
+
+        {
+            path: '/payment',
+            name: 'PaymentOption',
+            component: Payment
+        },
+        {
+            path: '/address',
+            name: 'ShippingAddress',
+            component: ShippingAddress
         },
 
 //*****************************************************
