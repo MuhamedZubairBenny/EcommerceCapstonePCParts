@@ -5,6 +5,7 @@
     <p class="text-muted text-center">This is where your homepage content goes.</p>
     <ImageSlideShow />
   </div>
+
 </template>
 
 <script>
@@ -20,5 +21,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add styles for the home page here */
+
 </style>

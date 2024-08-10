@@ -7,9 +7,7 @@
     <h1>Intel Core i9 Processors</h1>
     <p>Hello World</p>
   </div>
-  <a class="navbar-brand" href="#" @click="toggleIntelNav">
-    <!--<img src="@/assets/Star.png" alt="Intel Components" class="navbar-image" />-->
-  </a>
+
 </template>
 
 <script>
