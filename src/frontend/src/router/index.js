@@ -2,6 +2,8 @@
 import { createRouter, createWebHistory } from 'vue-router'; // Import the correct functions
 import HomePage from '@/components/HomePage.vue';
 import HelloWorld from '@/components/CustomerTest.vue';
+import GpuPage from '@/components/ProductCategories/GpuCategory.vue';
+import CpuPage from '@/components/ProductCategories/CpuCategory.vue';
 import IntelCoreI9 from '@/components/intel/IntelCoreI9.vue'
 import IntelCoreI7 from '@/components/intel/IntelCoreI7.vue'
 import IntelCoreI5 from '@/components/intel/IntelCoreI5.vue'
@@ -171,6 +173,22 @@ const router = createRouter({
             path: '/RX7600',
             name: 'RX7600',
             component: RX7600
+        },
+        //*****************************************************
+// GPU Page
+//*****************************************************
+        {
+            path: '/gpu',
+            name: 'GpuPage',
+            component: GpuPage
+        },
+        //*****************************************************
+// CPU Page
+//*****************************************************
+        {
+            path: '/cpu',
+            name: 'CpuPage',
+            component: CpuPage
         }
     ]
 });
