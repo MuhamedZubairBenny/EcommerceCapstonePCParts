@@ -1,7 +1,7 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'; // Import the correct functions
 import HomePage from '@/components/HomePage.vue';
-import HelloWorld from '@/components/HelloWorld.vue';
+import HelloWorld from '@/components/CustomerTest.vue';
 import IntelCoreI9 from '@/components/intel/IntelCoreI9.vue'
 import IntelCoreI7 from '@/components/intel/IntelCoreI7.vue'
 import IntelCoreI5 from '@/components/intel/IntelCoreI5.vue'
