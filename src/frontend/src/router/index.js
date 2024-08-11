@@ -4,6 +4,8 @@ import HomePage from '@/components/HomePage.vue';
 import HelloWorld from '@/components/CustomerTest.vue';
 import GpuPage from '@/components/ProductCategories/GpuCategory.vue';
 import CpuPage from '@/components/ProductCategories/CpuCategory.vue';
+import MotherboardPage from '@/components/ProductCategories/MotherboardCategory.vue';
+import RAMPage from '@/components/ProductCategories/RAMCategory.vue'
 import IntelCoreI9 from '@/components/intel/IntelCoreI9.vue'
 import IntelCoreI7 from '@/components/intel/IntelCoreI7.vue'
 import IntelCoreI5 from '@/components/intel/IntelCoreI5.vue'
@@ -203,21 +205,90 @@ const router = createRouter({
             component: RX7600
         },
         //*****************************************************
-// GPU Page
-//*****************************************************
+        // Product Categories
+        //*****************************************************
+
+        //*****************************************************
+        // GPU Page
+        //*****************************************************
         {
             path: '/gpu',
             name: 'GpuPage',
             component: GpuPage
         },
         //*****************************************************
-// CPU Page
-//*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/cpu',
+            name: 'CpuPage',
+            component: CpuPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/motherboard',
+            name: 'MotherboardPage',
+            component: MotherboardPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/ram',
+            name: 'RAMPage',
+            component: RAMPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/cpu',
+            name: 'CpuPage',
+            component: CpuPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/cpu',
+            name: 'CpuPage',
+            component: CpuPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/cpu',
+            name: 'CpuPage',
+            component: CpuPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/cpu',
+            name: 'CpuPage',
+            component: CpuPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
+        {
+            path: '/cpu',
+            name: 'CpuPage',
+            component: CpuPage
+        },
+        //*****************************************************
+        // CPU Page
+        //*****************************************************
         {
             path: '/cpu',
             name: 'CpuPage',
             component: CpuPage
         }
+
     ]
 });
 
