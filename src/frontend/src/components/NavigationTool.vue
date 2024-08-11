@@ -32,7 +32,7 @@
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/Home">
+      <a class="navbar-brand" href="/">
         <img src="@/assets/home.png" alt="Home" class="navbar-image" />
       </a>
       <a class="navbar-brand" href="#" @click="toggleIntelNav">

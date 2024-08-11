@@ -32,7 +32,7 @@ const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
     routes: [
         {
-            path: '/Home',
+            path: '/',
             name: 'HomePage',
             component: HomePage
         },
