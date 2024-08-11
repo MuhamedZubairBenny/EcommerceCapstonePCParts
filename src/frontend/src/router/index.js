@@ -31,6 +31,24 @@ import AccountInformation from "@/components/Profile/AccountInformation.vue";
 import Cart from "@/components/Profile/Cart.vue";
 import ShippingAddress from "@/components/Profile/ShippingAddress.vue";
 import Payment from "@/components/Profile/Payment.vue";
+import I312100F from '@/components/intel/I3Processors/i3-12100F.vue';
+import I314100 from "@/components/intel/I3Processors/i3-14100.vue";
+import I314100F from "@/components/intel/I3Processors/i3-14100F.vue";
+import I514600KF from "@/components/intel/I5Processors/i5-14600KF.vue";
+import I514600K from "@/components/intel/I5Processors/i5-14600K.vue";
+import I514500 from "@/components/intel/I5Processors/i5-14500.vue";
+import I514400F from "@/components/intel/I5Processors/i5-14400F.vue";
+import I514400 from "@/components/intel/I5Processors/i5-14400.vue";
+import I512400F from "@/components/intel/I5Processors/i5-12400F.vue";
+import I712700F from "@/components/intel/I7Processors/i7-12700F.vue";
+import I714700 from "@/components/intel/I7Processors/i7-14700.vue";
+import I714700F from "@/components/intel/I7Processors/i7-14700F.vue";
+import I714700K from "@/components/intel/I7Processors/i7-14700K.vue";
+import I714700KF from "@/components/intel/I7Processors/i7-14700KF.vue";
+import I914900 from "@/components/intel/I9Processors/i9-14900.vue";
+import I914900F from "@/components/intel/I9Processors/i9-14900F.vue";
+import I914900K from "@/components/intel/I9Processors/i9-14900K.vue";
+import I914900KF from "@/components/intel/I9Processors/i9-14900KF.vue";
 // Create a router instance
 const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
@@ -225,7 +243,7 @@ const router = createRouter({
             component: CpuPage
         },
         //*****************************************************
-        // CPU Page
+        // MotherBoard Page
         //*****************************************************
         {
             path: '/motherboard',
@@ -233,63 +251,122 @@ const router = createRouter({
             component: MotherboardPage
         },
         //*****************************************************
-        // CPU Page
+        // RAM Page
         //*****************************************************
         {
             path: '/ram',
             name: 'RAMPage',
             component: RAMPage
         },
-        //*****************************************************
-        // CPU Page
-        //*****************************************************
-        {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
-        },
-        //*****************************************************
-        // CPU Page
-        //*****************************************************
-        {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
-        },
-        //*****************************************************
-        // CPU Page
-        //*****************************************************
-        {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
-        },
-        //*****************************************************
-        // CPU Page
-        //*****************************************************
-        {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
-        },
-        //*****************************************************
-        // CPU Page
-        //*****************************************************
-        {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
-        },
-        //*****************************************************
-        // CPU Page
-        //*****************************************************
-        {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
-        }
 
+        //*****************************************************
+        // I3Processors Page
+        //*****************************************************
+
+        {
+            path: '/intel/i3processors/i3-12100f',
+            name: 'I312100F',
+            component: I312100F,
+        },
+        {
+            path: '/intel/i3processors/i3-14100',
+            name: 'I314100',
+            component: I314100,
+        },
+        {
+            path: '/intel/i3processors/i3-14100f',
+            name: 'I314100F',
+            component: I314100F,
+        },
+
+        //*****************************************************
+        // I5Processors Page
+        //*****************************************************
+        {
+            path: '/intel/i5processors/i5-14600kf',
+            name: 'I514600KF',
+            component: I514600KF,
+        },
+        {
+            path: '/intel/i5processors/i5-14600k',
+            name: 'I514600K',
+            component: I514600K,
+        },
+        {
+            path: '/intel/i5processors/i5-14500',
+            name: 'I514500',
+            component: I514500,
+        },
+        {
+            path: '/intel/i5processors/i5-14400f',
+            name: 'I514400F',
+            component: I514400F,
+        },
+        {
+            path: '/intel/i5processors/i5-14400',
+            name: 'I514400',
+            component: I514400,
+        },
+        {
+            path: '/intel/i5processors/i5-12400f',
+            name: 'I512400F',
+            component: I512400F,
+        },
+
+        //*****************************************************
+        // I7Processors Page
+        //*****************************************************
+        {
+            path: '/intel/i7processors/i7-12700f',
+            name: 'I712700F',
+            component: I712700F,
+        },
+        {
+            path: '/intel/i7processors/i7-14700',
+            name: 'I714700',
+            component: I714700,
+        },
+        {
+            path: '/intel/i7processors/i7-14700f',
+            name: 'I714700F',
+            component: I714700F,
+        },
+        {
+            path: '/intel/i7processors/i7-14700k',
+            name: 'I714700K',
+            component: I714700K,
+        },
+        {
+            path: '/intel/i7processors/i7-14700kf',
+            name: 'I714700KF',
+            component: I714700KF,
+        },
+
+        //*****************************************************
+        // I9Processors Page
+        //*****************************************************
+        {
+            path: '/intel/i9processors/i9-14900',
+            name: 'I914900',
+            component: I914900,
+        },
+        {
+            path: '/intel/i9processors/i9-14900f',
+            name: 'I914900F',
+            component: I914900F,
+        },
+        {
+            path: '/intel/i9processors/i9-14900k' ,
+            name: 'I914900K',
+            component: I914900K,
+        },
+        {
+            path: '/intel/i9processors/i9-14900kf',
+            name: 'I914900KF',
+            component: I914900KF,
+        },
     ]
 });
 
-export default router; // Export the router instance
+
+export default router;
