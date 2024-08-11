@@ -157,6 +157,7 @@ export default {
       showAMDNav: false,
       showRyzenNav: false,
       searchQuery: '',
+
     };
   },
   methods: {
@@ -250,15 +251,60 @@ export default {
       } else if (query.includes('4090') || query.includes('rtx4090')) {
         this.$router.push('/RTX4090');
 
-        // Intel CPU searchbar
-      } else if (query.includes('i3') || query.includes('intel core i3')) {
-        this.$router.push('/i3');
-      } else if (query.includes('i5') || query.includes('intel core i5')) {
-        this.$router.push('/i5');
-      } else if (query.includes('i7') || query.includes('intel core i7')) {
-        this.$router.push('/i7');
-      } else if (query.includes('i9') || query.includes('intel core i9')) {
-        this.$router.push('/i9');
+        // Specific Intel CPU searchbar
+        //i3ProcessorPage
+      } else if (query.includes('i3-12100f') || query.includes('12100f') || query.includes('12100')) {
+          this.$router.push('/intel/i3processors/i3-12100f');
+      } else if (query.includes('i3-14100f') || query.includes('14100f')) {
+        this.$router.push('/intel/i3processors/i3-14100f');
+      } else if (query.includes('i3-14100') || query.includes('14100')){
+        this.$router.push('/intel/i3processors/i3-14100');
+
+        //i5ProcessorPage
+      } else if (query.includes('i5-12400f') || query.includes('12400f') || query.includes('12400')) {
+        this.$router.push('/intel/i5processors/i5-12400f');
+      } else if (query.includes('i5-14400f') || query.includes('14400f')) {
+        this.$router.push('/intel/i5processors/i5-14400f');
+      } else if (query.includes('i5-14400') || query.includes('14400')) {
+        this.$router.push('/intel/i5processors/i5-14400');
+      } else if (query.includes('i5-14500') || query.includes('14500')) {
+        this.$router.push('/intel/i5processors/i5-14500');
+      } else if (query.includes('i5-14600kf') || query.includes('14600kf')) {
+        this.$router.push('/intel/i5processors/i5-14600kf');
+      } else if (query.includes('i5-14600k') || query.includes('14600k')) {
+        this.$router.push('/intel/i5processors/i5-14600k');
+
+        //i7ProcessorPage
+      } else if (query.includes('i7-12700f') || query.includes('12700f') || query.includes('12700')) {
+        this.$router.push('/intel/i7processors/i7-12700f');
+      } else if (query.includes('i7-14700kf') || query.includes('14700kf')) {
+        this.$router.push('/intel/i7processors/i7-14700kf' );
+      } else if (query.includes('i7-14700k') || query.includes('14700k')) {
+        this.$router.push('/intel/i7processors/i7-14700k' );
+      } else if (query.includes('i7-14700f') || query.includes('14700f')) {
+        this.$router.push('/intel/i7processors/i7-14700f');
+      } else if (query.includes('i7-14700') || query.includes('14700')) {
+        this.$router.push('/intel/i7processors/i7-14700');
+
+        //i9ProcessorPage
+      } else if (query.includes('i9-14900kf') || query.includes('14900kf')) {
+        this.$router.push('/intel/i9processors/i9-14900kf'  );
+      } else if (query.includes('i9-14900k') || query.includes('14900k')) {
+        this.$router.push('/intel/i9processors/i9-14900k' );
+      } else if (query.includes('i9-14900f') || query.includes('14900f')) {
+        this.$router.push('/intel/i9processors/i9-14900f');
+      } else if (query.includes('i9-14900') || query.includes('14900')) {
+        this.$router.push('/intel/i9processors/i9-14900');
+
+          // General Intel CPU searchbar
+        } else if (query.includes('i9') || query.includes('intel core i9')) {
+          this.$router.push('/i9');
+        } else if (query.includes('i7') || query.includes('intel core i7')) {
+          this.$router.push('/i7');
+        } else if (query.includes('i5') || query.includes('intel core i5')) {
+          this.$router.push('/i5');
+        } else if (query.includes('i3') || query.includes('intel core i3')) {
+          this.$router.push('/i3');
 
         // AMD searchbar
       } else if (query.includes('AmdRyzen5') || query.includes('ryzen5')) {
@@ -269,7 +315,6 @@ export default {
         this.$router.push('/AmdRyzen9');
 
         //Ryzen searchbar
-        // AMD RX searchbar
         // AMD RX searchbar
       } else if (query.includes('rx7900xtx') || query.includes('7900xtx')) {
         this.$router.push('/RX7900XTX');
@@ -283,6 +328,7 @@ export default {
         this.$router.push('/RX7600XT');
       } else if (query.includes('rx7600') || query.includes('7600')) {
         this.$router.push('/RX7600');
+
       }else{
         this.$router.push(`/search?query=${query}`);
       }
