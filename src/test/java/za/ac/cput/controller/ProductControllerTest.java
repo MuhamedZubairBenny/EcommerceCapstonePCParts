@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
-    private final String BASE_URL = "http://localhost:8080/ecommerceCapstonePCParts/product";
+    private final String BASE_URL = "http://localhost:8080/pcparts/product";
     private static Product product;
     private static ProductCategory category;
     private static Brand brand;

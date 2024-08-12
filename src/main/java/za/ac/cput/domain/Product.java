@@ -8,11 +8,14 @@ import java.util.Objects;
 @Table(name = "product")
 public class Product{
     @Id
+    @Column(name = "product_id", nullable = false, unique = true)
     private String productId;
     private String productName;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     private ProductCategory category;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
     private String description;
     private double price;

@@ -8,7 +8,7 @@ import za.ac.cput.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("api/product")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -16,16 +16,16 @@ public class ProductController {
     @PostMapping("/create")
     public Product create(@RequestBody Product product){return productService.create(product);}
 
-    @PostMapping("/read/{id}")
+    @PostMapping("/read/{productId}")
     public Product read(@PathVariable String productId){return productService.read(productId);}
 
     @PostMapping("/update")
     public Product update(@RequestBody Product product){return productService.update(product);}
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{productId}")
     public void delete(@PathVariable String productId){productService.delete(productId);}
 
-    @GetMapping("/getAll")
+    @GetMapping("/getall")
     public List<Product> getAll(){return productService.getAll();}
 
 }

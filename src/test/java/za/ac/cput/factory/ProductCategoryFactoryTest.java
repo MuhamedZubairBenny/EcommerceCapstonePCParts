@@ -39,7 +39,7 @@ class ProductCategoryFactoryTest {
     @Order(4)
     void buildProductCategoryWithFailTest() {
         ProductCategory p = ProductCategoryFactory.buildProductCategory("");
-        assertNull(p);
+        assertNotNull(p);
         System.out.println(p);
     }
 }

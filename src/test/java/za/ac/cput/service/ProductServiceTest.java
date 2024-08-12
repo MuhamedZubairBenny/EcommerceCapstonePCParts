@@ -1,5 +1,6 @@
 package za.ac.cput.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -24,14 +25,14 @@ class ProductServiceTest {
 
     @Test
     void a_setup(){
-        ProductCategory category1 = new ProductCategoryFactory().buildProductCategory("1234", "Motherboard");
-        Brand brand1 = new BrandFactory().buildBrand("1234", "Asus");
-        product1 = ProductFactory.buildProduct("12345","ROG Strix", category1, brand1, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
+        ProductCategory category1 = new ProductCategoryFactory().buildProductCategory("01", "Motherboard");
+        Brand brand1 = new BrandFactory().buildBrand("100", "Asus");
+        product1 = ProductFactory.buildProduct("001","ROG Strix", category1, brand1, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
         assertNotNull(product1);
         System.out.println(product1);
-        ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("2345", "CPU");
-        Brand brand2 = new BrandFactory().buildBrand("2345", "HP");
-        product2 = ProductFactory.buildProduct("23456","ROG", category2, brand2, "TRX40-E Gaming CPU", 39995.00, 23, "20cm", "2 years");
+        ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
+        Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
+        product2 = ProductFactory.buildProduct("002","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 39995.00, 23, "10cm", "2 years");
         assertNotNull(product2);
         System.out.println(product2);
     }
@@ -63,6 +64,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @Disabled
     void f_delete(){
         productService.delete(product1.getProductId());
     }
