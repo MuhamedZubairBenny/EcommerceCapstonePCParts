@@ -25,7 +25,7 @@ class InventoryFactoryTest {
      void buildInventory() {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("111","GPU");
         Brand brand = BrandFactory.buildBrand("001","Nvidia");
-        Product product = ProductFactory.buildProduct("Geforce 1080",category,brand,"Gaming grpahics card",2000.00,10,"20x15x5","5 years");
+        Product product = ProductFactory.buildProduct("Geforce 1080",category,brand,"Gaming grpahics card",2000.00,10,"20x15x5","5 years", "Picture URL");
         Inventory inventory = InventoryFactory.buildInventory("1569", product, 125);
         assertNotNull(inventory);
         System.out.println(inventory);
@@ -37,7 +37,7 @@ class InventoryFactoryTest {
     void testBuildInventory() {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("111","GPU");
         Brand brand = BrandFactory.buildBrand("001","Nvidia");
-        Product product = ProductFactory.buildProduct("Geforce 1080",category,brand,"Gaming grpahics card",2000.00,10,"20x15x5","5 years");
+        Product product = ProductFactory.buildProduct("Geforce 1080",category,brand,"Gaming grpahics card",2000.00,10,"20x15x5","5 years", "Picture URL");
         Inventory inventory = InventoryFactory.buildInventory("1569", product, 125);
         assertNotNull(inventory);
         System.out.println(inventory);
@@ -48,7 +48,7 @@ class InventoryFactoryTest {
     void buildInventoryFail() {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("111","GPU");
         Brand brand = BrandFactory.buildBrand("001","Nvidia");
-        Product product = ProductFactory.buildProduct("Geforce 1080",category,brand,"Gaming grpahics card",2000.00,10,"20x15x5","5 years");
+        Product product = ProductFactory.buildProduct("Geforce 1080",category,brand,"Gaming grpahics card",2000.00,10,"20x15x5","5 years", "Picture URL");
         Inventory inventory = InventoryFactory.buildInventory("", product, 125);
         assertNotNull(inventory);
         System.out.println(inventory);

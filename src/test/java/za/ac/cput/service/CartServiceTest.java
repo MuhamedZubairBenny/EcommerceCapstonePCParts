@@ -28,7 +28,7 @@ class CartServiceTest {
 
     @BeforeEach
     void a_setUp() {
-        Product product = ProductFactory.buildProduct("GeForce GTX 1080", category, brand, "High-end gaming GPU", 699.99, 10, "10x10x5", "2 years");
+        Product product = ProductFactory.buildProduct("GeForce GTX 1080", category, brand, "High-end gaming GPU", 699.99, 10, "10x10x5", "2 years", "Picture URL");
         productList.add(product);
         cart = CartFactory.buildCart("001", productList, customer, 699.99);
     }

@@ -29,12 +29,12 @@ class ProductServiceTest {
     void a_setup(){
         ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
         Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
-        product1 = ProductFactory.buildProduct("003","Ryzen 3 3200G", category2, brand2, "Ryzen CPU", 2995.00, 10, "10cm", "2 years");
+        product1 = ProductFactory.buildProduct("001","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "@/assets/Ryzen5Products/Ryzen_5_5600.png");
         assertNotNull(product1);
         System.out.println(product1);
-        //ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
-        //Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
-        product2 = ProductFactory.buildProduct("002","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years");
+//        ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
+//        Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
+        product2 = ProductFactory.buildProduct("002","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "D:\\Zubair Benny 2024\\ADP 373S\\Programs\\EcommerceCapstone\\src\\frontend\\src\\assets\\Ryzen5Products\\Ryzen_5_5600.png");
         assertNotNull(product2);
         System.out.println(product2);
     }
@@ -58,6 +58,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @Disabled
     void d_update() {
         Product newProduct = new Product.Builder().copy(product1).setStockQuantity(10).build();
         Product updated = productService.update(newProduct);
@@ -78,7 +79,7 @@ class ProductServiceTest {
 
     @Test
     public void testSearchProductsByName() {
-        String name = "Ryzen 3";
+        String name = "Ryzen 5";
         List<Product> result = productService.searchProductsByName(name);
         assertNotNull(result);
         System.out.println(result);

@@ -10,6 +10,7 @@ const fetchData = () => {
       .then(response => response.json())
       .then(data => {
         products.value = data; // Store fetched data
+        console.log(products.value.map(p => p.productPicture));
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -33,7 +34,11 @@ const formatCurrency = (value) => {
     <p>List of Ryzen Products:</p>
     <ul>
       <li v-for="product in products" :key="product.productId">
-        {{ product.productName }} - {{ formatCurrency(product.price) }}
+        <img :src="product.productPicture" :alt="product.productName" style="width: 100px; height: auto;"/>
+        <div>
+          <h3>{{ product.productName }}</h3>
+          <p>{{ formatCurrency(product.price) }}</p>
+        </div>
       </li>
     </ul>
   </div>
