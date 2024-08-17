@@ -10,7 +10,7 @@ import za.ac.cput.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/inventory")
+@RequestMapping("api/inventory")
 public class InventoryController {
     @Autowired
     private InventoryService inventoryService;

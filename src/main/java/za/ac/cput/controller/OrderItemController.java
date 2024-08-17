@@ -10,7 +10,7 @@ import za.ac.cput.service.OrderService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orderItem")
+@RequestMapping("api/orderItem")
 public class OrderItemController {
 
     private OrderItemService orderItemService;

@@ -29,14 +29,9 @@ class ProductServiceTest {
     void a_setup(){
         ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
         Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
-        product1 = ProductFactory.buildProduct("001","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "@/assets/Ryzen5Products/Ryzen_5_5600.png");
+        product1 = ProductFactory.buildProduct("001","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
         assertNotNull(product1);
         System.out.println(product1);
-//        ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
-//        Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
-        product2 = ProductFactory.buildProduct("002","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "D:\\Zubair Benny 2024\\ADP 373S\\Programs\\EcommerceCapstone\\src\\frontend\\src\\assets\\Ryzen5Products\\Ryzen_5_5600.png");
-        assertNotNull(product2);
-        System.out.println(product2);
     }
 
 
@@ -45,9 +40,6 @@ class ProductServiceTest {
         Product created1 = productService.create(product1);
         assertNotNull(created1);
         System.out.println(created1);
-        Product created2 = productService.create(product2);
-        assertNotNull(created2);
-        System.out.println(created2);
     }
 
     @Test

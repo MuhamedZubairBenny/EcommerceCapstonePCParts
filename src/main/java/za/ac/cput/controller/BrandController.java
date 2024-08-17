@@ -8,7 +8,7 @@ import za.ac.cput.service.BrandService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/brand")
+@RequestMapping("api/brand")
 public class BrandController {
     @Autowired
     private BrandService brandService;

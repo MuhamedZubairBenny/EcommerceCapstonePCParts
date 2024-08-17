@@ -7,7 +7,7 @@ import za.ac.cput.service.ContactService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contact")
+@RequestMapping("api/contact")
 public class ContactController {
     @Autowired
     private ContactService contactService;
