@@ -29,9 +29,9 @@ class ProductControllerTest {
 
     @BeforeAll
     public static void setup(){
-        category = ProductCategoryFactory.buildProductCategory("12345", "GPU");
-        brand = BrandFactory.buildBrand("1234", "Asus");
-        product = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
+        category = ProductCategoryFactory.buildProductCategory("03", "GPU");
+        brand = BrandFactory.buildBrand("102", "Nvidia");
+        product = ProductFactory.buildProduct("004","RTX 1660", category, brand, "Budget Gaming GPU", 4999.00, 15, "20cm", "3 years");
     }
     @Test
     void a_create() {
@@ -56,7 +56,7 @@ class ProductControllerTest {
     @Test
     void c_update() {
         String url = BASE_URL + "/update";
-        Product newProduct = new Product.Builder().copy(product).setProductName("ROG").build();
+        Product newProduct = new Product.Builder().copy(product).setProductName("GTX 1080").build();
         ResponseEntity<Product> postResponse = restTemplate.postForEntity(url, newProduct, Product.class);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
@@ -68,7 +68,7 @@ class ProductControllerTest {
     @Test
     @Disabled
     void d_delete() {
-        String url = BASE_URL + "/delete/"+brand.getBrandId();
+        String url = BASE_URL + "/delete/" + product.getProductId();
         System.out.println("URL: " + url);
         restTemplate.delete(url);
         System.out.println("Successfully deleted product");
@@ -82,6 +82,18 @@ class ProductControllerTest {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         System.out.println("Show all");
         System.out.println(response);
+        System.out.println(response.getBody());
+    }
+
+    @Test
+    void f_searchByProductName() {
+        String searchString = "Ryzen";
+        String url = BASE_URL + "/search/" + searchString;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity <String> entity = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        System.out.println("Show all");
+        System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
     }
 }

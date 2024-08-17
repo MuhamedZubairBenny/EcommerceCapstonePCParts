@@ -28,4 +28,6 @@ public class ProductController {
     @GetMapping("/getall")
     public List<Product> getAll(){return productService.getAll();}
 
+    @GetMapping("/search/{searchString}")
+    public List<Product> searchProductsByName(@PathVariable String searchString){return productService.searchProductsByName(searchString);}
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IProductService extends IService<Product, String>{
     List<Product> getAll();
+    List<Product> searchProductsByName(String name);
 }

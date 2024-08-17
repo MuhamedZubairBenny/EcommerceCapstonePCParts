@@ -13,6 +13,8 @@ import za.ac.cput.factory.BrandFactory;
 import za.ac.cput.factory.ProductCategoryFactory;
 import za.ac.cput.factory.ProductFactory;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -25,14 +27,14 @@ class ProductServiceTest {
 
     @Test
     void a_setup(){
-        ProductCategory category1 = new ProductCategoryFactory().buildProductCategory("01", "Motherboard");
-        Brand brand1 = new BrandFactory().buildBrand("100", "Asus");
-        product1 = ProductFactory.buildProduct("001","ROG Strix", category1, brand1, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
-        assertNotNull(product1);
-        System.out.println(product1);
         ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
         Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
-        product2 = ProductFactory.buildProduct("002","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 39995.00, 23, "10cm", "2 years");
+        product1 = ProductFactory.buildProduct("003","Ryzen 3 3200G", category2, brand2, "Ryzen CPU", 2995.00, 10, "10cm", "2 years");
+        assertNotNull(product1);
+        System.out.println(product1);
+        //ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("02", "CPU");
+        //Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
+        product2 = ProductFactory.buildProduct("002","Ryzen 5 5600X", category2, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years");
         assertNotNull(product2);
         System.out.println(product2);
     }
@@ -72,5 +74,13 @@ class ProductServiceTest {
     @Test
     void e_getAll() {
         System.out.println(productService.getAll());
+    }
+
+    @Test
+    public void testSearchProductsByName() {
+        String name = "Ryzen 3";
+        List<Product> result = productService.searchProductsByName(name);
+        assertNotNull(result);
+        System.out.println(result);
     }
 }

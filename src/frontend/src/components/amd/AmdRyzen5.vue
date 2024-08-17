@@ -6,7 +6,7 @@ const products = ref([]);
 
 // Fetch data when the component is mounted
 const fetchData = () => {
-  fetch("/api/product/getall")
+  fetch("/api/product/search/Ryzen 5")
       .then(response => response.json())
       .then(data => {
         products.value = data; // Store fetched data
