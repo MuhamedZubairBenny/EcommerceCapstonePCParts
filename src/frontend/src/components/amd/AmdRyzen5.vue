@@ -34,7 +34,7 @@ const formatCurrency = (value) => {
     <p>List of Ryzen Products:</p>
     <ul>
       <li v-for="product in products" :key="product.productId">
-        <img :src="product.productPicture" :alt="product.productName" style="width: 100px; height: auto;"/>
+        <img :src="`/${product.productPicture}`" :alt="product.productName" style="width: 100px; height: auto;"/>
         <div>
           <h3>{{ product.productName }}</h3>
           <p>{{ formatCurrency(product.price) }}</p>
