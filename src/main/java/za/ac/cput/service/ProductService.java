@@ -54,4 +54,9 @@ public class ProductService implements IProductService {
     public List<Product> searchProductsByName(String name) {
         return repository.findByProductNameContainingIgnoreCase(name);
     }
+
+    @Override
+    public List<Product> searchProductsByCategory(String categoryName) {
+        return repository.findByCategory_CategoryNameContaining(categoryName);
+    }
 }

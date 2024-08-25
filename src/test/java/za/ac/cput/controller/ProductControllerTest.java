@@ -96,4 +96,17 @@ class ProductControllerTest {
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
     }
+
+    @Test
+    void g_searchByCategoryName() {
+        String searchString = "CPU";
+        String url = BASE_URL + "/category/" + searchString;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity <String> entity = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        System.out.println("Show all");
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getBody());
+
+    }
 }
