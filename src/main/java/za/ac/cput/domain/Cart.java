@@ -1,9 +1,8 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +13,8 @@ public class Cart {
     private String cartId;
     @OneToOne
     private Customer customer;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     private List<Product> products;
     private double totalPrice;
 

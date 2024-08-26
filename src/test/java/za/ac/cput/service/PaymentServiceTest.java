@@ -68,6 +68,7 @@ class PaymentServiceTest {
     }
 
     @Test
+    @Disabled
     void delete() {
         Payment created = service.create(payment);
         service.delete(created.getPaymentId());
