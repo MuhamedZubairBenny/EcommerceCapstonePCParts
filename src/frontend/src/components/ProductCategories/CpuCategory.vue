@@ -1,44 +1,217 @@
-<template>
-  <div>
-    <h1>CPU Products</h1>
-    <div class="product-list">
-      <div v-for="product in CpuProducts" :key="product.id" class="product-item">
-        <img :src="product.image" :alt="product.name" class="product-image" />
-        <p>{{ product.name }}</p>
-      </div>
-    </div>
-  </div>
-</template>
+<script setup>
+import { ref, onMounted } from 'vue';
 
-<script>
-export default {
-  name: 'CpuPage',
-  data() {
-    return {
-      CpuProducts: [
-        { id: 1, name: 'Intel i5', image: require('@/assets/cpuprocessor.png') },
-        { id: 2, name: 'Intel i7', image: require('@/assets/cpuprocessor.png') },
-        // Add more CPU products here
-      ],
-    };
-  },
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+// Define the products ref
+const products = ref([]);
+
+// Fetch data when the component is mounted
+onMounted(() => {
+  fetch("/api/product/category/CPU")
+      .then((response) => response.json())
+      .then((data) => {
+        products.value = data; // Store fetched data
+        console.log(products.value.map(p => p.productPicture));
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+});
+
+// Method to format price as currency
+const formatCurrency = (value) => {
+  if (!value) return '';
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
+};
+
+// Define categories for navigation
+const categories = [
+  { name: 'CPU', image: { src: require('@/assets/cpuprocessor.png'), alt: 'CPU' } },
+  { name: 'GPU', image: { src: require('@/assets/gpu.png'), alt: 'GPU' } },
+  { name: 'Motherboard', image: { src: require('@/assets/motherboard.png'), alt: 'Motherboard' } },
+  { name: 'RAM', image: { src: require('@/assets/ramstick.png'), alt: 'RAM' } },
+  { name: 'Storage', image: { src: require('@/assets/storage.png'), alt: 'Storage' } },
+  { name: 'PSU', image: { src: require('@/assets/psu.png'), alt: 'PSU' } },
+  { name: 'Case', image: { src: require('@/assets/case.png'), alt: 'Case' } },
+  { name: 'Peripherals', image: { src: require('@/assets/peripherals.png'), alt: 'Peripherals' } },
+  { name: 'Monitors', image: { src: require('@/assets/monitor.png'), alt: 'Monitors' } },
+  { name: 'Cooling', image: { src: require('@/assets/cooler.png'), alt: 'Cooling' } },
+];
+
+const goToPage = (productId) => {
+  const productRoutes = {
+    "003": "/intel/I3Processors/i3-12100F",
+    "14100f": "/intel/I3Processors/i3-14100F",
+    "14100": "/intel/I3Processors/i3-14100",
+    "12400f": "/intel/I5Processors/i5-12400F",
+    "14400": "/intel/I5Processors/i5-14400",
+    "14400f": "/intel/I5Processors/i5-14400F",
+    "14500": "/intel/I5Processors/i5-14500",
+    "14600k": "/intel/I5Processors/i5-14600K",
+    "14600KF": "/intel/I5Processors/i5-14600KF",
+    "12700f": "/intel/I7Processors/i7-12700F",
+    "14700": "/intel/I7Processors/i7-14700",
+    "14700f": "/intel/I7Processors/i7-14700F",
+    "14700k": "/intel/I7Processors/i7-14700K",
+    "14700kf": "/intel/I7Processors/i7-14700KF",
+    "14900": "/intel/I9Processors/i9-14900",
+    "14900f": "/intel/I9Processors/i9-14900F",
+    "14900k": "/intel/I9Processors/i9-14900K",
+    "14900kf": "/intel/I9Processors/i9-14900KF",
+    "001": "/amd/Ryzen5Processors/5600X",
+    "004": "/amd/Ryzen5Processors/8400F",
+    "005": "/amd/Ryzen5Processors/5500GT",
+    "006": "/amd/Ryzen5Processors/8600G",
+    "007": "/amd/Ryzen5Processors/9600X",
+    "008": "/amd/Ryzen7Processors/5700",
+    "009": "/amd/Ryzen7Processors/8700F",
+    "010": "/amd/Ryzen7Processors/5800XT",
+    "011": "/amd/Ryzen7Processors/8700G",
+    "013": "/amd/Ryzen7Processors/9700X"
+  };
+
+  const pagePath = productRoutes[productId] || '/product-not-found';
+  router.push(pagePath);
 };
 </script>
 
-<style scoped>
-.product-list {
+<template>
+  <div class="slideshow-container">
+
+    <nav class="category-navbar">
+      <ul>
+        <router-link
+            v-for="(category, index) in categories"
+            :key="index"
+            :to="`/${category.name.toLowerCase()}`"
+            class="category-item"
+        >
+          <img :src="category.image.src" :alt="category.image.alt" class="category-image" />
+          <span class="category-name">{{ category.name }}</span>
+        </router-link>
+      </ul>
+    </nav>
+  </div>
+
+  <h1>CPU Products</h1>
+
+
+  <div class="products-container">
+    <ul class="products-list">
+      <li
+          v-for="product in products"
+          :key="product.productId"
+          class="product-item"
+          @click="goToPage(product.productId)"
+      >
+      <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
+      <div class="product-details">
+        <h3>{{ product.productName }}</h3>
+        <p class="price">{{ formatCurrency(product.price) }}</p>
+      </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+
+b<style scoped>
+.products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.products-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
 }
 
 .product-item {
-  width: 200px;
-  margin: 10px;
+  background-color: #f8f9fa;
+  border: 3px solid #007bff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  flex: 0 1 22%;
+  margin: 20px 0;
+  padding: 15px;
   text-align: center;
 }
 
+.product-item:hover {
+  transform: translateY(-10px);
+  border-color: #28a745;
+}
+
 .product-image {
-  width: 100%;
+  width: 150px;
   height: auto;
+  margin-bottom: 15px;
+}
+
+.product-details {
+  padding: 15px;
+}
+
+.product-details h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.product-details .price {
+  font-size: 1.2rem;
+  color: #ff5722;
+}
+
+@media (max-width: 768px) {
+  .product-item {
+    flex: 0 1 48%;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-item {
+    flex: 0 1 100%;
+  }
+}
+
+.category-navbar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.category-navbar ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.category-item {
+  margin: 0 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.category-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.category-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
 }
 </style>

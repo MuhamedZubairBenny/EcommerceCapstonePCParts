@@ -22,10 +22,10 @@ class ProductCategoryServiceTest {
 
     @Test
     void a_setup(){
-        category1 = ProductCategoryFactory.buildProductCategory("1234", "Motherboard");
+        category1 = ProductCategoryFactory.buildProductCategory("001", "Motherboard");
         assertNotNull(category1);
         System.out.println(category1);
-        category2 = ProductCategoryFactory.buildProductCategory("2345", "CPU");
+        category2 = ProductCategoryFactory.buildProductCategory("002", "CPU");
         assertNotNull(category2);
         System.out.println(category2);
     }

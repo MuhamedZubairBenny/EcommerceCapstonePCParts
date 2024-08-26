@@ -1,15 +1,21 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class ProductCategory {
     @Id
+    @Column(name = "category_id", nullable = false, unique = true)
     private String categoryId;
     private String categoryName;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 
     protected ProductCategory() {
     }

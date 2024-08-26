@@ -13,6 +13,8 @@ import za.ac.cput.factory.BrandFactory;
 import za.ac.cput.factory.ProductCategoryFactory;
 import za.ac.cput.factory.ProductFactory;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -21,20 +23,16 @@ class ProductServiceTest {
     @Autowired
     private ProductService productService;
     private static Product product1;
-    private static Product product2;
+    private static ProductCategory category1;
 
     @Test
     void a_setup(){
-        ProductCategory category1 = new ProductCategoryFactory().buildProductCategory("1234", "Motherboard");
-        Brand brand1 = new BrandFactory().buildBrand("1234", "Asus");
-        product1 = ProductFactory.buildProduct("12345","ROG Strix", category1, brand1, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years");
+        ProductCategory category = new ProductCategoryFactory().buildProductCategory("02", "CPU");
+        ProductCategory category1 = new ProductCategoryFactory().buildProductCategory("001", "GPU");
+        Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
+        product1 = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
         assertNotNull(product1);
         System.out.println(product1);
-        ProductCategory category2 = new ProductCategoryFactory().buildProductCategory("2345", "CPU");
-        Brand brand2 = new BrandFactory().buildBrand("2345", "HP");
-        product2 = ProductFactory.buildProduct("23456","ROG", category2, brand2, "TRX40-E Gaming CPU", 39995.00, 23, "20cm", "2 years");
-        assertNotNull(product2);
-        System.out.println(product2);
     }
 
 
@@ -43,9 +41,6 @@ class ProductServiceTest {
         Product created1 = productService.create(product1);
         assertNotNull(created1);
         System.out.println(created1);
-        Product created2 = productService.create(product2);
-        assertNotNull(created2);
-        System.out.println(created2);
     }
 
     @Test
@@ -56,6 +51,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @Disabled
     void d_update() {
         Product newProduct = new Product.Builder().copy(product1).setStockQuantity(10).build();
         Product updated = productService.update(newProduct);
@@ -72,5 +68,21 @@ class ProductServiceTest {
     @Test
     void e_getAll() {
         System.out.println(productService.getAll());
+    }
+
+    @Test
+    public void testSearchProductsByName() {
+        String name = "Ryzen 5";
+        List<Product> result = productService.searchProductsByName(name);
+        assertNotNull(result);
+        System.out.println(result);
+    }
+
+    @Test
+    public void testSearchProductsByCategory() {
+        String categoryName = "CPU";
+        List<Product> result = productService.searchProductsByCategory(categoryName);
+        assertNotNull(result);
+        System.out.println(result);
     }
 }

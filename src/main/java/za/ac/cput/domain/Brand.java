@@ -1,5 +1,6 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -10,9 +11,11 @@ import java.util.Objects;
 @Entity
 public class Brand{
     @Id
+    @Column(name = "brand_id", nullable = false, unique = true)
     private String brandId;
     private String brandName;
-
+    @OneToMany(mappedBy = "brand")
+    private List<Product> products;
 
     protected Brand(){}
 

@@ -24,7 +24,7 @@ class CartFactoryTest {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("001","GPU");
         Customer customer = CustomerFactory.buildCustomer("001","Mark","Stevens","Qw123",contact);
         List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years");
+        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
         productList.add(product);
         Cart cart = CartFactory.buildCart("001",productList,customer,1000.00 );
         assertNotNull(cart);
@@ -39,7 +39,7 @@ class CartFactoryTest {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("002","GPU");
         Customer customer = CustomerFactory.buildCustomer("002","Steven","Stevenson","Qw12345",contact);
         List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years");
+        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
         productList.add(product);
         Cart cart = CartFactory.buildCart(productList,customer,1000.00 );
         assertNotNull(cart);
@@ -54,7 +54,7 @@ class CartFactoryTest {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("002","GPU");
         Customer customer = CustomerFactory.buildCustomer("002","Steven","Stevenson","Qw12345",contact);
         List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years");
+        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
         productList.add(product);
         Cart cart = CartFactory.buildCart("",productList,customer,1000.00 );
         assertNotNull(cart);

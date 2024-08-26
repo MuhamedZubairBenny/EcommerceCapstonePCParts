@@ -6,6 +6,12 @@ import GpuPage from '@/components/ProductCategories/GpuCategory.vue';
 import CpuPage from '@/components/ProductCategories/CpuCategory.vue';
 import MotherboardPage from '@/components/ProductCategories/MotherboardCategory.vue';
 import RAMPage from '@/components/ProductCategories/RAMCategory.vue'
+import StoragePage from '@/components/ProductCategories/StorageCategory.vue'
+import MonitorPage from '@/components/ProductCategories/MonitorCategory.vue'
+import PSUPage from '@/components/ProductCategories/PSUCategory.vue'
+import CoolingPage from '@/components/ProductCategories/CoolingCategory.vue'
+import PeripheralPage from '@/components/ProductCategories/PeripheralCategory.vue'
+import CasePage from '@/components/ProductCategories/CaseCategory.vue'
 import IntelCoreI9 from '@/components/intel/IntelCoreI9.vue'
 import IntelCoreI7 from '@/components/intel/IntelCoreI7.vue'
 import IntelCoreI5 from '@/components/intel/IntelCoreI5.vue'
@@ -31,6 +37,35 @@ import AccountInformation from "@/components/Profile/AccountInformation.vue";
 import Cart from "@/components/Profile/Cart.vue";
 import ShippingAddress from "@/components/Profile/ShippingAddress.vue";
 import Payment from "@/components/Profile/Payment.vue";
+import I312100F from '@/components/intel/I3Processors/i3-12100F.vue';
+import I314100 from "@/components/intel/I3Processors/i3-14100.vue";
+import I314100F from "@/components/intel/I3Processors/i3-14100F.vue";
+import I514600KF from "@/components/intel/I5Processors/i5-14600KF.vue";
+import I514600K from "@/components/intel/I5Processors/i5-14600K.vue";
+import I514500 from "@/components/intel/I5Processors/i5-14500.vue";
+import I514400F from "@/components/intel/I5Processors/i5-14400F.vue";
+import I514400 from "@/components/intel/I5Processors/i5-14400.vue";
+import I512400F from "@/components/intel/I5Processors/i5-12400F.vue";
+import I712700F from "@/components/intel/I7Processors/i7-12700F.vue";
+import I714700 from "@/components/intel/I7Processors/i7-14700.vue";
+import I714700F from "@/components/intel/I7Processors/i7-14700F.vue";
+import I714700K from "@/components/intel/I7Processors/i7-14700K.vue";
+import I714700KF from "@/components/intel/I7Processors/i7-14700KF.vue";
+import I914900 from "@/components/intel/I9Processors/i9-14900.vue";
+import I914900F from "@/components/intel/I9Processors/i9-14900F.vue";
+import I914900K from "@/components/intel/I9Processors/i9-14900K.vue";
+import I914900KF from "@/components/intel/I9Processors/i9-14900KF.vue";
+import Ryzen5600X from "@/components/amd/Ryzen5Processors/5600X.vue";
+import Ryzen8400F from "@/components/amd/Ryzen5Processors/8400F.vue";
+import Ryzen5500GT from "@/components/amd/Ryzen5Processors/5500GT.vue";
+import Ryzen8600G from "@/components/amd/Ryzen5Processors/8600G.vue";
+import Ryzen9600X from "@/components/amd/Ryzen5Processors/9600X.vue";
+import Ryzen5700 from "@/components/amd/Ryzen7Processors/5700.vue";
+import Ryzen8700F from "@/components/amd/Ryzen7Processors/8700F.vue";
+import Ryzen5800XT from "@/components/amd/Ryzen7Processors/5800XT.vue";
+import Ryzen8700G from "@/components/amd/Ryzen7Processors/8700G.vue";
+import Ryzen9700X from "@/components/amd/Ryzen7Processors/9700X.vue";
+
 // Create a router instance
 const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
@@ -225,7 +260,7 @@ const router = createRouter({
             component: CpuPage
         },
         //*****************************************************
-        // CPU Page
+        // MotherBoard Page
         //*****************************************************
         {
             path: '/motherboard',
@@ -233,63 +268,236 @@ const router = createRouter({
             component: MotherboardPage
         },
         //*****************************************************
-        // CPU Page
+        // RAM Page
         //*****************************************************
         {
             path: '/ram',
             name: 'RAMPage',
             component: RAMPage
         },
+
         //*****************************************************
-        // CPU Page
+        // Storage Page
         //*****************************************************
         {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
+            path: '/storage',
+            name: 'StoragePage',
+            component: StoragePage
         },
+
         //*****************************************************
-        // CPU Page
+        // Monitor Page
         //*****************************************************
         {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
+            path: '/monitors',
+            name: 'MonitorPage',
+            component: MonitorPage
         },
+
         //*****************************************************
-        // CPU Page
+        // PSU Page
         //*****************************************************
         {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
+            path: '/psu',
+            name: 'PSUPage',
+            component: PSUPage
         },
+
         //*****************************************************
-        // CPU Page
+        // Peripheral Page
         //*****************************************************
         {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
+            path: '/peripherals',
+            name: 'PeripheralPage',
+            component: PeripheralPage
         },
+
         //*****************************************************
-        // CPU Page
+        // Cooling Page
         //*****************************************************
         {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
+            path: '/cooling',
+            name: 'CoolingPage',
+            component: CoolingPage
         },
+
         //*****************************************************
-        // CPU Page
+        // Case Page
         //*****************************************************
         {
-            path: '/cpu',
-            name: 'CpuPage',
-            component: CpuPage
-        }
+            path: '/case',
+            name: 'CasePage',
+            component: CasePage
+        },
+
+        //*****************************************************
+        // I3Processors Page
+        //*****************************************************
+
+        {
+            path: '/intel/i3processors/i3-12100f',
+            name: 'I312100F',
+            component: I312100F,
+        },
+        {
+            path: '/intel/i3processors/i3-14100',
+            name: 'I314100',
+            component: I314100,
+        },
+        {
+            path: '/intel/i3processors/i3-14100f',
+            name: 'I314100F',
+            component: I314100F,
+        },
+
+        //*****************************************************
+        // I5Processors Page
+        //*****************************************************
+        {
+            path: '/intel/i5processors/i5-14600kf',
+            name: 'I514600KF',
+            component: I514600KF,
+        },
+        {
+            path: '/intel/i5processors/i5-14600k',
+            name: 'I514600K',
+            component: I514600K,
+        },
+        {
+            path: '/intel/i5processors/i5-14500',
+            name: 'I514500',
+            component: I514500,
+        },
+        {
+            path: '/intel/i5processors/i5-14400f',
+            name: 'I514400F',
+            component: I514400F,
+        },
+        {
+            path: '/intel/i5processors/i5-14400',
+            name: 'I514400',
+            component: I514400,
+        },
+        {
+            path: '/intel/i5processors/i5-12400f',
+            name: 'I512400F',
+            component: I512400F,
+        },
+
+        //*****************************************************
+        // I7Processors Page
+        //*****************************************************
+        {
+            path: '/intel/i7processors/i7-12700f',
+            name: 'I712700F',
+            component: I712700F,
+        },
+        {
+            path: '/intel/i7processors/i7-14700',
+            name: 'I714700',
+            component: I714700,
+        },
+        {
+            path: '/intel/i7processors/i7-14700f',
+            name: 'I714700F',
+            component: I714700F,
+        },
+        {
+            path: '/intel/i7processors/i7-14700k',
+            name: 'I714700K',
+            component: I714700K,
+        },
+        {
+            path: '/intel/i7processors/i7-14700kf',
+            name: 'I714700KF',
+            component: I714700KF,
+        },
+
+        //*****************************************************
+        // I9Processors Page
+        //*****************************************************
+        {
+            path: '/intel/i9processors/i9-14900',
+            name: 'I914900',
+            component: I914900,
+        },
+        {
+            path: '/intel/i9processors/i9-14900f',
+            name: 'I914900F',
+            component: I914900F,
+        },
+        {
+            path: '/intel/i9processors/i9-14900k' ,
+            name: 'I914900K',
+            component: I914900K,
+        },
+        {
+            path: '/intel/i9processors/i9-14900kf',
+            name: 'I914900KF',
+            component: I914900KF,
+        },
+
+        //*****************************************************
+        // Ryzen5Processors Page
+        //*****************************************************
+        {
+            path: '/amd/Ryzen5Processors/5600X',
+            name: '5600X',
+            component: Ryzen5600X,
+        },
+        {
+            path: '/amd/Ryzen5Processors/8400F',
+            name: '8400F',
+            component: Ryzen8400F,
+        },
+        {
+            path: '/amd/Ryzen5Processors/5500GT',
+            name: '5500GT',
+            component: Ryzen5500GT,
+        },
+        {
+            path: '/amd/Ryzen5Processors/8600G',
+            name: '8600G',
+            component: Ryzen8600G,
+        },
+        {
+            path: '/amd/Ryzen5Processors/9600X',
+            name: '9600X',
+            component: Ryzen9600X,
+        },
+
+        //*****************************************************
+        // Ryzen7Processors Page
+        //*****************************************************
+        {
+            path: '/amd/Ryzen7Processors/5700',
+            name: '5700',
+            component: Ryzen5700,
+        },
+        {
+            path: '/amd/Ryzen7Processors/8700F',
+            name: '8700F',
+            component: Ryzen8700F,
+        },
+        {
+            path: '/amd/Ryzen7Processors/5800XT',
+            name: '5800XT',
+            component: Ryzen5800XT,
+        },
+        {
+            path: '/amd/Ryzen7Processors/8700G',
+            name: '8700G',
+            component: Ryzen8700G,
+        },
+        {
+            path: '/amd/Ryzen7Processors/9700X',
+            name: '9700X',
+            component: Ryzen9700X,
+        },
+
 
     ]
 });
 
-export default router; // Export the router instance
+
+export default router;

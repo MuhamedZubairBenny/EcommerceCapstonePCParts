@@ -6,7 +6,7 @@ import za.ac.cput.service.SecurityService;
 
 import java.util.List;
 @RestController
-@RequestMapping("/security")
+@RequestMapping("api/security")
 public class SecurityController {
     @Autowired
     private SecurityService securityService;

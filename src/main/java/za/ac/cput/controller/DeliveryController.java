@@ -14,7 +14,7 @@ import za.ac.cput.service.PaymentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/delivery")
+@RequestMapping("api/delivery")
 public class DeliveryController {
     @Autowired
     private DeliveryService deliveryService;

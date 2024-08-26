@@ -8,7 +8,7 @@ import za.ac.cput.service.ProductCategoryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/productCategory")
+@RequestMapping("api/productCategory")
 public class ProductCategoryController {
     @Autowired
     private ProductCategoryService categoryService;

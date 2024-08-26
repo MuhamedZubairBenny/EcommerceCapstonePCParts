@@ -21,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class BrandControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
-    private final String BASE_URL = "http://localhost:8080/ecommerceCapstonePCParts/brand";
+    private final String BASE_URL = "http://localhost:3000/api/brand";
     private static Brand brand;
 
     @BeforeAll
-    public static void setip(){
+    public static void setup(){
         brand = BrandFactory.buildBrand("1234", "Asus");
     }
 
@@ -71,7 +71,7 @@ class BrandControllerTest {
 
     @Test
     void e_getAll() {
-        String url = BASE_URL + "/getAll";
+        String url = BASE_URL + "/getall";
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);

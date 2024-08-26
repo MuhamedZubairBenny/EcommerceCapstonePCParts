@@ -21,10 +21,10 @@ public class BrandServiceTest {
 
     @Test
     void a_setup(){
-        brand1 = BrandFactory.buildBrand("1234", "Asus");
+        brand1 = BrandFactory.buildBrand("001", "Asus");
         assertNotNull(brand1);
         System.out.println(brand1);
-        brand2= BrandFactory.buildBrand("2345", "HP");
+        brand2= BrandFactory.buildBrand("002", "HP");
         assertNotNull(brand2);
         System.out.println(brand2);
     }
