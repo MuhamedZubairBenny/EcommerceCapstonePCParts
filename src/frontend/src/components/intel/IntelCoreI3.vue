@@ -1,7 +1,8 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-// Define the products ref
+const router = useRouter();
 const products = ref([]);
 
 // Fetch data when the component is mounted
@@ -21,29 +22,111 @@ onMounted(() => {
   fetchData();
 });
 
+// Navigate to the specific product page based on product ID
+const goToPage = (productId) => {
+  const productRoutes = {
+    "003": "/intel/I3Processors/i3-12100F",
+    "14100f": "/intel/I3Processors/i3-14100F",
+    "14100": "/intel/I3Processors/i3-14100"
+  };
+
+  const pagePath = productRoutes[productId] || '/product-not-found';
+  router.push(pagePath);
+};
+
 // Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
-  return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'ZAR'}).format(value);
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 </script>
 
 <template>
-  <div>
+  <div class="products-container">
     <h1>Intel Core I3 Processors</h1>
-    <p>List of Intel Products:</p>
-    <ul>
-      <li v-for="product in products" :key="product.productId">
-        <img :src="`/${product.productPicture}`" :alt="product.productName" style="width: 100px; height: auto;"/>
-        <div>
+    <p>Check out the latest I3 products:</p>
+    <div class="products-grid">
+      <div
+          class="product-card"
+          v-for="(product, index) in products"
+          :key="index"
+          @click="goToPage(product.productId)">
+        <img
+            :src="`/${product.productPicture}`"
+            :alt="product.productName"
+            class="product-image" />
+        <div class="product-details">
           <h3>{{ product.productName }}</h3>
-          <p>{{ formatCurrency(product.price) }}</p>
+          <p class="price">{{ formatCurrency(product.price) }}</p>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* Add your styles here */
+.products-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #f8f9fa;
+  border: 3px solid #007bff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  flex: 0 1 22%; /* Each product takes up 22% of the row */
+  margin: 20px 0;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  border-color: #28a745;
+}
+
+.product-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.product-details {
+  padding: 15px;
+}
+
+.product-details h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.product-details .price {
+  font-size: 1.2rem;
+  color: #ff5722;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    flex: 0 1 48%; /* 48% of the row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    flex: 0 1 100%; /* Full width of the row on mobile screens */
+  }
+}
 </style>

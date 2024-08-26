@@ -55,6 +55,17 @@ import I914900 from "@/components/intel/I9Processors/i9-14900.vue";
 import I914900F from "@/components/intel/I9Processors/i9-14900F.vue";
 import I914900K from "@/components/intel/I9Processors/i9-14900K.vue";
 import I914900KF from "@/components/intel/I9Processors/i9-14900KF.vue";
+import Ryzen5600X from "@/components/amd/Ryzen5Processors/5600X.vue";
+import Ryzen8400F from "@/components/amd/Ryzen5Processors/8400F.vue";
+import Ryzen5500GT from "@/components/amd/Ryzen5Processors/5500GT.vue";
+import Ryzen8600G from "@/components/amd/Ryzen5Processors/8600G.vue";
+import Ryzen9600X from "@/components/amd/Ryzen5Processors/9600X.vue";
+import Ryzen5700 from "@/components/amd/Ryzen7Processors/5700.vue";
+import Ryzen8700F from "@/components/amd/Ryzen7Processors/8700F.vue";
+import Ryzen5800XT from "@/components/amd/Ryzen7Processors/5800XT.vue";
+import Ryzen8700G from "@/components/amd/Ryzen7Processors/8700G.vue";
+import Ryzen9700X from "@/components/amd/Ryzen7Processors/9700X.vue";
+
 // Create a router instance
 const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
@@ -425,6 +436,66 @@ const router = createRouter({
             name: 'I914900KF',
             component: I914900KF,
         },
+
+        //*****************************************************
+        // Ryzen5Processors Page
+        //*****************************************************
+        {
+            path: '/amd/Ryzen5Processors/5600X',
+            name: '5600X',
+            component: Ryzen5600X,
+        },
+        {
+            path: '/amd/Ryzen5Processors/8400F',
+            name: '8400F',
+            component: Ryzen8400F,
+        },
+        {
+            path: '/amd/Ryzen5Processors/5500GT',
+            name: '5500GT',
+            component: Ryzen5500GT,
+        },
+        {
+            path: '/amd/Ryzen5Processors/8600G',
+            name: '8600G',
+            component: Ryzen8600G,
+        },
+        {
+            path: '/amd/Ryzen5Processors/9600X',
+            name: '9600X',
+            component: Ryzen9600X,
+        },
+
+        //*****************************************************
+        // Ryzen7Processors Page
+        //*****************************************************
+        {
+            path: '/amd/Ryzen7Processors/5700',
+            name: '5700',
+            component: Ryzen5700,
+        },
+        {
+            path: '/amd/Ryzen7Processors/8700F',
+            name: '8700F',
+            component: Ryzen8700F,
+        },
+        {
+            path: '/amd/Ryzen7Processors/5800XT',
+            name: '5800XT',
+            component: Ryzen5800XT,
+        },
+        {
+            path: '/amd/Ryzen7Processors/8700G',
+            name: '8700G',
+            component: Ryzen8700G,
+        },
+        {
+            path: '/amd/Ryzen7Processors/9700X',
+            name: '9700X',
+            component: Ryzen9700X,
+        },
+
+
     ]
 });
 

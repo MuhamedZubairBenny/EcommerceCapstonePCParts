@@ -1,85 +1,133 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const products = ref([]);
 
-function goToPage(pagePath) {
+// Fetch data when the component is mounted
+const fetchData = () => {
+  fetch("/api/product/search/i9")
+      .then(response => response.json())
+      .then(data => {
+        products.value = data; // Store fetched data
+        console.log(products.value.map(p => p.productPicture));
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+};
+
+onMounted(() => {
+  fetchData();
+});
+
+// Navigate to the specific product page based on product ID
+const goToPage = (productId) => {
+  const productRoutes = {
+    "14900": "/intel/I9Processors/i9-14900",
+    "14900f": "/intel/I9Processors/i9-14900F",
+    "14900k": "/intel/I9Processors/i9-14900K",
+    "14900kf": "/intel/I9Processors/i9-14900KF",
+  };
+
+  const pagePath = productRoutes[productId] || '/product-not-found';
   router.push(pagePath);
-}
+};
+
+// Method to format price as currency
+const formatCurrency = (value) => {
+  if (!value) return '';
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
+};
 </script>
 
 <template>
   <div class="products-container">
-    <h1>Intel Core i9 Processors</h1>
+    <h1>Intel Core I9 Processors</h1>
+    <p>Check out the latest I9 products:</p>
     <div class="products-grid">
-      <div class="product-card" v-for="(product, index) in products" :key="index" @click="goToPage(product.pagePath)">
-        <img :src="product.image" :alt="product.name" class="product-image" />
-        <div class="product-info">
-          <h2>{{ product.name }}</h2>
-          <p>{{ product.price }}</p>
+      <div
+          class="product-card"
+          v-for="(product, index) in products"
+          :key="index"
+          @click="goToPage(product.productId)">
+        <img
+            :src="`/${product.productPicture}`"
+            :alt="product.productName"
+            class="product-image" />
+        <div class="product-details">
+          <h3>{{ product.productName }}</h3>
+          <p class="price">{{ formatCurrency(product.price) }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'IntelCoreI5',
-  data() {
-    return {
-      products: [
-        { name: 'Intel Core i9-14900', image: require('@/assets/IntelCoreI9Products/i9-14900.png'), price: '$299', pagePath: '/intel/i9processors/i9-14900' },
-        { name: 'Intel Core i9-14900F', image: require('@/assets/IntelCoreI9Products/i9-14900f.png'), price: '$299', pagePath: '/intel/i9processors/i9-14900f'  },
-        { name: 'Intel Core i9-14900K', image: require('@/assets/IntelCoreI9Products/i9-14900k.png'), price: '$299', pagePath: '/intel/i9processors/i9-14900k'  },
-        { name: 'Intel Core i9-14900KF', image: require('@/assets/IntelCoreI9Products/i9-14900kf.png'), price: '$299', pagePath: '/intel/i9processors/i9-14900kf'  },
-      ],
-    };
-  },
-};
-</script>
-
 <style scoped>
 .products-container {
-  padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 20px;
 }
 
 .product-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 3px solid #007bff;
+  border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  flex: 0 1 22%; /* Each product takes up 22% of the row */
+  margin: 20px 0;
+  padding: 15px;
   text-align: center;
-  transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  border-color: #28a745;
 }
 
 .product-image {
-  width: 80%;
+  width: 150px;
   height: auto;
+  margin-bottom: 15px;
 }
 
-.product-info {
-  padding: 10px;
+.product-details {
+  padding: 15px;
 }
 
-.product-info h2 {
-  font-size: 1.2rem;
-  margin: 10px 0;
-}
-
-.product-info p {
-  font-size: 1rem;
+.product-details h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
   color: #333;
+}
+
+.product-details .price {
+  font-size: 1.2rem;
+  color: #ff5722;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    flex: 0 1 48%; /* 48% of the row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    flex: 0 1 100%; /* Full width of the row on mobile screens */
+  }
 }
 </style>

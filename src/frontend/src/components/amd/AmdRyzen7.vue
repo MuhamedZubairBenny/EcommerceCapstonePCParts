@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-// Define the products ref
+const router = useRouter();
 const products = ref([]);
 
 // Fetch data when the component is mounted
@@ -21,6 +22,20 @@ onMounted(() => {
   fetchData();
 });
 
+// Navigate to the specific product page based on product ID
+const goToPage = (productId) => {
+  const productRoutes = {
+    "008": "/amd/Ryzen7Processors/5700",
+    "009": "/amd/Ryzen7Processors/8700F",
+    "010": "/amd/Ryzen7Processors/5800XT",
+    "011": "/amd/Ryzen7Processors/8700G",
+    "013": "/amd/Ryzen7Processors/9700X"
+  };
+
+  const pagePath = productRoutes[productId] || '/product-not-found';
+  router.push(pagePath);
+};
+
 // Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
@@ -32,15 +47,22 @@ const formatCurrency = (value) => {
   <div class="products-container">
     <h1>AMD Ryzen 7 Processors</h1>
     <p>Check out the latest Ryzen 7 products:</p>
-    <ul class="products-list">
-      <li v-for="product in products" :key="product.productId" class="product-item">
-        <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
+    <div class="products-grid">
+      <div
+          class="product-card"
+          v-for="(product, index) in products"
+          :key="index"
+          @click="goToPage(product.productId)">
+        <img
+            :src="`/${product.productPicture}`"
+            :alt="product.productName"
+            class="product-image" />
         <div class="product-details">
           <h3>{{ product.productName }}</h3>
           <p class="price">{{ formatCurrency(product.price) }}</p>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -51,63 +73,62 @@ const formatCurrency = (value) => {
   padding: 20px;
 }
 
-.products-list {
+.products-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Adjusted for even spacing */
-  list-style: none;
-  padding: 0;
-  margin: 0; /* Ensure no extra margin on the container */
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.product-item {
+.product-card {
   background-color: #f8f9fa;
-  border: 3px solid #007bff; /* Blue border */
+  border: 3px solid #007bff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, border-color 0.3s ease;
-  flex: 0 1 calc(25% - 20px); /* Each product takes up approximately 25% of the row with spacing */
-  margin: 10px; /* Reduced margin to fit more items */
-  padding: 15px; /* Increased padding */
+  flex: 0 1 22%; /* Each product takes up 22% of the row */
+  margin: 20px 0;
+  padding: 15px;
   text-align: center;
+  cursor: pointer;
 }
 
-.product-item:hover {
+.product-card:hover {
   transform: translateY(-10px);
-  border-color: #28a745; /* Change border to green on hover */
+  border-color: #28a745;
 }
 
 .product-image {
-  width: 150px; /* Increased image width */
+  width: 150px;
   height: auto;
-  margin-bottom: 15px; /* Increased margin */
+  margin-bottom: 15px;
 }
 
 .product-details {
-  padding: 15px; /* Increased padding */
+  padding: 15px;
 }
 
 .product-details h3 {
-  font-size: 1.3rem; /* Increased font size */
-  margin-bottom: 10px; /* Increased margin */
+  font-size: 1.3rem;
+  margin-bottom: 10px;
   color: #333;
 }
 
 .product-details .price {
-  font-size: 1.2rem; /* Increased font size */
-  color: #ff5722; /* Orange color for currency */
+  font-size: 1.2rem;
+  color: #ff5722;
 }
 
 @media (max-width: 768px) {
-  .product-item {
-    flex: 0 1 calc(50% - 20px); /* Each product takes up approximately 50% of the row on smaller screens */
+  .product-card {
+    flex: 0 1 48%; /* 48% of the row on smaller screens */
   }
 }
 
 @media (max-width: 480px) {
-  .product-item {
-    flex: 0 1 calc(100% - 20px); /* Each product takes up the full width of the row on mobile screens */
+  .product-card {
+    flex: 0 1 100%; /* Full width of the row on mobile screens */
   }
 }
 </style>

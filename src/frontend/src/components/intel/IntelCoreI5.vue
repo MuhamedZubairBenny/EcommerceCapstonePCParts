@@ -1,90 +1,136 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const products = ref([]);
 
-function goToPage(pagePath) {
+// Fetch data when the component is mounted
+const fetchData = () => {
+  fetch("/api/product/search/i5")
+      .then(response => response.json())
+      .then(data => {
+        products.value = data; // Store fetched data
+        console.log(products.value.map(p => p.productPicture));
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+};
+
+onMounted(() => {
+  fetchData();
+});
+
+// Navigate to the specific product page based on product ID
+const goToPage = (productId) => {
+  const productRoutes = {
+    "12400f": "/intel/I5Processors/i5-12400F",
+    "14400": "/intel/I5Processors/i5-14400",
+    "14400f": "/intel/I5Processors/i5-14400F",
+    "14500": "/intel/I5Processors/i5-14500",
+    "14600k": "/intel/I5Processors/i5-14600K",
+    "14600KF": "/intel/I5Processors/i5-14600KF",
+
+  };
+
+  const pagePath = productRoutes[productId] || '/product-not-found';
   router.push(pagePath);
-}
+};
 
-
+// Method to format price as currency
+const formatCurrency = (value) => {
+  if (!value) return '';
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
+};
 </script>
 
 <template>
   <div class="products-container">
-    <h1>Intel Core i5 Processors</h1>
+    <h1>Intel Core I5 Processors</h1>
+    <p>Check out the latest I5 products:</p>
     <div class="products-grid">
-      <div class="product-card" v-for="(product, index) in products" :key="index" @click="goToPage(product.pagePath)">
-        <img :src="product.image" :alt="product.name" class="product-image" />
-        <div class="product-info">
-          <h2>{{ product.name }}</h2>
-          <p>{{ product.price }}</p>
+      <div
+          class="product-card"
+          v-for="(product, index) in products"
+          :key="index"
+          @click="goToPage(product.productId)">
+        <img
+            :src="`/${product.productPicture}`"
+            :alt="product.productName"
+            class="product-image" />
+        <div class="product-details">
+          <h3>{{ product.productName }}</h3>
+          <p class="price">{{ formatCurrency(product.price) }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'IntelCoreI5',
-  data() {
-    return {
-      products: [
-        { name: 'Intel Core i5-14600KF', image: require('@/assets/IntelCoreI5Products/i5-14600KF.png'), price: '$299',pagePath: '/intel/i5processors/i5-14600kf' },
-        { name: 'Intel Core i5-14600K', image: require('@/assets/IntelCoreI5Products/i5-14600k.png'), price: '$299',pagePath: '/intel/i5processors/i5-14600k' },
-        { name: 'Intel Core i5-14500', image: require('@/assets/IntelCoreI5Products/i5-14500.png'), price: '$299',pagePath: '/intel/i5processors/i5-14500' },
-        { name: 'Intel Core i5-14400f', image: require('@/assets/IntelCoreI5Products/i5-14400f.png'), price: '$299',pagePath: '/intel/i5processors/i5-14400f' },
-        { name: 'Intel Core i5-14400', image: require('@/assets/IntelCoreI5Products/i5-14400.png'), price: '$299',pagePath: '/intel/i5processors/i5-14400' },
-        { name: 'Intel Core i5-12400f', image: require('@/assets/IntelCoreI5Products/i5-12400f.png'), price: '$299',pagePath: '/intel/i5processors/i5-12400f' },
-
-      ],
-    };
-  },
-};
-</script>
-
 <style scoped>
 .products-container {
-  padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 20px;
 }
 
 .product-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 3px solid #007bff;
+  border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  flex: 0 1 22%; /* Each product takes up 22% of the row */
+  margin: 20px 0;
+  padding: 15px;
   text-align: center;
-  transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  border-color: #28a745;
 }
 
 .product-image {
-  width: 80%;
+  width: 150px;
   height: auto;
+  margin-bottom: 15px;
 }
 
-.product-info {
-  padding: 10px;
+.product-details {
+  padding: 15px;
 }
 
-.product-info h2 {
-  font-size: 1.2rem;
-  margin: 10px 0;
-}
-
-.product-info p {
-  font-size: 1rem;
+.product-details h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
   color: #333;
+}
+
+.product-details .price {
+  font-size: 1.2rem;
+  color: #ff5722;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    flex: 0 1 48%; /* 48% of the row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    flex: 0 1 100%; /* Full width of the row on mobile screens */
+  }
 }
 </style>

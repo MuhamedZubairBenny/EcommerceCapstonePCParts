@@ -306,6 +306,31 @@ export default {
         } else if (query.includes('i3') || query.includes('intel core i3')) {
           this.$router.push('/i3');
 
+        // Specific AMD CPU searchbar
+        // Ryzen5Processors
+      } else if (query.includes('5600X') || query.includes('Ryzen 5 5600X')) {
+        this.$router.push('/amd/Ryzen5Processors/5600X');
+      } else if (query.includes('8400F') || query.includes('Ryzen 5 8400F')) {
+        this.$router.push('/amd/Ryzen5Processors/8400F');
+      } else if (query.includes('5500GT') || query.includes('Ryzen 5 5500GT')) {
+        this.$router.push('/amd/Ryzen5Processors/5500GT');
+      } else if (query.includes('8600G') || query.includes('Ryzen 5 8600G')) {
+        this.$router.push('/amd/Ryzen5Processors/8600G');
+      } else if (query.includes('9600X') || query.includes('Ryzen 5 9600X')) {
+        this.$router.push('/amd/Ryzen5Processors/9600X');
+
+        // Ryzen7Processors
+      } else if (query.includes('5700') || query.includes('Ryzen 7 5700')) {
+        this.$router.push('/amd/Ryzen7Processors/5700');
+      } else if (query.includes('8700F') || query.includes('Ryzen 7 8700F')) {
+        this.$router.push('/amd/Ryzen7Processors/8700F');
+      } else if (query.includes('5800XT') || query.includes('Ryzen 7 5800XT')) {
+        this.$router.push('/amd/Ryzen7Processors/5800XT');
+      } else if (query.includes('8700G') || query.includes('Ryzen 7 8700G')) {
+        this.$router.push('/amd/Ryzen7Processors/8700G');
+      } else if (query.includes('9700X') || query.includes('Ryzen 7 9700X')) {
+        this.$router.push('/amd/Ryzen7Processors/9700X');
+
         // AMD searchbar
       } else if (query.includes('AmdRyzen5') || query.includes('ryzen5')) {
         this.$router.push('/AmdRyzen5');
