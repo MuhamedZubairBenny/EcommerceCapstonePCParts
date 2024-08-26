@@ -56,6 +56,8 @@ const categories = [
     </nav>
   </div>
 
+  <h1>CPU Products</h1>
+
   <!-- Product List -->
   <div class="products-container">
     <ul class="products-list">

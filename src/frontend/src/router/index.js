@@ -6,6 +6,12 @@ import GpuPage from '@/components/ProductCategories/GpuCategory.vue';
 import CpuPage from '@/components/ProductCategories/CpuCategory.vue';
 import MotherboardPage from '@/components/ProductCategories/MotherboardCategory.vue';
 import RAMPage from '@/components/ProductCategories/RAMCategory.vue'
+import StoragePage from '@/components/ProductCategories/StorageCategory.vue'
+import MonitorPage from '@/components/ProductCategories/MonitorCategory.vue'
+import PSUPage from '@/components/ProductCategories/PSUCategory.vue'
+import CoolingPage from '@/components/ProductCategories/CoolingCategory.vue'
+import PeripheralPage from '@/components/ProductCategories/PeripheralCategory.vue'
+import CasePage from '@/components/ProductCategories/CaseCategory.vue'
 import IntelCoreI9 from '@/components/intel/IntelCoreI9.vue'
 import IntelCoreI7 from '@/components/intel/IntelCoreI7.vue'
 import IntelCoreI5 from '@/components/intel/IntelCoreI5.vue'
@@ -257,6 +263,60 @@ const router = createRouter({
             path: '/ram',
             name: 'RAMPage',
             component: RAMPage
+        },
+
+        //*****************************************************
+        // Storage Page
+        //*****************************************************
+        {
+            path: '/storage',
+            name: 'StoragePage',
+            component: StoragePage
+        },
+
+        //*****************************************************
+        // Monitor Page
+        //*****************************************************
+        {
+            path: '/monitors',
+            name: 'MonitorPage',
+            component: MonitorPage
+        },
+
+        //*****************************************************
+        // PSU Page
+        //*****************************************************
+        {
+            path: '/psu',
+            name: 'PSUPage',
+            component: PSUPage
+        },
+
+        //*****************************************************
+        // Peripheral Page
+        //*****************************************************
+        {
+            path: '/peripherals',
+            name: 'PeripheralPage',
+            component: PeripheralPage
+        },
+
+        //*****************************************************
+        // Cooling Page
+        //*****************************************************
+        {
+            path: '/cooling',
+            name: 'CoolingPage',
+            component: CoolingPage
+        },
+
+        //*****************************************************
+        // Case Page
+        //*****************************************************
+        {
+            path: '/case',
+            name: 'CasePage',
+            component: CasePage
         },
 
         //*****************************************************
