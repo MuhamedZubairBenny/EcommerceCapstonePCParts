@@ -1,6 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 // Define the products ref
 const products = ref([]);
 
@@ -36,11 +40,47 @@ const categories = [
   { name: 'Monitors', image: { src: require('@/assets/monitor.png'), alt: 'Monitors' } },
   { name: 'Cooling', image: { src: require('@/assets/cooler.png'), alt: 'Cooling' } },
 ];
+
+const goToPage = (productId) => {
+  const productRoutes = {
+    "003": "/intel/I3Processors/i3-12100F",
+    "14100f": "/intel/I3Processors/i3-14100F",
+    "14100": "/intel/I3Processors/i3-14100",
+    "12400f": "/intel/I5Processors/i5-12400F",
+    "14400": "/intel/I5Processors/i5-14400",
+    "14400f": "/intel/I5Processors/i5-14400F",
+    "14500": "/intel/I5Processors/i5-14500",
+    "14600k": "/intel/I5Processors/i5-14600K",
+    "14600KF": "/intel/I5Processors/i5-14600KF",
+    "12700f": "/intel/I7Processors/i7-12700F",
+    "14700": "/intel/I7Processors/i7-14700",
+    "14700f": "/intel/I7Processors/i7-14700F",
+    "14700k": "/intel/I7Processors/i7-14700K",
+    "14700kf": "/intel/I7Processors/i7-14700KF",
+    "14900": "/intel/I9Processors/i9-14900",
+    "14900f": "/intel/I9Processors/i9-14900F",
+    "14900k": "/intel/I9Processors/i9-14900K",
+    "14900kf": "/intel/I9Processors/i9-14900KF",
+    "001": "/amd/Ryzen5Processors/5600X",
+    "004": "/amd/Ryzen5Processors/8400F",
+    "005": "/amd/Ryzen5Processors/5500GT",
+    "006": "/amd/Ryzen5Processors/8600G",
+    "007": "/amd/Ryzen5Processors/9600X",
+    "008": "/amd/Ryzen7Processors/5700",
+    "009": "/amd/Ryzen7Processors/8700F",
+    "010": "/amd/Ryzen7Processors/5800XT",
+    "011": "/amd/Ryzen7Processors/8700G",
+    "013": "/amd/Ryzen7Processors/9700X"
+  };
+
+  const pagePath = productRoutes[productId] || '/product-not-found';
+  router.push(pagePath);
+};
 </script>
 
 <template>
   <div class="slideshow-container">
-    <!-- Navbar for Categories -->
+
     <nav class="category-navbar">
       <ul>
         <router-link
@@ -58,19 +98,25 @@ const categories = [
 
   <h1>CPU Products</h1>
 
-  <!-- Product List -->
+
   <div class="products-container">
     <ul class="products-list">
-      <li v-for="product in products" :key="product.productId" class="product-item">
-        <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
-        <div class="product-details">
-          <h3>{{ product.productName }}</h3>
-          <p class="price">{{ formatCurrency(product.price) }}</p>
-        </div>
+      <li
+          v-for="product in products"
+          :key="product.productId"
+          class="product-item"
+          @click="goToPage(product.productId)"
+      >
+      <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
+      <div class="product-details">
+        <h3>{{ product.productName }}</h3>
+        <p class="price">{{ formatCurrency(product.price) }}</p>
+      </div>
       </li>
     </ul>
   </div>
 </template>
+
 
 b<style scoped>
 .products-container {
