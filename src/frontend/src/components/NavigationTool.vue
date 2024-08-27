@@ -28,6 +28,15 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/address">Address</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/addProducts">Add Products</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/deleteProducts">Delete Products</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/updateProducts">Update Products</router-link>
+        </li>
       </ul>
     </div>
 

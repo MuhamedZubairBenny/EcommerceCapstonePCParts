@@ -10,4 +10,6 @@ public interface IProductService extends IService<Product, String>{
     List<Product> getAll();
     List<Product> searchProductsByName(String name);
     List<Product> searchProductsByCategory(String category);
+    List<Product> searchProductsById(String productId);
+
 }

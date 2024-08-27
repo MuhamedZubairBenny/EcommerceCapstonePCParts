@@ -22,18 +22,8 @@ onMounted(() => {
   fetchData();
 });
 
-// Navigate to the specific product page based on product ID
 const goToPage = (productId) => {
-  const productRoutes = {
-    "12700f": "/intel/I7Processors/i7-12700F",
-    "14700": "/intel/I7Processors/i7-14700",
-    "14700f": "/intel/I7Processors/i7-14700F",
-    "14700k": "/intel/I7Processors/i7-14700K",
-    "14700kf": "/intel/I7Processors/i7-14700KF",
-  };
-
-  const pagePath = productRoutes[productId] || '/product-not-found';
-  router.push(pagePath);
+  router.push({ name: 'ProductDetails', params: { id: productId } });
 };
 
 // Method to format price as currency

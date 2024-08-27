@@ -4,14 +4,14 @@
 
 <template>
   <div>
-    <h1>Shipping Address</h1>
-    <p>Shipping Address</p>
+    <h1>Cart</h1>
+    <p>cart</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ShippingAddress'
+  name:'ProductCart'
 }
 </script>
 <style scoped>

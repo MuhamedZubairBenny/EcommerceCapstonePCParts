@@ -22,19 +22,8 @@ onMounted(() => {
   fetchData();
 });
 
-// Navigate to the specific product page based on product ID
 const goToPage = (productId) => {
-  const productRoutes = {
-    "3070Eagle":"/nvidia/series3000/3070GPUs/3070Eagle",
-    "3070Gaming":"/nvidia/series3000/3070GPUs/3070Gaming",
-    "3070Vision":"/nvidia/series3000/3070GPUs/3070Vision",
-    "3070TiAorusMaster":"/nvidia/series3000/3070GPUs/3070TiAorusMaster",
-    "3070TiGaming":"/nvidia/series3000/3070GPUs/3070TiGaming",
-    "3070TiVision":"/nvidia/series3000/3070GPUs/3070TiVision",
-  };
-
-  const pagePath = productRoutes[productId] || '/product-not-found';
-  router.push(pagePath);
+  router.push({ name: 'ProductDetails', params: { id: productId } });
 };
 
 // Method to format price as currency

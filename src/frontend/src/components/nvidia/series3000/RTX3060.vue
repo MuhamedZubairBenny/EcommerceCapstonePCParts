@@ -22,19 +22,8 @@ onMounted(() => {
   fetchData();
 });
 
-// Navigate to the specific product page based on product ID
 const goToPage = (productId) => {
-  const productRoutes = {
-    "3060TiAorusElite":"/nvidia/series3000/3060GPUs/3060TiAorusElite",
-    "3060TiVision":"/nvidia/series3000/3060GPUs/3060TiVision",
-    "3060Ventus":"/nvidia/series3000/3060GPUs/3060Ventus",
-    "3060Windforce":"/nvidia/series3000/3060GPUs/3060Windforce",
-    "Dual3060":"/nvidia/series3000/3060GPUs/Dual3060",
-    "Dual3060TiMini":"/nvidia/series3000/3060GPUs/Dual3060TiMini",
-  };
-
-  const pagePath = productRoutes[productId] || '/product-not-found';
-  router.push(pagePath);
+  router.push({ name: 'ProductDetails', params: { id: productId } });
 };
 
 // Method to format price as currency

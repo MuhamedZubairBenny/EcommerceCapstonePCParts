@@ -4,17 +4,16 @@
 
 <template>
   <div>
-    <h1>12700F</h1>
-    <p>Hello World</p>
+    <h1>Cart</h1>
+    <p>cart</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'RTX3060'
+  name:'PaymentOption'
 }
 </script>
-
 <style scoped>
-/* Add your styles here */
+
 </style>

@@ -72,7 +72,7 @@ class ProductServiceTest {
 
     @Test
     public void testSearchProductsByName() {
-        String name = "Ryzen 5";
+        String name = "i3";
         List<Product> result = productService.searchProductsByName(name);
         assertNotNull(result);
         System.out.println(result);
