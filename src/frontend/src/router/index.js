@@ -65,12 +65,9 @@ import Ryzen8700F from "@/components/amd/Ryzen7Processors/8700F.vue";
 import Ryzen5800XT from "@/components/amd/Ryzen7Processors/5800XT.vue";
 import Ryzen8700G from "@/components/amd/Ryzen7Processors/8700G.vue";
 import Ryzen9700X from "@/components/amd/Ryzen7Processors/9700X.vue";
-import Dual3060 from "@/components/nvidia/series3000/3060GPUs/Dual3060.vue";
-import Dual3060TiMini from "@/components/nvidia/series3000/3060GPUs/Dual3060TiMini.vue";
-import AorusElite from "@/components/nvidia/series3000/3060GPUs/3060TiAorusElite.vue"
-import Vision from "@/components/nvidia/series3000/3060GPUs/3060TiVision.vue"
-import Ventus from "@/components/nvidia/series3000/3060GPUs/3060Ventus.vue"
-import Windforce from "@/components/nvidia/series3000/3060GPUs/3060Windforce.vue"
+import LoginView from "@/components/Profile/LoginView.vue";
+import RegisterView from "@/components/Profile/RegisterView.vue";
+
 // Create a router instance
 const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
@@ -88,6 +85,16 @@ const router = createRouter({
 //*****************************************************
 //Profile Information
 //*****************************************************
+        {
+            path: '/register',
+            name: 'Register',
+            component: RegisterView
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: LoginView
+        },
         {
             path: '/account',
             name: 'AccountInformation',
@@ -499,39 +506,8 @@ const router = createRouter({
             name: '9700X',
             component: Ryzen9700X,
         },
-        //*****************************************************
-        // Nvidia 3060 Page
-        //*****************************************************
-        {
-            path: '/nvidia/series3000/3060GPUs/3060TiAorusElite',
-            name: '3060TiAorusElite',
-            component: AorusElite,
-        },
-        {
-            path: '/nvidia/series3000/3060GPUs/3060TiVision',
-            name: '3060TiVision',
-            component: Vision,
-        },
-        {
-            path: '/nvidia/series3000/3060GPUs/3060Ventus',
-            name: '3060Ventus',
-            component: Ventus,
-        },
-        {
-            path: '/nvidia/series3000/3060GPUs/3060Windforce',
-            name: '3060Windforce',
-            component: Windforce,
-        },
-        {
-            path: '/nvidia/series3000/3060GPUs/Dual3060',
-            name: 'Dual3060',
-            component: Dual3060,
-        },
-        {
-            path: '/nvidia/series3000/3060GPUs/Dual3060TiMini',
-            name: 'Dual3060TiMini',
-            component: Dual3060TiMini,
-        },
+
+
     ]
 });
 
