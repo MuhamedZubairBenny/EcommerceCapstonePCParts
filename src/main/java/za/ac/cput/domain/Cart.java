@@ -1,9 +1,6 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -11,46 +8,48 @@ import java.util.Objects;
 public class Cart {
     @Id
     private String cartId;
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
-    private List<Product> products;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartProduct> cartProducts;
+
     private double totalPrice;
 
     protected Cart() {}
-    private Cart(Builder builder) {
+
+    public Cart(Builder builder) {
         this.cartId = builder.cartId;
         this.customer = builder.customer;
-        this.products = builder.products;
+        this.cartProducts = builder.cartProducts;
         this.totalPrice = builder.totalPrice;
     }
-    public String getCartId() {
-        return cartId;
-    }
 
-    public Customer getCustomer() {
-        return customer;
-    }
+    public String getCartId() { return cartId; }
+    public Customer getCustomer() { return customer; }
+    public List<CartProduct> getCartProducts() { return cartProducts; }
+    public double getTotalPrice() { return totalPrice; }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
+    public void calculateTotalPrice() {
+        this.totalPrice = cartProducts.stream()
+                .mapToDouble(cartProduct -> cartProduct.getProduct().getPrice() * cartProduct.getQuantity())
+                .sum();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Cart cart)) return false;
-        return Double.compare(getTotalPrice(), cart.getTotalPrice()) == 0 && Objects.equals(getCartId(), cart.getCartId()) && Objects.equals(getCustomer(), cart.getCustomer()) && Objects.equals(getProducts(), cart.getProducts());
+        return Double.compare(cart.getTotalPrice(), getTotalPrice()) == 0 &&
+                Objects.equals(getCartId(), cart.getCartId()) &&
+                Objects.equals(getCustomer(), cart.getCustomer()) &&
+                Objects.equals(getCartProducts(), cart.getCartProducts());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCartId(), getCustomer(), getProducts(), getTotalPrice());
+        return Objects.hash(getCartId(), getCustomer(), getCartProducts(), getTotalPrice());
     }
 
     @Override
@@ -58,14 +57,15 @@ public class Cart {
         return "Cart{" +
                 "cartId='" + cartId + '\'' +
                 ", customer=" + customer +
-                ", products=" + products +
+                ", cartProducts=" + cartProducts +
                 ", totalPrice=" + totalPrice +
                 '}';
     }
+
     public static class Builder {
         private String cartId;
         private Customer customer;
-        private List<Product> products;
+        private List<CartProduct> cartProducts;
         private double totalPrice;
 
         public Builder setCartId(String cartId) {
@@ -78,8 +78,8 @@ public class Cart {
             return this;
         }
 
-        public Builder setProducts(List<Product> products) {
-            this.products = products;
+        public Builder setCartProducts(List<CartProduct> cartProducts) {
+            this.cartProducts = cartProducts;
             return this;
         }
 
@@ -87,14 +87,16 @@ public class Cart {
             this.totalPrice = totalPrice;
             return this;
         }
-        public Builder copy(Cart cart){
+
+        public Builder copy(Cart cart) {
             this.cartId = cart.cartId;
             this.customer = cart.customer;
-            this.products = cart.products;
+            this.cartProducts = cart.cartProducts;
             this.totalPrice = cart.totalPrice;
             return this;
         }
-        public Cart build(){
+
+        public Cart build() {
             return new Cart(this);
         }
     }

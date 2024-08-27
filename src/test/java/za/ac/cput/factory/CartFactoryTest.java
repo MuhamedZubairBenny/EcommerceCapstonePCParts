@@ -20,43 +20,38 @@ class CartFactoryTest {
     @Order(1)
     void testBuildCartWithValidInput() {
         Contact contact = ContactFactory.buildContact("Mark@gmail.com","0987654321","29 Waterway","Cape Town","Western Province","2604","South Africa");
+        Customer customer = CustomerFactory.buildCustomer("001","Mark","Stevens","Qw123",contact);
+
         Brand brand = BrandFactory.buildBrand("001","Nvidia");
         ProductCategory category = ProductCategoryFactory.buildProductCategory("001","GPU");
-        Customer customer = CustomerFactory.buildCustomer("001","Mark","Stevens","Qw123",contact);
-        List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
-        productList.add(product);
-        Cart cart = CartFactory.buildCart("001",productList,customer,1000.00 );
-        assertNotNull(cart);
-        System.out.println(cart);
-    }
 
-    @Test
-    @Order(2)
-    void testBuildCartWithInvalidCartId() {
-        Contact contact = ContactFactory.buildContact("Steven@gmail.com","0887452321","25 Earthway","Cape Town","Western Province","2623","South Africa");
-        Brand brand = BrandFactory.buildBrand("002","Nvidia");
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("002","GPU");
-        Customer customer = CustomerFactory.buildCustomer("002","Steven","Stevenson","Qw12345",contact);
-        List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
-        productList.add(product);
-        Cart cart = CartFactory.buildCart(productList,customer,1000.00 );
-        assertNotNull(cart);
-        System.out.println(cart);
-    }
+        Product product1 = ProductFactory.buildProduct("prod001","GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
+        Product product2 = ProductFactory.buildProduct("prod002","GeForce 1060",category,brand,"gaming graphics card",850.00,5,"20x10x5","3 years", "Picture URL");
 
-    @Test
-    @Order(3)
-    void testBuildCartWithFail() {
-        Contact contact = ContactFactory.buildContact("Steven@gmail.com","0887452321","25 Earthway","Cape Town","Western Province","2623","South Africa");
-        Brand brand = BrandFactory.buildBrand("002","Nvidia");
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("002","GPU");
-        Customer customer = CustomerFactory.buildCustomer("002","Steven","Stevenson","Qw12345",contact);
-        List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
-        productList.add(product);
-        Cart cart = CartFactory.buildCart("",productList,customer,1000.00 );
+        CartProductId id1 = new CartProductId("01", product1.getProductId());
+        CartProductId id2 = new CartProductId("01", product2.getProductId());
+
+        CartProduct cartProduct1 = new CartProduct.Builder()
+                .setId(id1)
+                .setCart(CartFactory.buildCart("01", customer, 1850))
+                .setProduct(product1)
+                .setQuantity(2)
+                .build();
+
+        CartProduct cartProduct2 = new CartProduct.Builder()
+                .setId(id2)
+                .setCart(CartFactory.buildCart("01", customer, 1850))
+                .setProduct(product2)
+                .setQuantity(1)
+                .build();
+
+        List<CartProduct> cartProductList = new ArrayList<>();
+        cartProductList.add(cartProduct1);
+        cartProductList.add(cartProduct2);
+        assertNotNull(cartProductList);
+        System.out.println(cartProductList);
+
+        Cart cart = CartFactory.buildCart("01",customer,cartProductList,1850.00);
         assertNotNull(cart);
         System.out.println(cart);
     }
