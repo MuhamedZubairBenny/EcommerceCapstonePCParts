@@ -1,20 +1,32 @@
 package za.ac.cput.factory;
 
 
+import za.ac.cput.domain.Order;
 import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.Product;
 import za.ac.cput.util.Helper;
 
 public class OrderItemFactory {
-    public static OrderItem buildOrderItem(String itemId, String item, double price, String description, int quantity) {
-        if (Helper.isNullOrEmpty(itemId) || Helper.isNullOrEmpty(item) || Helper.isNullOrEmpty(description))
+    public static OrderItem buildOrderItem(String itemId, Product product, int quantity, Order order) {
+        if (Helper.isNullOrEmpty(itemId) || Helper.isNullOrZeroInt(quantity) || Helper.isNullOrEmpty(order.getOrderId()))
             return null;
-        if (price < 0 || quantity < 0)
-            return null;
+
         return new OrderItem.Builder().setItemId(itemId)
-                .setItem(item)
-                .setPrice(price)
-                .setDescription(description)
+                .setProduct(product)
                 .setQuantity(quantity)
+                .setOrder(order)
+                .build();
+    }
+
+    public static OrderItem buildOrderItem(Product product, int quantity, Order order){
+        if (Helper.isNullOrZeroInt(quantity) || Helper.isNullOrEmpty(order.getOrderId()))
+            return null;
+
+        String itemId = Helper.generateId();
+        return new OrderItem.Builder().setItemId(itemId)
+                .setProduct(product)
+                .setQuantity(quantity)
+                .setOrder(order)
                 .build();
     }
 }

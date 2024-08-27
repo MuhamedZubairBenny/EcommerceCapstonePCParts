@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product")
 public class Product {
     @Id
-    @Column(name = "product_id", nullable = false, unique = true)
     private String productId;
     private String productName;
     @ManyToOne
@@ -21,7 +19,7 @@ public class Product {
     private int stockQuantity;
     private String dimension;
     private String warranty;
-    private String productPicture; // Add this field
+    private String productPicture;
 
     protected Product() {}
 
@@ -38,7 +36,6 @@ public class Product {
         this.productPicture = builder.productPicture;
     }
 
-    // Getters
     public String getProductId() { return productId; }
     public String getProductName() { return productName; }
     public ProductCategory getCategory() { return category; }

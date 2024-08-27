@@ -1,7 +1,7 @@
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.OrderItem;
+import za.ac.cput.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,25 +12,39 @@ class OrderItemFactoryTest {
 
     @Test
     void buildOrderItem() {
-        OrderItem orderItem = new OrderItemFactory().buildOrderItem("01", "Graphic Card", 4500.00, "Palit GeForce RTX 3050"
-        , 2);
-    OrderItem orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 10000.00, "Sapphire Pure AMD Radeon RX 7700"
-            , 1);
-        List<OrderItem> orderItems = new ArrayList<OrderItem>();
-        orderItems.add(orderItem);
-        orderItems.add(orderItem2);
-    assertNotNull(orderItem);
-        System.out.println(orderItems);
+        Brand brand = BrandFactory.buildBrand("2134", "Asus");
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("12345", "GPU");
+        Product product = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+
+        Customer customer1 = CustomerFactory.buildCustomer( "43", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
+        Order order = OrderFactory.buildOrder("001", 14500.00,customer1);
+        OrderItem orderItem = OrderItemFactory.buildOrderItem("100",product,1,order);
+        System.out.println(orderItem);
 }
     @Test
+    void buildOrderItemGeneratedId() {
+        Brand brand = BrandFactory.buildBrand("2134", "Asus");
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("12345", "GPU");
+        Product product = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+
+        Customer customer1 = CustomerFactory.buildCustomer( "43", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
+        Order order = OrderFactory.buildOrder("001", 14500.00,customer1);
+        OrderItem orderItem = OrderItemFactory.buildOrderItem(product,1,order);
+        System.out.println(orderItem);
+    }
+
+    @Test
     void buildOrderItemFail() {
-        OrderItem orderItem = new OrderItemFactory().buildOrderItem("", "Graphic Card", 4500.00, "Palit GeForce RTX 3050"
-                , 2);
-        OrderItem orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 10000.00, "Sapphire Pure AMD Radeon RX 7700"
-                , 1);
-        List<OrderItem> orderItems = new ArrayList<OrderItem>();
+        Brand brand = BrandFactory.buildBrand("2134", "Asus");
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("12345", "GPU");
+        Product product = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+
+        Customer customer1 = CustomerFactory.buildCustomer( "43", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
+        Order order = OrderFactory.buildOrder("001", 14500.00,customer1);
+        OrderItem orderItem = OrderItemFactory.buildOrderItem("", product,1,order);
+
+        List<OrderItem> orderItems = new ArrayList<>();
         orderItems.add(orderItem);
-        orderItems.add(orderItem2);
         assertNotNull(orderItem);
         System.out.println(orderItems);
     }

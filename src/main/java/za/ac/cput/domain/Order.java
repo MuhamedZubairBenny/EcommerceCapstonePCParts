@@ -10,14 +10,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "orders")
 public class Order {
-@Id
+    @Id
+    @Column(name = "order_id", nullable = false, unique = true)
     private String orderId;
     private double overallPrice;
     @OneToOne
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
-    @JoinColumn(name = "order_id")
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItem;
 
     protected Order(){}
@@ -26,7 +25,6 @@ public class Order {
     this.orderId = builder.orderId;
     this.overallPrice = builder.overallPrice;
     this.customer = builder.customer;
-    this.orderItem = builder.orderItem;
     }
 
     public String getOrderId() {
@@ -41,21 +39,17 @@ public class Order {
         return customer;
     }
 
-    public List<OrderItem> getOrderItem() {
-        return orderItem;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Double.compare(overallPrice, order.overallPrice) == 0 && Objects.equals(orderId, order.orderId) && Objects.equals(customer, order.customer) && Objects.equals(orderItem, order.orderItem);
+        return Double.compare(overallPrice, order.overallPrice) == 0 && Objects.equals(orderId, order.orderId) && Objects.equals(customer, order.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, overallPrice, customer, orderItem);
+        return Objects.hash(orderId, overallPrice, customer);
     }
 
     @Override
@@ -64,7 +58,6 @@ public class Order {
                 "orderId='" + orderId + '\'' +
                 ", overallPrice=" + overallPrice +
                 ", customer=" + customer +
-                ", orderItem=" + orderItem +
                 '}';
     }
 
@@ -72,7 +65,6 @@ public class Order {
         private String orderId;
         private double overallPrice;
         private Customer customer;
-        private  List<OrderItem> orderItem;
 
         public Builder setOrderId(String orderId) {
             this.orderId = orderId;
@@ -89,13 +81,8 @@ public class Order {
             return this;
         }
 
-        public Builder setOrderItem( List<OrderItem> orderItem) {
-            this.orderItem = orderItem;
-            return this;
-        }
         public Builder copy(Order order){
             this.orderId = order.orderId;
-            this.orderItem = order.orderItem;
             this.overallPrice = order.overallPrice;
             this.customer = order.customer;
             return this;

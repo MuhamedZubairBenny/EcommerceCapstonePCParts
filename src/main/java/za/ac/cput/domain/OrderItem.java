@@ -6,44 +6,37 @@ import java.util.Objects;
 
 @Entity
 public class OrderItem{
-@Id
+    @Id
     private String itemId;
-    private String item;
-    private Double price;
-    private String description;
+    @OneToOne
+    private Product product;
     private int quantity;
-
- @ManyToOne( cascade = CascadeType.ALL,  fetch = FetchType.LAZY )
- @JoinColumn(name = "order_id")
-private Order order;
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
     protected OrderItem(){}
 
     public OrderItem(Builder builder){
         this.itemId = builder.itemId;
-        this.item = builder.item;
-        this.description=builder.description;
-        this.price= builder.price;
+        this.product = builder.product;
         this.quantity = builder.quantity;
+        this.order = builder.order;
     }
 
     public String getItemId() {
         return itemId;
     }
 
-    public String getItem() {
-        return item;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public String getDescription() {
-        return description;
+    public Product getProduct() {
+        return product;
     }
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     @Override
@@ -51,48 +44,37 @@ private Order order;
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderItem orderItem = (OrderItem) o;
-        return quantity == orderItem.quantity && Objects.equals(itemId, orderItem.itemId) && Objects.equals(item, orderItem.item) && Objects.equals(price, orderItem.price) && Objects.equals(description, orderItem.description);
+        return quantity == orderItem.quantity && Objects.equals(itemId, orderItem.itemId) && Objects.equals(product, orderItem.product) && Objects.equals(order, orderItem.order);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(itemId, item, price, description, quantity);
+        return Objects.hash(itemId, product, quantity, order);
     }
 
     @Override
     public String toString() {
         return "OrderItem{" +
                 "itemId='" + itemId + '\'' +
-                ", item='" + item + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
+                ", product=" + product +
                 ", quantity=" + quantity +
+                ", order=" + order +
                 '}';
     }
-    public static class Builder{
+
+    public static class Builder {
         private String itemId;
-        private String item;
-        private Double price;
-        private String description;
+        private Product product;
         private int quantity;
+        private Order order;
 
         public Builder setItemId(String itemId) {
             this.itemId = itemId;
             return this;
         }
 
-        public Builder setItem(String item) {
-            this.item = item;
-            return this;
-        }
-
-        public Builder setPrice(Double price) {
-            this.price = price;
-            return this;
-        }
-
-        public Builder setDescription(String description) {
-            this.description = description;
+        public Builder setProduct(Product product) {
+            this.product = product;
             return this;
         }
 
@@ -100,16 +82,20 @@ private Order order;
             this.quantity = quantity;
             return this;
         }
+
+        public Builder setOrder(Order order) {
+            this.order = order;
+            return this;
+        }
+
         public Builder copy(OrderItem orderItem){
-        this.itemId = orderItem.itemId;
-        this.item = orderItem.item;
-        this.description = orderItem.description;
-        this.price = orderItem.price;
-        this.quantity = orderItem.quantity;
-        return this;
+            this.itemId = orderItem.itemId;
+            this.product = orderItem.product;
+            this.quantity = orderItem.quantity;
+            this.order = orderItem.order;
+            return this;
         }
-        public OrderItem build(){
-            return new OrderItem(this);
-        }
+
+        public OrderItem build() {return new OrderItem(this);}
     }
 }

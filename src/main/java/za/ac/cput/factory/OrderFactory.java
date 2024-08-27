@@ -9,47 +9,25 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderFactory {
-    public static Order buildOrder(String orderId, double overallPrice, Customer customer,  List<OrderItem> orderItem ) {
+    public static Order buildOrder(String orderId, double overallPrice, Customer customer) {
 
-        if (Helper.isNullOrEmpty(orderId) ||
-                Helper.isNullOrEmpty(customer.getCustomerId()) ||
-                Helper.isListEmpty(orderItem)
-        )
-            return null;
-        if (overallPrice < 0)
+        if (Helper.isNullOrEmpty(orderId) || Helper.isNullOrZeroDouble(overallPrice) || customer == null)
             return null;
 
         return new Order.Builder().setOrderId(orderId)
                 .setOverallPrice(overallPrice)
                 .setCustomer(customer)
-                .setOrderItem(orderItem)
                 .build();
     }
-        public static Order buildOrder(String orderId, double overallPrice,Customer customer,
-                String itemId, String item, double price, String description, int quantity){
-
-        if(Helper.isNullOrEmpty(orderId) || Helper.isNullOrEmpty(itemId) || Helper.isNullOrEmpty(item)
-                        || Helper.isNullOrEmpty(description))
+    public static Order buildOrder(double overallPrice,Customer customer){
+        if (Helper.isNullOrZeroDouble(overallPrice) || customer == null)
             return null;
 
-            if(price<0 || overallPrice<0 ||quantity<0 )
-             return null;
+        String orderId = Helper.generateId();
 
-            OrderItem orderItem = new OrderItem.Builder().setItemId(itemId)
-                    .setItem(item)
-                    .setPrice(price)
-                    .setDescription(description)
-                    .setQuantity(quantity)
-                    .build();
-
-            List<OrderItem> orderItemList = new ArrayList<OrderItem>();
-            orderItemList.add(orderItem);
-
-return new Order.Builder().setOrderId(orderId)
-        .setOverallPrice(overallPrice)
-        .setCustomer(customer)
-        .setOrderItem(orderItemList)
-        .build();
-
+        return new Order.Builder().setOrderId(orderId)
+                .setOverallPrice(overallPrice)
+                .setCustomer(customer)
+                .build();
         }
-    }
+}

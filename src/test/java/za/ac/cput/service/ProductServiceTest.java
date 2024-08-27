@@ -27,9 +27,9 @@ class ProductServiceTest {
 
     @Test
     void a_setup(){
-        ProductCategory category = new ProductCategoryFactory().buildProductCategory("02", "CPU");
-        ProductCategory category1 = new ProductCategoryFactory().buildProductCategory("001", "GPU");
-        Brand brand2 = new BrandFactory().buildBrand("101", "AMD");
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("02", "CPU");
+        ProductCategory category1 = ProductCategoryFactory.buildProductCategory("001", "GPU");
+        Brand brand2 = BrandFactory.buildBrand("101", "AMD");
         product1 = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
         assertNotNull(product1);
         System.out.println(product1);

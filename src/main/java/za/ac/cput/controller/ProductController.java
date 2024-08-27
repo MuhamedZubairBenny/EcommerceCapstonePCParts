@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 @RequestMapping("api/product")
 public class ProductController {
-    @Autowired
     private ProductService productService;
-
+    @Autowired
+    ProductController(ProductService productService) {this.productService = productService;}
     @PostMapping("/create")
     public Product create(@RequestBody Product product){return productService.create(product);}
 

@@ -1,13 +1,14 @@
 package za.ac.cput.controller;
 
-
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
-import za.ac.cput.domain.OrderItem;
-import za.ac.cput.factory.OrderItemFactory;
+import za.ac.cput.domain.*;
+import za.ac.cput.domain.Order;
+import za.ac.cput.factory.*;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,44 +20,49 @@ public class OrderItemControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/pcparts/orderItem";
-    private static OrderItem orderItem1, orderItem2, orderItem3;
+    private final String BASE_URL = "http://localhost:3000/api/orderItem";
+    private static OrderItem orderItem;
 
     @BeforeAll
     public static void setUp() {
-        orderItem1 = new OrderItemFactory().buildOrderItem("01", "Graphic Card", 3000.00, "Palit GeForce RTX 3050", 2);
-        assertNotNull(orderItem1);
-        orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 12000.00, "Palit GeForce RTX 4090", 1);
-        assertNotNull(orderItem2);
+        Contact contact = ContactFactory.buildContact("zbenny@gmail.com","012 345 6789", "21 Jump Street", "Cape Town" ,"Western Cape" , "7540", "South Africa");
+        Customer customer = CustomerFactory.buildCustomer("01","Zubair", "Benny", "123", contact);
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("02", "CPU");
+        Brand brand = BrandFactory.buildBrand("101", "AMD");
+        Product product = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
+        Order order = OrderFactory.buildOrder("10", 15000, customer);
 
-        orderItem3 = new OrderItemFactory().buildOrderItem("03", "Graphic Card", 33000.00, "Palit GeForce Nvida 1060", 6);
-        assertNotNull(orderItem3);
+        orderItem = OrderItemFactory.buildOrderItem("101",product,1,order);
+        assertNotNull(orderItem);
+        System.out.println(orderItem);
     }
 
     @Test
     void a_create() {
         String url = BASE_URL + "/create";
-        ResponseEntity<OrderItem> postResponse = restTemplate.postForEntity(url, orderItem1, OrderItem.class);
+        System.out.println("URL: " + url);
+        ResponseEntity<OrderItem> postResponse = restTemplate.postForEntity(url, orderItem, OrderItem.class);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
+        System.out.println(postResponse.getBody());
         OrderItem orderItemSaved = postResponse.getBody();
-        assertEquals(orderItem1.getItemId(), orderItemSaved.getItemId());
+        assertEquals(orderItem.getItemId(), orderItemSaved.getItemId());
         System.out.println("Saved data: " + orderItemSaved);
     }
 
     @Test
     void b_read() {
-        String url = BASE_URL + "/read/" + orderItem1.getItemId();
+        String url = BASE_URL + "/read/" + orderItem.getItemId();
         System.out.println("URL: " + url);
         ResponseEntity<OrderItem> response = restTemplate.getForEntity(url, OrderItem.class);
-        assertEquals(orderItem1.getItemId(), response.getBody().getItemId());
+        assertEquals(orderItem.getItemId(), response.getBody().getItemId());
         System.out.println("Read data: " + response.getBody());
     }
 
     @Test
     void c_update() {
         String url = BASE_URL + "/update";
-        OrderItem newOrderItem = new OrderItem.Builder().copy(orderItem1).setPrice(8757.56).build();
+        OrderItem newOrderItem = new OrderItem.Builder().copy(orderItem).setQuantity(10).build();
         ResponseEntity<OrderItem> postResponse = restTemplate.postForEntity(url, newOrderItem, OrderItem.class);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
@@ -68,7 +74,7 @@ public class OrderItemControllerTest {
     @Test
     @Disabled
     void d_delete() {
-        String url = BASE_URL + "/delete/" + orderItem1.getItemId();
+        String url = BASE_URL + "/delete/" + orderItem.getItemId();
         System.out.println("URL: " + url);
         restTemplate.delete(url);
         System.out.println("Success: Deleted orderItem");

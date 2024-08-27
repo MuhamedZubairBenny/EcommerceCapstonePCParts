@@ -1,69 +1,41 @@
 package za.ac.cput.service;
 
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Contact;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Order;
-import za.ac.cput.domain.OrderItem;
-import za.ac.cput.factory.ContactFactory;
 import za.ac.cput.factory.CustomerFactory;
 import za.ac.cput.factory.OrderFactory;
-import za.ac.cput.factory.OrderItemFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
-public class OrderServiceTest {
+class OrderServiceTest {
     @Autowired
     private OrderService orderService;
-
-    private static Order order1;
-    private static Order order2;
+    private static Customer customer;
+    private static Order order1, order2;
 
     @Test
-    void a_setup() {
-        OrderItem orderItem1 = new OrderItemFactory().buildOrderItem("01", "Graphic Card", 4000.00, "Palit GeForce RTX 3060", 2);
-        OrderItem orderItem2 = new OrderItemFactory().buildOrderItem("02", "Graphic Card", 12000.00, "Sapphire Pure AMD Radeon RX 8700", 1);
-
-        List<OrderItem> orderItem = new ArrayList<>();
-        orderItem.add(orderItem1);
-        orderItem.add(orderItem2);
-
-        Contact contact1 = ContactFactory.buildContact("ihassan@gmail.com", "012 345 6789", "21 Jump Street", "Cape Town", "Western Cape", "7540", "South Africa");
-        Customer customer1 = CustomerFactory.buildCustomer("01", "Isa", "Hassan", "123", contact1);
-        order1 = OrderFactory.buildOrder("001", 45000, customer1, orderItem);
+     void a_setup() {
+        customer = CustomerFactory.buildCustomer( "43", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
+        assertNotNull(customer);
+        System.out.println(customer);
+        order1 = OrderFactory.buildOrder("001", 14500.00,customer);
         assertNotNull(order1);
-
-        OrderItem orderItem3 = new OrderItemFactory().buildOrderItem("03", "Graphic Card", 33000.00, "Palit GeForce Nvida 1060", 6);
-        assertNotNull(orderItem3);
-
-        List<OrderItem> orderItemList = new ArrayList<>();
-        orderItemList.add(orderItem3);
-
-        Contact contact2 = ContactFactory.buildContact("thassan@gmail.com", "012 5643 6789", "22 Jump Street", "Cape Town", "Western Cape", "7540", "South Africa");
-        Customer customer2 = CustomerFactory.buildCustomer("02", "Tariq", "Hassan", "1234", contact2);
-        order2 = OrderFactory.buildOrder("002", 43000, customer2, orderItemList);
-        assertNotNull(order2);
+        System.out.println(order1);
     }
 
     @Test
     void b_create() {
-        Order createdOrder1 = orderService.create(order1);
-        assertNotNull(createdOrder1);
-        System.out.println(createdOrder1);
-
-        Order createdOrder2 = orderService.create(order2);
-        assertNotNull(createdOrder2);
-        System.out.println(createdOrder2);
+        Order created = orderService.create(order1);
+        assertNotNull(created);
+        System.out.println(created);
     }
 
     @Test
@@ -75,17 +47,15 @@ public class OrderServiceTest {
 
     @Test
     void d_update() {
-        Order newOrder = new Order.Builder().copy(order1).setOverallPrice(230000).build();
-        Order updateOrder = orderService.update(newOrder);
-        assertNotNull(updateOrder);
-        System.out.println(updateOrder);
+        Order newOrder = new Order.Builder().copy(order1).setOverallPrice(20000).build();
+        Order updated = orderService.update(newOrder);
+        assertNotNull(updated);
+        System.out.println(updated);
     }
 
     @Test
-    @Disabled
     void e_delete() {
-        orderService.delete(order2.getOrderId());
-        System.out.println("Delete successful");
+        orderService.delete("69");
     }
 
     @Test
