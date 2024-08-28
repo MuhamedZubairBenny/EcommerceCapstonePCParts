@@ -43,7 +43,7 @@ const formatCurrency = (value) => {
           class="product-card"
           v-for="(product, index) in products"
           :key="index"
-          @click="goToPage(product.productId)">
+          @click="() => goToPage(product.productId)">
         <img
             :src="`/${product.productPicture}`"
             :alt="product.productName"

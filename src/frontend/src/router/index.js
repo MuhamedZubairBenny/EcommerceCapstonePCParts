@@ -3,12 +3,19 @@ import { createRouter, createWebHistory } from 'vue-router'; // Import the corre
 import HomePage from '@/components/HomePage.vue';
 import CpuCategory from '@/components/ProductCategories/CpuCategory.vue';
 import GpuCategory from '@/components/ProductCategories/GpuCategory.vue';
+import ProductDetails from "@/components/ProductDetails.vue";
 //import Profile from '@/components/Profile/Profile.vue';
 // import ProductPage from '@/components/ProductPage.vue';
 // Create a router instance
 const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
     routes: [
+        {
+            path: '/product/:id',
+            name: 'ProductDetails',
+            component: ProductDetails,
+            props: true
+        },
         {
             path: '/',
             name: 'HomePage',

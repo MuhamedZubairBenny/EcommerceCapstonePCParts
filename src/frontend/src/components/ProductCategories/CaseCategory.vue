@@ -20,7 +20,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const products = ref([]);
 
 onMounted(() => {
@@ -34,7 +36,9 @@ onMounted(() => {
         console.error('Error fetching data:', error);
       });
 });
-
+const goToPage = (productId) => {
+  router.push({ name: 'ProductDetails', params: { id: productId } });
+};
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
