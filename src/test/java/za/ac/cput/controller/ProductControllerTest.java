@@ -49,7 +49,7 @@ class ProductControllerTest {
         String url = BASE_URL + "/read/"+product.getProductId();
         System.out.println("URL: " + url);
         ResponseEntity<Product> response = restTemplate.getForEntity(url, Product.class);
-        //assertEquals(product.getProductId(), response.getBody().getProductId());
+        assertEquals(product.getProductId(), response.getBody().getProductId());
         System.out.println("Read: " + response.getBody());
     }
 

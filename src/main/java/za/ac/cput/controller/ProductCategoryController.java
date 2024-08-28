@@ -22,7 +22,7 @@ public class ProductCategoryController {
     @PostMapping("/update")
     public ProductCategory update(@RequestBody ProductCategory category){return categoryService.update(category);}
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{categoryId}")
     public void delete(@PathVariable String categoryId){categoryService.delete(categoryId);}
 
     @GetMapping("/getAll")

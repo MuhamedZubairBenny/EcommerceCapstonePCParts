@@ -8,48 +8,44 @@ import java.util.Objects;
 public class Cart {
     @Id
     private String cartId;
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Customer customer;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "cart_product",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products;
+    private double cartTotal = 0.0;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartProduct> cartProducts;
-
-    private double totalPrice;
-
-    protected Cart() {}
+    protected  Cart() {}
 
     public Cart(Builder builder) {
         this.cartId = builder.cartId;
         this.customer = builder.customer;
-        this.cartProducts = builder.cartProducts;
-        this.totalPrice = builder.totalPrice;
+        this.products = builder.products;
+        this.cartTotal = calculateCartTotal();
+    }
+    public String getCartId() {
+        return cartId;
     }
 
-    public String getCartId() { return cartId; }
-    public Customer getCustomer() { return customer; }
-    public List<CartProduct> getCartProducts() { return cartProducts; }
-    public double getTotalPrice() { return totalPrice; }
-
-    public void calculateTotalPrice() {
-        this.totalPrice = cartProducts.stream()
-                .mapToDouble(cartProduct -> cartProduct.getProduct().getPrice() * cartProduct.getQuantity())
-                .sum();
+    public Customer getCustomer() {
+        return customer;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cart cart)) return false;
-        return Double.compare(cart.getTotalPrice(), getTotalPrice()) == 0 &&
-                Objects.equals(getCartId(), cart.getCartId()) &&
-                Objects.equals(getCustomer(), cart.getCustomer()) &&
-                Objects.equals(getCartProducts(), cart.getCartProducts());
+    public List<Product> getProducts() {
+        return products;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCartId(), getCustomer(), getCartProducts(), getTotalPrice());
+    public double getCartTotal() {
+        return cartTotal;
+    }
+
+    private double calculateCartTotal() {
+        if (products == null || products.isEmpty()) {
+            return 0.0;
+        }
+        return products.stream().mapToDouble(Product::getPrice).sum();
     }
 
     @Override
@@ -57,16 +53,29 @@ public class Cart {
         return "Cart{" +
                 "cartId='" + cartId + '\'' +
                 ", customer=" + customer +
-                ", cartProducts=" + cartProducts +
-                ", totalPrice=" + totalPrice +
+                ", products=" + products +
+                ", cartTotal=" + cartTotal +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return Double.compare(cartTotal, cart.cartTotal) == 0 && Objects.equals(cartId, cart.cartId) && Objects.equals(customer, cart.customer) && Objects.equals(products, cart.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cartId, customer, products, cartTotal);
     }
 
     public static class Builder {
         private String cartId;
         private Customer customer;
-        private List<CartProduct> cartProducts;
-        private double totalPrice;
+        private List<Product> products;
+        private double cartTotal;
 
         public Builder setCartId(String cartId) {
             this.cartId = cartId;
@@ -78,26 +87,26 @@ public class Cart {
             return this;
         }
 
-        public Builder setCartProducts(List<CartProduct> cartProducts) {
-            this.cartProducts = cartProducts;
+        public Builder setProducts(List<Product> products) {
+            this.products = products;
+            this.cartTotal = products != null ? products.stream().mapToDouble(Product::getPrice).sum() : 0.0;
             return this;
         }
 
-        public Builder setTotalPrice(double totalPrice) {
-            this.totalPrice = totalPrice;
+        public Builder setCartTotal(double cartTotal) {
+            this.cartTotal = cartTotal;
             return this;
         }
 
-        public Builder copy(Cart cart) {
+        public Builder copy(Cart cart){
             this.cartId = cart.cartId;
             this.customer = cart.customer;
-            this.cartProducts = cart.cartProducts;
-            this.totalPrice = cart.totalPrice;
+            this.products = cart.products;
+            this.cartTotal = cart.cartTotal;
             return this;
         }
 
-        public Cart build() {
-            return new Cart(this);
-        }
+        public Cart build() {return new Cart(this);}
     }
 }
+

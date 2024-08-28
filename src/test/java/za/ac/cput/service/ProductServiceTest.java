@@ -23,12 +23,11 @@ class ProductServiceTest {
     @Autowired
     private ProductService productService;
     private static Product product1;
-    private static ProductCategory category1;
 
     @Test
     void a_setup(){
         ProductCategory category = ProductCategoryFactory.buildProductCategory("02", "CPU");
-        ProductCategory category1 = ProductCategoryFactory.buildProductCategory("001", "GPU");
+        ProductCategory category1 = ProductCategoryFactory.buildProductCategory("01", "GPU");
         Brand brand2 = BrandFactory.buildBrand("101", "AMD");
         product1 = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand2, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
         assertNotNull(product1);
