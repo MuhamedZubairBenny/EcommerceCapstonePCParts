@@ -5,7 +5,7 @@
       :pagination="{ clickable: true, el: '.swiper-pagination' }"
       :navigation="true"
       :loop="true"
-      :autoplay="{ delay: 5000 }"
+      :autoplay="{ delay: 3000 }"
       class="mySwiper"
   >
     <SwiperSlide v-for="(image, index) in images" :key="index">

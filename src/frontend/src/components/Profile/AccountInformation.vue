@@ -57,5 +57,56 @@ export default {
 }
 </script>
 <style scoped>
+.account-info-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #dee2e6;
+}
+
+.table thead th {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  text-align: center;
+  padding: 10px;
+}
+
+.table tbody td {
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #e9ecef;
+}
+
+.table-bordered {
+  border: 2px solid #dee2e6;
+}
 
 </style>
