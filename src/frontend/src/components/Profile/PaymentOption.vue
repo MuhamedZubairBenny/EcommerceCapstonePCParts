@@ -129,12 +129,19 @@ export default {
 <style scoped>
 .payment-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+}
+h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #343a40;
 }
 
 .payment-form {
@@ -143,45 +150,61 @@ export default {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #495057;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  border: 2px solid #ced4da;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.form-group input:focus {
+  border-color: #007bff;
 }
 
 .price-details {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 30px 0;
+  background-color: #e9ecef;
+  padding: 15px;
+  border-radius: 8px;
 }
+
 
 .price-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #495057;
 }
 
-.total {
+.price-item.total {
+  font-size: 18px;
   font-weight: bold;
 }
 
 .confirm-button {
-  padding: 10px 20px;
+  padding: 12px;
   background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .confirm-button:hover {

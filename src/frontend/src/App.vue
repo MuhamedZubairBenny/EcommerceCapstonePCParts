@@ -3,12 +3,13 @@
   <div id="app">
     <Navigation @nav-toggle="handleNavToggle"/>
     <div :class="{ 'content-shift': isNavExpanded }">
-    <router-view/>
+      <router-view/>
     </div>
   </div>
 </template>
 
 <script>
+
 import Navigation from './components/NavigationTool.vue';
 import 'swiper/swiper-bundle.css';
 

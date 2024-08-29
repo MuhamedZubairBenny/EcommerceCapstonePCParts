@@ -58,7 +58,8 @@
     </header>
 
     <!-- Navbar for Categories -->
-    <nav class="category-navbar">
+    <nav v-if="!$route.meta.hideNavbar" class="category-navbar">
+      <button @click="toggleNav">Toggle Navigation</button>
       <ul>
         <router-link
             v-for="(category, index) in categories"
@@ -116,6 +117,10 @@ export default {
     },
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible;
+    },
+    toggleNav() {
+      const isExpanded = ;
+      this.$emit('nav-toggle', isExpanded);
     }
   }
 }
@@ -224,6 +229,7 @@ export default {
 /* Account Dropdown */
 .account-dropdown {
   position: relative;
+  z-index: 1010;
 }
 
 .dropdown-content {
@@ -236,7 +242,7 @@ export default {
   border: 1px solid #69feca;
   border-radius: 5px;
   padding: 10px;
-  z-index: 100;
+  z-index: 1010;
 }
 
 .dropdown-content a {
@@ -256,7 +262,13 @@ export default {
 .category-navbar {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  background-color: #232f3e; /* Dark background for contrast */
+  padding: 15px 0; /* Add padding for better spacing */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border-bottom: 2px solid #69feca; /* Stylish bottom border */
+  position: sticky; /* Stick to the top of the page */
+  top: 0;
+  z-index: 1000; /* Ensure navbar stays above other elements */
 }
 
 .category-navbar ul {
@@ -266,29 +278,98 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 40px; /* Add more space between categories */
 }
 
 .category-item {
   text-align: center;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px; /* Fix width for consistent sizing */
+  color: white;
+  position: relative;
+  transition: color 0.3s ease;
+}
+.category-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.1); /* Add semi-transparent white background */
+  border: 2px solid #69feca; /* Border color */
+  border-radius: 8px; /* Rounded corners for smooth effect */
+  transform: translate(-50%, -50%); /* Center the pseudo-element */
+  transition: all 0.3s ease;
+  z-index: -1; /* Place the background behind the content */
+}
+
+.category-item:hover::before {
+  width: 140px; /* Expand width on hover */
+  height: 140px; /* Expand height on hover */
+  opacity: 1; /* Ensure it's visible */
 }
 
 .category-image {
-  height: 100px;
+  height: 80px; /* Adjust image height for uniformity */
   width: auto;
   display: block;
   margin: 0 auto;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.category-item:hover {
+  color: #69feca; /* Change color on hover */
+}
 .category-image:hover {
-  transform: scale(1.1);
+  transform: scale(1.2); /* Enlarge image on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
 .category-name {
-  font-size: 14px;
-  margin-top: 10px;
-  color: black;
+  font-size: 16px; /* Increase font size for readability */
+  margin-top: 8px;
+  color: white;
+  text-transform: uppercase; /* Make category names uppercase for style */
+  font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .category-navbar ul {
+    gap: 20px; /* Reduce gap for smaller screens */
+  }
+
+  .category-item {
+    width: 100px; /* Reduce width on smaller screens */
+  }
+
+  .category-image {
+    height: 60px; /* Smaller images on mobile */
+  }
+
+  .category-name {
+    font-size: 14px; /* Adjust font size for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .category-navbar ul {
+    gap: 10px; /* Further reduce gap for very small screens */
+  }
+
+  .category-item {
+    width: 80px; /* Adjust width further for small devices */
+  }
+
+  .category-image {
+    height: 50px; /* Adjust image size for small devices */
+  }
+
+  .category-name {
+    font-size: 12px; /* Smaller font size for small screens */
+  }
+} /* Closing brace was missing previously */
 </style>
