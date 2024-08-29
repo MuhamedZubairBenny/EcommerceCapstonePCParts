@@ -5,6 +5,12 @@ import CpuCategory from '@/components/ProductCategories/CpuCategory.vue';
 import GpuCategory from '@/components/ProductCategories/GpuCategory.vue';
 import ShippingAddress from '@/components/Profile/ShippingAddress.vue';
 import ProductDetails from "@/components/ProductDetails.vue";
+import AccountInformation from "@/components/Profile/AccountInformation.vue";
+import AddProducts from "@/components/Profile/AddProducts.vue";
+import DeleteProducts from "@/components/Profile/DeleteProducts.vue";
+import Cart from "@/components/Profile/Cart.vue";
+import UpdateProducts from "@/components/Profile/UpdateProducts.vue";
+import PaymentOption from "@/components/Profile/PaymentOption.vue";
 
 //import Profile from '@/components/Profile/Profile.vue';
 // import ProductPage from '@/components/ProductPage.vue';
@@ -39,9 +45,39 @@ const router = createRouter({
             component: CpuCategory
         },
         {
-            path: '/shipping',
-            name: 'ShippingAddress',  // Add this route for ShippingAddress
+            path: '/ShippingAddress',
+            name: 'ShippingAddress',
             component: ShippingAddress
+        },
+        {
+            path: '/AccountInformation',
+            name: 'AccountInformation',
+            component: AccountInformation
+        },
+        {
+            path: '/AddProducts',
+            name: 'AddProducts',
+            component: AddProducts
+        },
+        {
+            path: '/DeleteProducts',
+            name: 'DeleteProducts',
+            component: DeleteProducts
+        },
+        {
+            path: '/PaymentOption',
+            name: 'PaymentOption',
+            component: PaymentOption
+        },
+        {
+            path: '/Cart',
+            name: 'Cart',
+            component: Cart
+        },
+        {
+            path: '/UpdateProducts',
+            name: 'UpdateProducts',
+            component: UpdateProducts
         }
 
         // {
