@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/productCategory")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductCategoryController {
     @Autowired
     private ProductCategoryService categoryService;
@@ -22,7 +23,7 @@ public class ProductCategoryController {
     @PostMapping("/update")
     public ProductCategory update(@RequestBody ProductCategory category){return categoryService.update(category);}
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{categoryId}")
     public void delete(@PathVariable String categoryId){categoryService.delete(categoryId);}
 
     @GetMapping("/getAll")

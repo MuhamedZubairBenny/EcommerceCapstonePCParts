@@ -49,7 +49,7 @@ class ProductControllerTest {
         String url = BASE_URL + "/read/"+product.getProductId();
         System.out.println("URL: " + url);
         ResponseEntity<Product> response = restTemplate.getForEntity(url, Product.class);
-        //assertEquals(product.getProductId(), response.getBody().getProductId());
+        assertEquals(product.getProductId(), response.getBody().getProductId());
         System.out.println("Read: " + response.getBody());
     }
 
@@ -87,7 +87,7 @@ class ProductControllerTest {
 
     @Test
     void f_searchByProductName() {
-        String searchString = "Ryzen";
+        String searchString = "i3";
         String url = BASE_URL + "/search/" + searchString;
         HttpHeaders headers = new HttpHeaders();
         HttpEntity <String> entity = new HttpEntity<>(null, headers);
@@ -101,6 +101,19 @@ class ProductControllerTest {
     void g_searchByCategoryName() {
         String searchString = "CPU";
         String url = BASE_URL + "/category/" + searchString;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity <String> entity = new HttpEntity<>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        System.out.println("Show all");
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getBody());
+
+    }
+
+    @Test
+    void g_searchByProductId() {
+        String searchString = "008";
+        String url = BASE_URL + "/searchById/" + searchString;
         HttpHeaders headers = new HttpHeaders();
         HttpEntity <String> entity = new HttpEntity<>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);

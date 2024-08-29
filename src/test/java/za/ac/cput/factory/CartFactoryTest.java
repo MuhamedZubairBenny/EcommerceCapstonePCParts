@@ -1,13 +1,11 @@
 package za.ac.cput.factory;
 
-import jdk.jfr.Category;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.domain.*;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,47 +16,52 @@ class CartFactoryTest {
 
     @Test
     @Order(1)
-    void testBuildCartWithValidInput() {
-        Contact contact = ContactFactory.buildContact("Mark@gmail.com","0987654321","29 Waterway","Cape Town","Western Province","2604","South Africa");
-        Brand brand = BrandFactory.buildBrand("001","Nvidia");
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("001","GPU");
-        Customer customer = CustomerFactory.buildCustomer("001","Mark","Stevens","Qw123",contact);
+    void buildCart() {
+        //Build Customer
+        Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
+        assertNotNull(contact);
+        Customer customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
+        assertNotNull(customer);
+
+        //Build Product
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
+        Brand brand = BrandFactory.buildBrand("3456", "Asus");
+        Product product = ProductFactory.buildProduct("prod01","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+        Product product2 = ProductFactory.buildProduct("prod02","GTX 1080", category, brand, "Gaming GPU", 49995.00, 10, "10cm", "5 years", "Picture URL");
+
+        //Create list of Products
         List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
         productList.add(product);
-        Cart cart = CartFactory.buildCart("001",productList,customer,1000.00 );
+        productList.add(product2);
+
+        //Create Cart
+        Cart cart = CartFactory.buildCart("01", customer, productList);
         assertNotNull(cart);
         System.out.println(cart);
     }
 
     @Test
     @Order(2)
-    void testBuildCartWithInvalidCartId() {
-        Contact contact = ContactFactory.buildContact("Steven@gmail.com","0887452321","25 Earthway","Cape Town","Western Province","2623","South Africa");
-        Brand brand = BrandFactory.buildBrand("002","Nvidia");
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("002","GPU");
-        Customer customer = CustomerFactory.buildCustomer("002","Steven","Stevenson","Qw12345",contact);
-        List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
-        productList.add(product);
-        Cart cart = CartFactory.buildCart(productList,customer,1000.00 );
-        assertNotNull(cart);
-        System.out.println(cart);
-    }
+    void testBuildCart() {
+        Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
+        assertNotNull(contact);
+        Customer customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
+        assertNotNull(customer);
 
-    @Test
-    @Order(3)
-    void testBuildCartWithFail() {
-        Contact contact = ContactFactory.buildContact("Steven@gmail.com","0887452321","25 Earthway","Cape Town","Western Province","2623","South Africa");
-        Brand brand = BrandFactory.buildBrand("002","Nvidia");
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("002","GPU");
-        Customer customer = CustomerFactory.buildCustomer("002","Steven","Stevenson","Qw12345",contact);
+        //Build Product
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
+        Brand brand = BrandFactory.buildBrand("3456", "Asus");
+        Product product = ProductFactory.buildProduct("prod01","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+        Product product2 = ProductFactory.buildProduct("prod02","GTX 1080", category, brand, "Gaming GPU", 49995.00, 10, "10cm", "5 years", "Picture URL");
+
+        //Create list of Products
         List<Product> productList = new ArrayList<>();
-        Product product = ProductFactory.buildProduct("GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
         productList.add(product);
-        Cart cart = CartFactory.buildCart("",productList,customer,1000.00 );
+        productList.add(product2);
+
+        //Create Cart
+        Cart cart = CartFactory.buildCart(customer, productList);
         assertNotNull(cart);
         System.out.println(cart);
     }
 }
-//

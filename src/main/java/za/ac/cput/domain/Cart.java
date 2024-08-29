@@ -1,9 +1,6 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -13,17 +10,20 @@ public class Cart {
     private String cartId;
     @OneToOne
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "cart_product",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
-    private double totalPrice;
+    private double cartTotal = 0.0;
 
-    protected Cart() {}
-    private Cart(Builder builder) {
+    protected  Cart() {}
+
+    public Cart(Builder builder) {
         this.cartId = builder.cartId;
         this.customer = builder.customer;
         this.products = builder.products;
-        this.totalPrice = builder.totalPrice;
+        this.cartTotal = calculateCartTotal();
     }
     public String getCartId() {
         return cartId;
@@ -37,20 +37,15 @@ public class Cart {
         return products;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public double getCartTotal() {
+        return cartTotal;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cart cart)) return false;
-        return Double.compare(getTotalPrice(), cart.getTotalPrice()) == 0 && Objects.equals(getCartId(), cart.getCartId()) && Objects.equals(getCustomer(), cart.getCustomer()) && Objects.equals(getProducts(), cart.getProducts());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCartId(), getCustomer(), getProducts(), getTotalPrice());
+    private double calculateCartTotal() {
+        if (products == null || products.isEmpty()) {
+            return 0.0;
+        }
+        return products.stream().mapToDouble(Product::getPrice).sum();
     }
 
     @Override
@@ -59,14 +54,28 @@ public class Cart {
                 "cartId='" + cartId + '\'' +
                 ", customer=" + customer +
                 ", products=" + products +
-                ", totalPrice=" + totalPrice +
+                ", cartTotal=" + cartTotal +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return Double.compare(cartTotal, cart.cartTotal) == 0 && Objects.equals(cartId, cart.cartId) && Objects.equals(customer, cart.customer) && Objects.equals(products, cart.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cartId, customer, products, cartTotal);
+    }
+
     public static class Builder {
         private String cartId;
         private Customer customer;
         private List<Product> products;
-        private double totalPrice;
+        private double cartTotal;
 
         public Builder setCartId(String cartId) {
             this.cartId = cartId;
@@ -80,22 +89,24 @@ public class Cart {
 
         public Builder setProducts(List<Product> products) {
             this.products = products;
+            this.cartTotal = products != null ? products.stream().mapToDouble(Product::getPrice).sum() : 0.0;
             return this;
         }
 
-        public Builder setTotalPrice(double totalPrice) {
-            this.totalPrice = totalPrice;
+        public Builder setCartTotal(double cartTotal) {
+            this.cartTotal = cartTotal;
             return this;
         }
+
         public Builder copy(Cart cart){
             this.cartId = cart.cartId;
             this.customer = cart.customer;
             this.products = cart.products;
-            this.totalPrice = cart.totalPrice;
+            this.cartTotal = cart.cartTotal;
             return this;
         }
-        public Cart build(){
-            return new Cart(this);
-        }
+
+        public Cart build() {return new Cart(this);}
     }
 }
+

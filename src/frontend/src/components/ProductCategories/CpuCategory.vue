@@ -1,12 +1,31 @@
+<template>
+  <h1 class="cpu-heading">CPU Category</h1>
+    <div class="products-container">
+      <ul class="products-list">
+        <li
+            v-for="product in products"
+            :key="product.productId"
+            class="product-item"
+            @click="goToPage(product.productId)"
+        >
+          <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
+          <div class="product-details">
+            <h3>{{ product.productName }}</h3>
+            <p class="price">{{ formatCurrency(product.price) }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+</template>
 <script setup>
 import { ref, onMounted } from 'vue';
+import {useRouter} from "vue-router";
 
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
+ const router = useRouter();
 
 // Define the products ref
 const products = ref([]);
+// const searchQuery = ref(''); // Bind this to the search bar
 
 // Fetch data when the component is mounted
 onMounted(() => {
@@ -20,6 +39,9 @@ onMounted(() => {
         console.error('Error fetching data:', error);
       });
 });
+const goToPage = (productId) => {
+  router.push({ name: 'ProductDetails', params: { id: productId } });
+};
 
 // Method to format price as currency
 const formatCurrency = (value) => {
@@ -27,98 +49,137 @@ const formatCurrency = (value) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 
-// Define categories for navigation
-const categories = [
-  { name: 'CPU', image: { src: require('@/assets/cpuprocessor.png'), alt: 'CPU' } },
-  { name: 'GPU', image: { src: require('@/assets/gpu.png'), alt: 'GPU' } },
-  { name: 'Motherboard', image: { src: require('@/assets/motherboard.png'), alt: 'Motherboard' } },
-  { name: 'RAM', image: { src: require('@/assets/ramstick.png'), alt: 'RAM' } },
-  { name: 'Storage', image: { src: require('@/assets/storage.png'), alt: 'Storage' } },
-  { name: 'PSU', image: { src: require('@/assets/psu.png'), alt: 'PSU' } },
-  { name: 'Case', image: { src: require('@/assets/case.png'), alt: 'Case' } },
-  { name: 'Peripherals', image: { src: require('@/assets/peripherals.png'), alt: 'Peripherals' } },
-  { name: 'Monitors', image: { src: require('@/assets/monitor.png'), alt: 'Monitors' } },
-  { name: 'Cooling', image: { src: require('@/assets/cooler.png'), alt: 'Cooling' } },
-];
 
-const goToPage = (productId) => {
-  const productRoutes = {
-    "003": "/intel/I3Processors/i3-12100F",
-    "14100f": "/intel/I3Processors/i3-14100F",
-    "14100": "/intel/I3Processors/i3-14100",
-    "12400f": "/intel/I5Processors/i5-12400F",
-    "14400": "/intel/I5Processors/i5-14400",
-    "14400f": "/intel/I5Processors/i5-14400F",
-    "14500": "/intel/I5Processors/i5-14500",
-    "14600k": "/intel/I5Processors/i5-14600K",
-    "14600KF": "/intel/I5Processors/i5-14600KF",
-    "12700f": "/intel/I7Processors/i7-12700F",
-    "14700": "/intel/I7Processors/i7-14700",
-    "14700f": "/intel/I7Processors/i7-14700F",
-    "14700k": "/intel/I7Processors/i7-14700K",
-    "14700kf": "/intel/I7Processors/i7-14700KF",
-    "14900": "/intel/I9Processors/i9-14900",
-    "14900f": "/intel/I9Processors/i9-14900F",
-    "14900k": "/intel/I9Processors/i9-14900K",
-    "14900kf": "/intel/I9Processors/i9-14900KF",
-    "001": "/amd/Ryzen5Processors/5600X",
-    "004": "/amd/Ryzen5Processors/8400F",
-    "005": "/amd/Ryzen5Processors/5500GT",
-    "006": "/amd/Ryzen5Processors/8600G",
-    "007": "/amd/Ryzen5Processors/9600X",
-    "008": "/amd/Ryzen7Processors/5700",
-    "009": "/amd/Ryzen7Processors/8700F",
-    "010": "/amd/Ryzen7Processors/5800XT",
-    "011": "/amd/Ryzen7Processors/8700G",
-    "013": "/amd/Ryzen7Processors/9700X"
-  };
+// const goToBrand = (brand) => {
+//   const brandRoutes = {
+//     "AMD": "src/frontend/src/components/amd",
+//     "Intel": "src/frontend/src/components/intel"
+//   };
 
-  const pagePath = productRoutes[productId] || '/product-not-found';
-  router.push(pagePath);
-};
+//   const route = brandRoutes[brand] || '/cpu-not-found';
+//   router.push(route);
+// };
+// Function to handle the search input
+// const handleSearch = () => {
+//   const searchTerm = searchQuery.value.trim().toLowerCase();
+
+  // Basic check for "CPU" and route to the CPU page
+//   if (searchTerm === 'cpu') {
+//     router.push('/cpu'); // Navigate to the CPU category page if the search term is "cpu"
+//   } else {
+//     console.log('Search term does not match CPU'); // Handle other cases as needed
+//
+// };
 </script>
 
-<template>
-  <div class="slideshow-container">
-
-    <nav class="category-navbar">
-      <ul>
-        <router-link
-            v-for="(category, index) in categories"
-            :key="index"
-            :to="`/${category.name.toLowerCase()}`"
-            class="category-item"
-        >
-          <img :src="category.image.src" :alt="category.image.alt" class="category-image" />
-          <span class="category-name">{{ category.name }}</span>
-        </router-link>
-      </ul>
-    </nav>
-  </div>
-
-  <h1>CPU Products</h1>
 
 
-  <div class="products-container">
-    <ul class="products-list">
-      <li
-          v-for="product in products"
-          :key="product.productId"
-          class="product-item"
-          @click="goToPage(product.productId)"
-      >
-      <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
-      <div class="product-details">
-        <h3>{{ product.productName }}</h3>
-        <p class="price">{{ formatCurrency(product.price) }}</p>
-      </div>
-      </li>
-    </ul>
-  </div>
-</template>
+
+<style scoped>
+/* Add styles for the AMD and Intel buttons */
+.cpu-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+.brand-button {
+  background-color: #007bff;
+  color: white;
+  padding: 15px 30px;
+  margin: 0 15px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.amd-button {
+  background-color: #ff5722;
+}
+
+.intel-button {
+  background-color: #007bff;
+}
+
+.brand-button:hover {
+  transform: scale(1.1);
+  background-color: #0056b3;
+}
+
+.amd-button:hover {
+  background-color: #e64a19;
+}
+
+.cpu-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #007bff;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #e9f4fe; /* Light blue background */
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+}
+.homepage-container {
+  width: 100%;
+}
+.cart-button,
+.account-button {
+  background-color: #febd69;
+  color: black;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.category-navbar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.category-navbar ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.category-item {
+  margin: 0 20px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 5px; /* Adjust margin to ensure proper spacing */
+}
+
+.category-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px; /* Add margin-top if needed for better spacing */
+}
 
 
-b<style scoped>
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .products-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -183,35 +244,82 @@ b<style scoped>
     flex: 0 1 100%;
   }
 }
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #5f7b8a;
+  color: white;
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+  position: relative; /* Allows positioning adjustments */
+  height: 120px; /* Set a fixed height to control spacing */
+}
 
-.category-navbar {
+.logo {
+  position: absolute; /* Position it absolutely within header */
+  left: 10px; /* Align to the left */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for centering */
+  padding: 0; /* Remove any padding */
+}
+.brand-logo {
+  height: 115px; /* Set a reasonable height for the logo */
+  width: auto; /* Maintain aspect ratio */
+  transition: transform 0.3s;
+}
+.brand-logo:hover {
+  transform: scale(1.05); /* Subtle hover effect */
+}
+.search-bar {
+  flex: 2;
   display: flex;
   justify-content: center;
-  margin-bottom: 15px;
+  align-items: center;
 }
 
-.category-navbar ul {
-  list-style: none;
+.search-input {
+  width: 40%;
+  padding: 6px;
+  border-radius: 5px 0 0 5px;
+  border: none;
+}
+
+.search-button {
+  padding: 6px 10px;
+  border-radius: 0 5px 5px 0;
+  background-color: #febd69;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-button {
+  background-color: #febd69;
+  color: black;
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
   display: flex;
-  padding: 0;
+  align-items: center;
+  justify-content: center;
 }
 
-.category-item {
-  margin: 0 10px;
-  text-align: center;
-  text-decoration: none;
+.icon-button .icon {
+  width: 24px; /* Adjust size of the icons */
+  height: 24px;
 }
 
-.category-image {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  margin-bottom: 5px;
+.icon-button:hover {
+  background-color: #f0c14b; /* Adjust hover effect as needed */
 }
 
-.category-name {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
+.header-buttons {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
+
+
+
 </style>

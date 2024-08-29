@@ -1,429 +1,294 @@
 <template>
-  <div class="header-container">
-    <div class="header-content">
-      <a class="navbar-brand" href="#" @click="toggleMainNav">
-        <img src="@/assets/icon.png" alt="Home" class="navbar-image" />
-      </a>
-      <h1 class="website-heading">Computer Components</h1>
-      <input
-          type="text"
-          placeholder="Search..."
-          class="search-bar"
-          v-model="searchQuery"
-          @keyup.enter="handleSearch"
-      />
-    </div>
+  <div class="homepage-container">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="logo">
+        <img :src="require('@/assets/cybertech.png')" alt="Brand Logo" class="brand-logo" />
+      </div>
 
-    <div v-if="showMainNav" class="main-navbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link class="nav-link" to="/cart">Cart</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/account">Account Information</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/payment">Payment Options</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/address">Address</router-link>
-        </li>
+      <!-- Centered Search Bar -->
+      <div class="search-bar">
+        <input
+            type="text"
+            placeholder="Search for products, brands, and more..."
+            class="search-input"
+            v-model="searchQuery"
+            @keyup.enter="handleSearch"
+        />
+        <button class="search-button" @click="handleSearch">Search</button>
+      </div>
+
+      <!-- Header Buttons -->
+      <div class="header-buttons">
+        <!-- Home Button -->
+        <router-link to="/" class="icon-button">
+          <!-- Home Icon SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon home-icon">
+            <path d="M12 3l1.45 1.32 7.55 6.68v10.2h-5v-6h-4v6H5V11.2l7.55-6.68L12 3z"/>
+          </svg>
+        </router-link>
+
+        <!-- Cart Button -->
+        <router-link to="/cart" class="icon-button">
+          <!-- Updated Cart Icon SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon cart-icon">
+            <path d="M7 4h-2l-3 7v11h18V11l-3-7h-2l-2 4H9l-2-4zm-2 7h14l2 8H5l2-8zm0 2h8v2H5v-2z"/>
+          </svg>
+        </router-link>
+
+        <!-- Account Button with Dropdown -->
+        <div class="account-dropdown">
+          <button @click="toggleDropdown" class="icon-button">
+            <!-- Account Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon account-icon">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6z"/>
+            </svg>
+          </button>
+
+          <div v-if="isDropdownVisible" class="dropdown-content">
+            <router-link to="/AccountInformation">Account Information</router-link>
+            <router-link to="/AddProducts">Add Products</router-link>
+            <router-link to="/DeleteProducts">Delete Products</router-link>
+            <router-link to="/PaymentOption">Payment Option</router-link>
+            <router-link to="/ShippingAddress">Shipping Address</router-link>
+            <router-link to="/UpdateProducts">Update Products</router-link>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navbar for Categories -->
+    <nav class="category-navbar">
+      <ul>
+        <router-link
+            v-for="(category, index) in categories"
+            :key="index"
+            :to="'/' + category.name.toLowerCase()"
+            class="category-item"
+        >
+          <img :src="category.image.src" :alt="category.image.alt" class="category-image" />
+          <span class="category-name">{{ category.name }}</span>
+        </router-link>
       </ul>
-    </div>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">
-        <img src="@/assets/home.png" alt="Home" class="navbar-image" />
-      </a>
-      <a class="navbar-brand" href="#" @click="toggleIntelNav">
-        <img src="@/assets/Intel.png" alt="Intel Components" class="navbar-image" />
-      </a>
-      <a class="navbar-brand" href="#" @click="toggleNvidiaNav">
-        <img src="@/assets/Nvidia.png" alt="Nvidia Components" class="navbar-image" />
-      </a>
-      <a class="navbar-brand" href="#" @click="toggleAMDNav">
-        <img src="@/assets/AMD.png" alt="AMD Components" class="navbar-image" />
-      </a>
-      <a class="navbar-brand" href="#" @click="toggleRyzenNav">
-        <img src="@/assets/Ryzen.png" alt="Ryzen Components" class="navbar-image" />
-      </a>
-      <div v-if="showIntelNav" class="secondary-navbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/i9">Intel Core i9 Processors</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/i7">Intel Core i7 Processors</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/i5">Intel Core i5 Processors</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/i3">Intel Core i3 Processors</router-link>
-          </li>
-        </ul>
-      </div>
-      <div v-if="showNvidiaNav" class="tertiary-navbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click="toggle3000SeriesNav">3000 series</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" @click="toggle4000SeriesNav">4000 series</a>
-          </li>
-        </ul>
-      </div>
-      <div v-if="show3000SeriesNav" class="quaternary-navbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX3090">RTX 3090</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX3080">RTX 3080</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX3070">RTX 3070</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX3060">RTX 3060</router-link>
-          </li>
-        </ul>
-      </div>
-      <div v-if="show4000SeriesNav" class="quaternary-navbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX4090">RTX 4090</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX4080">RTX 4080</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX4070">RTX 4070</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RTX4060">RTX 4060</router-link>
-          </li>
-        </ul>
-      </div>
-      <div v-if="showAMDNav" class="AMD-navbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/AmdRyzen9">AMD Ryzen 9 Processors</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/AmdRyzen7">AMD Ryzen 7 Processors</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/AmdRyzen5">AMD Ryzen 5 Processors</router-link>
-          </li>
-        </ul>
-      </div>
-      <div v-if="showRyzenNav" class="Ryzen-navbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RX7900XTX">RX 7900 XTX</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RX7900XT">RX 7900 XT</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RX7800XT">RX 7800 XT</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RX7700XT">RX 7700 XT</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RX7600XT">RX 7600 XT</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/RX7600">RX 7600</router-link>
-          </li>
-        </ul>
-      </div>
     </nav>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'NavbarTool',
   data() {
     return {
-      showMainNav: false,
-      showIntelNav: false,
-      showNvidiaNav: false,
-      show3000SeriesNav: false,
-      show4000SeriesNav: false,
-      showAMDNav: false,
-      showRyzenNav: false,
       searchQuery: '',
-
+      products: [],
+      isDropdownVisible: false, // Dropdown visibility state
+      categories: [
+        {name: 'CPU', image: {src: require('@/assets/cpuprocessor.png'), alt: 'CPU'}},
+        {name: 'GPU', image: {src: require('@/assets/gpu.png'), alt: 'GPU'}},
+        {name: 'Motherboard', image: {src: require('@/assets/motherboard.png'), alt: 'Motherboard'}},
+        {name: 'RAM', image: {src: require('@/assets/ramstick.png'), alt: 'RAM'}},
+        {name: 'Storage', image: {src: require('@/assets/storage.png'), alt: 'Storage'}},
+        {name: 'PSU', image: {src: require('@/assets/psu.png'), alt: 'PSU'}},
+        {name: 'Case', image: {src: require('@/assets/case.png'), alt: 'Case'}},
+        {name: 'Peripherals', image: {src: require('@/assets/peripherals.png'), alt: 'Peripherals'}},
+        {name: 'Monitors', image: {src: require('@/assets/monitor.png'), alt: 'Monitors'}},
+        {name: 'Cooling', image: {src: require('@/assets/cooler.png'), alt: 'Cooling'}},
+      ],
     };
   },
   methods: {
-    toggleMainNav() {
-      this.showMainNav = !this.showMainNav;
-      if (this.showMainNav) {
-        this.showIntelNav = false;
-        this.showNvidiaNav = false;
-        this.show3000SeriesNav = false;
-        this.show4000SeriesNav = false;
-        this.showAMDNav = false;
-        this.showRyzenNav = false;
-      }
-    },
-    toggleIntelNav() {
-      this.showIntelNav = !this.showIntelNav;
-      if (this.showIntelNav) {
-        this.showMainNav = false;
-        this.showNvidiaNav = false;
-        this.show3000SeriesNav = false;
-        this.show4000SeriesNav = false;
-        this.showAMDNav = false;
-        this.showRyzenNav = false;
-      }
-    },
-    toggleNvidiaNav() {
-      this.showNvidiaNav = !this.showNvidiaNav;
-      if (this.showNvidiaNav) {
-        this.showMainNav = false;
-        this.showIntelNav = false;
-        this.show3000SeriesNav = false;
-        this.show4000SeriesNav = false;
-        this.showAMDNav = false;
-        this.showRyzenNav = false;
-      }
-    },
-    toggleAMDNav() {
-      this.showAMDNav = !this.showAMDNav;
-      if (this.showAMDNav) {
-        this.showMainNav = false;
-        this.showIntelNav = false;
-        this.showNvidiaNav = false;
-        this.show3000SeriesNav = false;
-        this.show4000SeriesNav = false;
-        this.showRyzenNav = false;
-      }
-    },
-    toggleRyzenNav() {
-      this.showRyzenNav = !this.showRyzenNav;
-      if (this.showRyzenNav) {
-        this.showMainNav = false;
-        this.showIntelNav = false;
-        this.showNvidiaNav = false;
-        this.show3000SeriesNav = false;
-        this.show4000SeriesNav = false;
-        this.showAMDNav = false;
-      }
-    },
-    toggle3000SeriesNav() {
-      this.show3000SeriesNav = !this.show3000SeriesNav;
-      if (this.show3000SeriesNav) {
-        this.show4000SeriesNav = false;
-      }
-    },
-    toggle4000SeriesNav() {
-      this.show4000SeriesNav = !this.show4000SeriesNav;
-      if (this.show4000SeriesNav) {
-        this.show3000SeriesNav = false;
-      }
-    },
     handleSearch() {
       const query = this.searchQuery.trim().toLowerCase();
-
-      //// Nvidia 3000s series searchbar
-      if (query.includes('3060') || query.includes('rtx3060')) {
-        this.$router.push('/RTX3060');
-      } else if (query.includes('3070') || query.includes('rtx3070')) {
-        this.$router.push('/RTX3070');
-      } else if (query.includes('3080') || query.includes('rtx3080')) {
-        this.$router.push('/RTX3080');
-      } else if (query.includes('3090') || query.includes('rtx3090')) {
-        this.$router.push('/RTX3090');
-
-        //// Nvidia 4000s series searchbar
-      } else if (query.includes('4060') || query.includes('rtx4060')) {
-        this.$router.push('/RTX4060');
-      } else if (query.includes('4070') || query.includes('rtx4070')) {
-        this.$router.push('/RTX4070');
-      } else if (query.includes('4080') || query.includes('rtx4080')) {
-        this.$router.push('/RTX4080');
-      } else if (query.includes('4090') || query.includes('rtx4090')) {
-        this.$router.push('/RTX4090');
-
-        // Specific Intel CPU searchbar
-        //i3ProcessorPage
-      } else if (query.includes('i3-12100f') || query.includes('12100f') || query.includes('12100')) {
-          this.$router.push('/intel/i3processors/i3-12100f');
-      } else if (query.includes('i3-14100f') || query.includes('14100f')) {
-        this.$router.push('/intel/i3processors/i3-14100f');
-      } else if (query.includes('i3-14100') || query.includes('14100')){
-        this.$router.push('/intel/i3processors/i3-14100');
-
-        //i5ProcessorPage
-      } else if (query.includes('i5-12400f') || query.includes('12400f') || query.includes('12400')) {
-        this.$router.push('/intel/i5processors/i5-12400f');
-      } else if (query.includes('i5-14400f') || query.includes('14400f')) {
-        this.$router.push('/intel/i5processors/i5-14400f');
-      } else if (query.includes('i5-14400') || query.includes('14400')) {
-        this.$router.push('/intel/i5processors/i5-14400');
-      } else if (query.includes('i5-14500') || query.includes('14500')) {
-        this.$router.push('/intel/i5processors/i5-14500');
-      } else if (query.includes('i5-14600kf') || query.includes('14600kf')) {
-        this.$router.push('/intel/i5processors/i5-14600kf');
-      } else if (query.includes('i5-14600k') || query.includes('14600k')) {
-        this.$router.push('/intel/i5processors/i5-14600k');
-
-        //i7ProcessorPage
-      } else if (query.includes('i7-12700f') || query.includes('12700f') || query.includes('12700')) {
-        this.$router.push('/intel/i7processors/i7-12700f');
-      } else if (query.includes('i7-14700kf') || query.includes('14700kf')) {
-        this.$router.push('/intel/i7processors/i7-14700kf' );
-      } else if (query.includes('i7-14700k') || query.includes('14700k')) {
-        this.$router.push('/intel/i7processors/i7-14700k' );
-      } else if (query.includes('i7-14700f') || query.includes('14700f')) {
-        this.$router.push('/intel/i7processors/i7-14700f');
-      } else if (query.includes('i7-14700') || query.includes('14700')) {
-        this.$router.push('/intel/i7processors/i7-14700');
-
-        //i9ProcessorPage
-      } else if (query.includes('i9-14900kf') || query.includes('14900kf')) {
-        this.$router.push('/intel/i9processors/i9-14900kf'  );
-      } else if (query.includes('i9-14900k') || query.includes('14900k')) {
-        this.$router.push('/intel/i9processors/i9-14900k' );
-      } else if (query.includes('i9-14900f') || query.includes('14900f')) {
-        this.$router.push('/intel/i9processors/i9-14900f');
-      } else if (query.includes('i9-14900') || query.includes('14900')) {
-        this.$router.push('/intel/i9processors/i9-14900');
-
-          // General Intel CPU searchbar
-        } else if (query.includes('i9') || query.includes('intel core i9')) {
-          this.$router.push('/i9');
-        } else if (query.includes('i7') || query.includes('intel core i7')) {
-          this.$router.push('/i7');
-        } else if (query.includes('i5') || query.includes('intel core i5')) {
-          this.$router.push('/i5');
-        } else if (query.includes('i3') || query.includes('intel core i3')) {
-          this.$router.push('/i3');
-
-        // Specific AMD CPU searchbar
-        // Ryzen5Processors
-      } else if (query.includes('5600X') || query.includes('Ryzen 5 5600X')) {
-        this.$router.push('/amd/Ryzen5Processors/5600X');
-      } else if (query.includes('8400F') || query.includes('Ryzen 5 8400F')) {
-        this.$router.push('/amd/Ryzen5Processors/8400F');
-      } else if (query.includes('5500GT') || query.includes('Ryzen 5 5500GT')) {
-        this.$router.push('/amd/Ryzen5Processors/5500GT');
-      } else if (query.includes('8600G') || query.includes('Ryzen 5 8600G')) {
-        this.$router.push('/amd/Ryzen5Processors/8600G');
-      } else if (query.includes('9600X') || query.includes('Ryzen 5 9600X')) {
-        this.$router.push('/amd/Ryzen5Processors/9600X');
-
-        // Ryzen7Processors
-      } else if (query.includes('5700') || query.includes('Ryzen 7 5700')) {
-        this.$router.push('/amd/Ryzen7Processors/5700');
-      } else if (query.includes('8700F') || query.includes('Ryzen 7 8700F')) {
-        this.$router.push('/amd/Ryzen7Processors/8700F');
-      } else if (query.includes('5800XT') || query.includes('Ryzen 7 5800XT')) {
-        this.$router.push('/amd/Ryzen7Processors/5800XT');
-      } else if (query.includes('8700G') || query.includes('Ryzen 7 8700G')) {
-        this.$router.push('/amd/Ryzen7Processors/8700G');
-      } else if (query.includes('9700X') || query.includes('Ryzen 7 9700X')) {
-        this.$router.push('/amd/Ryzen7Processors/9700X');
-
-        // AMD searchbar
-      } else if (query.includes('AmdRyzen5') || query.includes('ryzen5')) {
-        this.$router.push('/AmdRyzen5');
-      } else if (query.includes('AmdRyzen7') || query.includes('ryzen7')) {
-        this.$router.push('/AmdRyzen7');
-      } else if (query.includes('AmdRyzen9') || query.includes('ryzen9')) {
-        this.$router.push('/AmdRyzen9');
-
-        //Ryzen searchbar
-        // AMD RX searchbar
-      } else if (query.includes('rx7900xtx') || query.includes('7900xtx')) {
-        this.$router.push('/RX7900XTX');
-      } else if (query.includes('rx7900xt') || query.includes('7900xt')) {
-        this.$router.push('/RX7900XT');
-      } else if (query.includes('rx7800xt') || query.includes('7800xt')) {
-        this.$router.push('/RX7800XT');
-      } else if (query.includes('rx7700xt') || query.includes('7700xt')) {
-        this.$router.push('/RX7700XT');
-      } else if (query.includes('rx7600xt') || query.includes('7600xt')) {
-        this.$router.push('/RX7600XT');
-      } else if (query.includes('rx7600') || query.includes('7600')) {
-        this.$router.push('/RX7600');
-
-      }else{
-        this.$router.push(`/search?query=${query}`);
+      const matchingCategory = this.categories.find(category => category.name.toLowerCase() === query);
+      if (matchingCategory) {
+        this.$router.push('/' + matchingCategory.name.toLowerCase());
+      } else if (query !== '') {
+        axios.get(`api/product/category/${this.searchQuery}`)
+            .then(response => {
+              this.products = response.data;
+            })
+            .catch(error => {
+              console.error('Error fetching products:', error);
+            });
       }
-    }
+    },
+    toggleDropdown() {
+      this.isDropdownVisible = !this.isDropdownVisible;
     }
   }
+}
 </script>
 
 <style scoped>
-.header-content {
+.homepage-container {
+  width: 100%;
+}
+
+/* Header Section */
+.header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
-  position: relative; /* Allow absolute positioning for the search bar */
+  justify-content: space-between;
+  background-color: #131921;
+  padding: 15px 30px;
+  color: white;
 }
 
-.website-heading {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-  flex-grow: 1; /* Ensures the heading takes up as much space as possible */
+.logo {
+  flex: 1;
 }
 
+.brand-logo {
+  height: 100px;
+  width: auto;
+  transition: transform 0.3s;
+}
 
-.website-heading {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  align: center;
+.brand-logo:hover {
+  transform: scale(1.05);
 }
 
 .search-bar {
-  padding: 5px;
-  font-size: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 300px;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  margin: 0 auto;
 }
 
-.navbar {
-  position: relative;
-  padding: 0;
-}
-
-.navbar-image {
-  width: 100px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.secondary-navbar, .tertiary-navbar, .quaternary-navbar, .AMD-navbar, .Ryzen-navbar {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #f8f9fa;
+.search-input {
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  padding: 10px 15px;
+  border: 2px solid #69feca;
+  border-right: none;
+  border-radius: 25px 0 0 25px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  height: 44px;
 }
 
-.secondary-navbar .nav-link, .tertiary-navbar .nav-link, .quaternary-navbar .nav-link, .AMD-navbar .nav-link, .Ryzen-navbar .nav-link {
-  padding: 10px 20px;
+.search-input:focus {
+  border-color: #69feca;
 }
 
-.secondary-navbar .nav-item, .tertiary-navbar .nav-item, .quaternary-navbar .nav-item, .AMD-navbar .nav-link, .Ryzen-navbar .nav-link {
-  border-bottom: 1px solid #dee2e6;
+.search-button {
+  padding: 10px 15px;
+  background-color: #69feca;
+  border: 2px solid #69feca;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  font-size: 16px;
+  height: 44px;
 }
 
+.search-button:hover {
+  background-color: #69feca;
+}
+
+/* Header Buttons */
+.header-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.icon-button {
+  background-color: #69feca;
+  color: black;
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-button:hover {
+  background-color: #57d6c2;
+}
+
+.home-icon {
+  fill: currentColor;
+}
+
+/* Account Dropdown */
+.account-dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #131921;
+  border: 1px solid #69feca;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 100;
+}
+
+.dropdown-content a {
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #57d6c2;
+}
+
+/* Navbar for Categories */
+.category-navbar {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.category-navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.category-item {
+  text-align: center;
+  text-decoration: none;
+}
+
+.category-image {
+  height: 100px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s;
+}
+
+.category-image:hover {
+  transform: scale(1.1);
+}
+
+.category-name {
+  font-size: 14px;
+  margin-top: 10px;
+  color: black;
+}
 </style>

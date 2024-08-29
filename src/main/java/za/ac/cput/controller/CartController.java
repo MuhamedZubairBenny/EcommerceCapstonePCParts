@@ -9,11 +9,12 @@ import za.ac.cput.service.CartService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("api/cart")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CartController {
-
-    @Autowired
     private CartService cartService;
+    @Autowired
+    CartController(CartService cartService) {this.cartService = cartService;}
 
     @PostMapping("/create")
     public Cart create(@RequestBody Cart cart) {

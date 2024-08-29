@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/product")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
     private ProductService productService;
     @Autowired
@@ -16,7 +17,7 @@ public class ProductController {
     @PostMapping("/create")
     public Product create(@RequestBody Product product){return productService.create(product);}
 
-    @PostMapping("/read/{productId}")
+    @GetMapping("/read/{productId}")
     public Product read(@PathVariable String productId){return productService.read(productId);}
 
     @PostMapping("/update")
@@ -33,4 +34,7 @@ public class ProductController {
 
     @GetMapping("/category/{searchString}")
     public List<Product> searchProductsByCategory(@PathVariable String searchString){return productService.searchProductsByCategory(searchString);}
+
+    @GetMapping("/searchById/{searchString}")
+    public List<Product> searchProductsById(@PathVariable String searchString){return productService.searchProductsById(searchString);}
 }

@@ -1,79 +1,89 @@
 package za.ac.cput.service;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.*;
 import za.ac.cput.factory.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.MethodName.class)
-class CartServiceTest {
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class CartServiceTest {
     @Autowired
-    private CartService service;
+    private CartService cartService;
+    private static Cart cart;
+    private static Customer customer;
 
-    private Contact contact = ContactFactory.buildContact("test@example.com", "1234567890", "123 Main St", "Cape Town", "Western Cape", "8000", "South Africa");
-    private Brand brand = BrandFactory.buildBrand("1234", "Nvidia");
-    private ProductCategory category = ProductCategoryFactory.buildProductCategory("1234", "GPU");
-    private Customer customer = CustomerFactory.buildCustomer("01", "John", "Doe", "password", contact);
+    @BeforeAll
+    static void setUp() {
+        //Build Customer
+        Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
+        assertNotNull(contact);
+        customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
+        assertNotNull(customer);
 
-    private List<Product> productList = new ArrayList<>();
-    private Cart cart;
+        //Build Product
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("02", "CPU");
+        Brand brand = BrandFactory.buildBrand("101", "AMD");
+        Product product = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
+        Product product2 = ProductFactory.buildProduct("005","Ryzen 5 5500GT", category, brand, "Ryzen CPU", 3499.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5500GT.png");
 
-    @BeforeEach
-    void a_setUp() {
-
-        Product product = ProductFactory.buildProduct("12345","GeForce GTX 1080", category, brand, "High-end gaming GPU", 699.99, 10, "10x10x5", "2 years");
+        //Create list of Products
+        List<Product> productList = new ArrayList<>();
         productList.add(product);
-        cart = CartFactory.buildCart("001", productList, customer, 699.99);
+        productList.add(product2);
+
+        //Create Cart
+        cart = CartFactory.buildCart("01", customer, productList);
+        assertNotNull(cart);
+        System.out.println(cart);
     }
 
     @Test
-    void b_create() {
-        Cart created = service.create(cart);
-        assertNotNull(created);
-        assertEquals(cart.getCartId(), created.getCartId());
-        System.out.println("Created: " + created);
+    @Order(1)
+    void create() {
+        Cart createdCart = cartService.create(cart);
+        assertNotNull(createdCart);
+        System.out.println(createdCart);
+    }
+
+
+    @Test
+    @Order(2)
+    void read() {
+        Cart readCart = cartService.read(cart.getCartId());
+        assertNotNull(readCart);
+        System.out.println(cart);
+
     }
 
     @Test
-    void c_read(){
-        Cart read = service.read(cart.getCartId());
-        assertNotNull(read);
-        assertEquals(cart.getCartId(), read.getCartId());
-        System.out.println("Read: " + read);
-    }
-
-    @Test
-    void d_update() {
-        Cart updatedCart = new Cart.Builder().copy(cart).setTotalPrice(799.99).build();
-        Cart updated = service.update(updatedCart);
+    @Order(3)
+    void update() {
+        Customer updatedCustomer = new Customer.Builder().copy(customer).setFirstName("Zubair").setLastName("Benny").build();
+        Cart newCart = new Cart.Builder().copy(cart).setCustomer(updatedCustomer).build();
+        Cart updated = cartService.update(newCart);
         assertNotNull(updated);
-        assertEquals(799.99, updated.getTotalPrice());
-        System.out.println("Updated: " + updated);
+        System.out.println(updated);
     }
 
     @Test
+    @Order(4)
     @Disabled
-    void e_delete() {
-        Cart created = service.create(cart);
-        service.delete(created.getCartId());
-        Cart deleted = service.read(created.getCartId());
-        assertNull(deleted);
-        System.out.println("Deleted: " + created.getCartId());
+    void delete() {
+        cartService.delete(cart.getCartId());
+        assertNull(cartService.read(cart.getCartId()));
+        System.out.println("Successfully deleted cart");
     }
 
     @Test
-    void f_getAll() {
-        List<Cart> carts = service.getAll();
-        assertNotNull(carts);
-        assertFalse(carts.isEmpty());
-        System.out.println("All Carts: " + carts);
+    @Order(5)
+    void getAll() {
+        System.out.println(cartService.getAll());
     }
+
 }

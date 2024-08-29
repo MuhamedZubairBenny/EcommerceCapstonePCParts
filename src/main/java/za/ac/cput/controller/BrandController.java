@@ -22,7 +22,7 @@ public class BrandController {
    @PostMapping("/update")
    public Brand update(@RequestBody Brand brand){return brandService.update(brand);}
 
-   @DeleteMapping("/detele/{id}")
+   @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable String brandId){brandService.delete(brandId);}
 
     @GetMapping("/getAll")
