@@ -19,10 +19,9 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
+import {useRouter} from "vue-router";
 
-// import { useRouter } from 'vue-router';
-
-// const router = useRouter();
+ const router = useRouter();
 
 // Define the products ref
 const products = ref([]);
@@ -40,6 +39,9 @@ onMounted(() => {
         console.error('Error fetching data:', error);
       });
 });
+const goToPage = (productId) => {
+  router.push({ name: 'ProductDetails', params: { id: productId } });
+};
 
 // Method to format price as currency
 const formatCurrency = (value) => {

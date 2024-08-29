@@ -22,17 +22,10 @@ onMounted(() => {
   fetchData();
 });
 
-// Navigate to the specific product page based on product ID
 const goToPage = (productId) => {
-  const productRoutes = {
-    "003": "/intel/I3Processors/i3-12100F",
-    "14100f": "/intel/I3Processors/i3-14100F",
-    "14100": "/intel/I3Processors/i3-14100"
-  };
-
-  const pagePath = productRoutes[productId] || '/product-not-found';
-  router.push(pagePath);
+  router.push({ name: 'ProductDetails', params: { id: productId } });
 };
+
 
 // Method to format price as currency
 const formatCurrency = (value) => {
@@ -50,7 +43,7 @@ const formatCurrency = (value) => {
           class="product-card"
           v-for="(product, index) in products"
           :key="index"
-          @click="goToPage(product.productId)">
+          @click="() => goToPage(product.productId)">
         <img
             :src="`/${product.productPicture}`"
             :alt="product.productName"

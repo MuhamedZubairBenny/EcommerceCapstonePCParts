@@ -1,6 +1,8 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +22,9 @@ public class Product {
     private String dimension;
     private String warranty;
     private String productPicture;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Cart> carts;
 
     protected Product() {}
 

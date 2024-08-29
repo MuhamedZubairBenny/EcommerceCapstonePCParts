@@ -21,22 +21,10 @@ const fetchData = () => {
 onMounted(() => {
   fetchData();
 });
-
-// Navigate to the specific product page based on product ID
 const goToPage = (productId) => {
-  const productRoutes = {
-    "12400f": "/intel/I5Processors/i5-12400F",
-    "14400": "/intel/I5Processors/i5-14400",
-    "14400f": "/intel/I5Processors/i5-14400F",
-    "14500": "/intel/I5Processors/i5-14500",
-    "14600k": "/intel/I5Processors/i5-14600K",
-    "14600KF": "/intel/I5Processors/i5-14600KF",
-
-  };
-
-  const pagePath = productRoutes[productId] || '/product-not-found';
-  router.push(pagePath);
+  router.push({ name: 'ProductDetails', params: { id: productId } });
 };
+
 
 // Method to format price as currency
 const formatCurrency = (value) => {

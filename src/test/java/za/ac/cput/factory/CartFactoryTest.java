@@ -1,13 +1,11 @@
 package za.ac.cput.factory;
 
-import jdk.jfr.Category;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.domain.*;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,42 +16,52 @@ class CartFactoryTest {
 
     @Test
     @Order(1)
-    void testBuildCartWithValidInput() {
-        Contact contact = ContactFactory.buildContact("Mark@gmail.com","0987654321","29 Waterway","Cape Town","Western Province","2604","South Africa");
-        Customer customer = CustomerFactory.buildCustomer("001","Mark","Stevens","Qw123",contact);
+    void buildCart() {
+        //Build Customer
+        Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
+        assertNotNull(contact);
+        Customer customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
+        assertNotNull(customer);
 
-        Brand brand = BrandFactory.buildBrand("001","Nvidia");
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("001","GPU");
+        //Build Product
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
+        Brand brand = BrandFactory.buildBrand("3456", "Asus");
+        Product product = ProductFactory.buildProduct("prod01","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+        Product product2 = ProductFactory.buildProduct("prod02","GTX 1080", category, brand, "Gaming GPU", 49995.00, 10, "10cm", "5 years", "Picture URL");
 
-        Product product1 = ProductFactory.buildProduct("prod001","GeForce 1080",category,brand,"gaming graphics card",1000.00,5,"20x10x5","3 years", "Picture URL");
-        Product product2 = ProductFactory.buildProduct("prod002","GeForce 1060",category,brand,"gaming graphics card",850.00,5,"20x10x5","3 years", "Picture URL");
+        //Create list of Products
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
+        productList.add(product2);
 
-        CartProductId id1 = new CartProductId("01", product1.getProductId());
-        CartProductId id2 = new CartProductId("01", product2.getProductId());
+        //Create Cart
+        Cart cart = CartFactory.buildCart("01", customer, productList);
+        assertNotNull(cart);
+        System.out.println(cart);
+    }
 
-        CartProduct cartProduct1 = new CartProduct.Builder()
-                .setId(id1)
-                .setCart(CartFactory.buildCart("01", customer, 1850))
-                .setProduct(product1)
-                .setQuantity(2)
-                .build();
+    @Test
+    @Order(2)
+    void testBuildCart() {
+        Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
+        assertNotNull(contact);
+        Customer customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
+        assertNotNull(customer);
 
-        CartProduct cartProduct2 = new CartProduct.Builder()
-                .setId(id2)
-                .setCart(CartFactory.buildCart("01", customer, 1850))
-                .setProduct(product2)
-                .setQuantity(1)
-                .build();
+        //Build Product
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
+        Brand brand = BrandFactory.buildBrand("3456", "Asus");
+        Product product = ProductFactory.buildProduct("prod01","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+        Product product2 = ProductFactory.buildProduct("prod02","GTX 1080", category, brand, "Gaming GPU", 49995.00, 10, "10cm", "5 years", "Picture URL");
 
-        List<CartProduct> cartProductList = new ArrayList<>();
-        cartProductList.add(cartProduct1);
-        cartProductList.add(cartProduct2);
-        assertNotNull(cartProductList);
-        System.out.println(cartProductList);
+        //Create list of Products
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
+        productList.add(product2);
 
-        Cart cart = CartFactory.buildCart("01",customer,cartProductList,1850.00);
+        //Create Cart
+        Cart cart = CartFactory.buildCart(customer, productList);
         assertNotNull(cart);
         System.out.println(cart);
     }
 }
-//
