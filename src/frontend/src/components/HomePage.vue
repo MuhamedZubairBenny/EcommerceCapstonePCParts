@@ -104,10 +104,10 @@ export default {
       searchQuery: '',
       products: [],
       images: [
-        { src: require('@/assets/pcparts.png'), alt: 'Parts' },
-        { src: require('@/assets/chassis.png'), alt: 'GPU' },
-        { src: require('@/assets/gaming.png'), alt: 'Gaming' },
-        { src: require('@/assets/pc.png'), alt: 'PC' }
+        {src: require('@/assets/ryzenslideshow.png'), alt: 'ryzen'},
+        {src: require('@/assets/laptopslideshow.png'), alt: 'laptop'},
+        {src: require('@/assets/alienware.png'), alt: 'alienware'},
+        {src: require('@/assets/computerslideshow.png'), alt: 'computer'}
       ],
     };
   },

@@ -36,10 +36,10 @@ export default {
       searchQuery: '',
       products: [],
       images: [
-        {src: require('@/assets/pcparts.png'), alt: 'PC'},
-        {src: require('@/assets/chassis.png'), alt: 'Chassis'},
-        {src: require('@/assets/gaming.png'), alt: 'Gaming'},
-        {src: require('@/assets/pc.png'), alt: 'PC'}
+        {src: require('@/assets/ryzenslideshow.png'), alt: 'ryzen'},
+        {src: require('@/assets/laptopslideshow.png'), alt: 'laptop'},
+        {src: require('@/assets/alienware.png'), alt: 'alienware'},
+        {src: require('@/assets/computerslideshow.png'), alt: 'computer'}
       ]
     };
   }
@@ -49,7 +49,7 @@ export default {
 <style scoped>
 .mySwiper {
   width: 100%;
-  height: 400px; /* Adjust height as needed */
+  height: 800px; /* Adjust height as needed */
   position: relative;
 }
 
@@ -64,8 +64,8 @@ export default {
 .swiper-button-next,
 .swiper-button-prev {
   color: #fff; /* Change navigation button color */
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   border-radius: 50%;
 }
