@@ -18,6 +18,8 @@ public class CartServiceTest {
     private static Cart cart;
     private static Customer customer;
 
+    private static Product product2;
+
     @BeforeAll
     static void setUp() {
         //Build Customer
@@ -30,12 +32,12 @@ public class CartServiceTest {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("02", "CPU");
         Brand brand = BrandFactory.buildBrand("101", "AMD");
         Product product = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
-        Product product2 = ProductFactory.buildProduct("005","Ryzen 5 5500GT", category, brand, "Ryzen CPU", 3499.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5500GT.png");
+        product2 = ProductFactory.buildProduct("005","Ryzen 5 5500GT", category, brand, "Ryzen CPU", 3499.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5500GT.png");
 
         //Create list of Products
         List<Product> productList = new ArrayList<>();
         productList.add(product);
-        productList.add(product2);
+       //productList.add(product2);
 
         //Create Cart
         cart = CartFactory.buildCart("01", customer, productList);
@@ -85,5 +87,21 @@ public class CartServiceTest {
     void getAll() {
         System.out.println(cartService.getAll());
     }
+
+    @Test
+    @Order(6)
+    void addCartProduct() {
+        // Fetch the existing cart
+        Cart existingCart = cartService.read(cart.getCartId());
+        assertNotNull(existingCart);
+
+        // Add the product to the cart
+        Cart updatedCart = cartService.addProductToCart(existingCart.getCartId(), product2.getProductId());
+
+        // Verify the product was added
+        assertTrue(updatedCart.getProducts().contains(product2));
+        System.out.println(updatedCart);
+    }
+
 
 }

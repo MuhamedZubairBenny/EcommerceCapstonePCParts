@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContactControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
-    private final String BASE_URL = "http://localhost:8080/pcparts/contact";
+    private final String BASE_URL = "http://localhost:3000/api/contact";
     private static Contact contact;
 
     @BeforeAll

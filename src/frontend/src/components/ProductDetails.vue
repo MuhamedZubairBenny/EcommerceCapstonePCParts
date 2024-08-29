@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 
 const route = useRoute();
+const router = useRouter();
 const product = ref(null);
 
 // Fetch product data based on the product ID from the route
@@ -17,7 +18,9 @@ const fetchProductDetails = () => {
         console.error('Error fetching product details:', error);
       });
 };
-
+// const props = defineProps({
+//   product: Object
+// });
 onMounted(() => {
   fetchProductDetails();
 });
@@ -27,6 +30,30 @@ const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
+// Method to add product to cart
+const addToCart = () => {
+  if (product.value) {
+    fetch(`/api/cart/01/addProduct/${product.value.productId}`, { // Use `product.value.productId`
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Product added to cart!');
+            router.push('/cart'); // Redirect to the cart page after adding the product
+          } else {
+            console.error('Error adding product to cart:', data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error adding product to cart:', error);
+        });
+  }
+};
+
 
 // Navigate back to the product list
 const goBack = () => {
@@ -63,7 +90,7 @@ const goBack = () => {
     </div>
     <div class="product-footer">
       <button @click="goBack" class="back-button">Back to Products</button>
-      <button @click="goBack" class="cart-button">Add to cart</button>
+      <button @click="addToCart" class="cart-button">Add to Cart</button>
     </div>
   </div>
 </template>
@@ -163,6 +190,10 @@ const goBack = () => {
   transition: background-color 0.3s, transform 0.2s;
 }
 .back-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+.cart-button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
