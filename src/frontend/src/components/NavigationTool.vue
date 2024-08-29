@@ -59,7 +59,7 @@
 
     <!-- Navbar for Categories -->
     <nav v-if="!$route.meta.hideNavbar" class="category-navbar">
-      <button @click="toggleNav">Toggle Navigation</button>
+
       <ul>
         <router-link
             v-for="(category, index) in categories"
@@ -93,7 +93,7 @@ export default {
         {name: 'Storage', image: {src: require('@/assets/storage.png'), alt: 'Storage'}},
         {name: 'PSU', image: {src: require('@/assets/psu.png'), alt: 'PSU'}},
         {name: 'Case', image: {src: require('@/assets/case.png'), alt: 'Case'}},
-        {name: 'Peripherals', image: {src: require('@/assets/peripherals.png'), alt: 'Peripherals'}},
+        {name: 'Peripherals',image: {src: require('@/assets/peripherals.png'), alt: 'Peripherals'}},
         {name: 'Monitors', image: {src: require('@/assets/monitor.png'), alt: 'Monitors'}},
         {name: 'Cooling', image: {src: require('@/assets/cooler.png'), alt: 'Cooling'}},
       ],
@@ -118,10 +118,6 @@ export default {
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible;
     },
-    toggleNav() {
-      const isExpanded = ;
-      this.$emit('nav-toggle', isExpanded);
-    }
   }
 }
 </script>
