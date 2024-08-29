@@ -1,8 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-export default {
-  name:'ProductCart'
-}
 
 // Sample data for shipping information
 const shippingInfo = ref({
@@ -32,12 +29,6 @@ const shippingInfo = ref({
       <p><strong>Country:</strong> {{ shippingInfo.country }}</p>
       <p><strong>Phone Number:</strong> {{ shippingInfo.phone }}</p>
     </div>
-  </div>
-</template>
-
-  <div>
-    <h1>Cart</h1>
-    <p>cart</p>
   </div>
 </template>
 

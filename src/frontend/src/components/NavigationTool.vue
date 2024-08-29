@@ -36,13 +36,24 @@
           </svg>
         </router-link>
 
-        <!-- Account Button -->
-        <router-link to="/account" class="icon-button">
-          <!-- Account Icon SVG -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon account-icon">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6z"/>
-          </svg>
-        </router-link>
+        <!-- Account Button with Dropdown -->
+        <div class="account-dropdown">
+          <button @click="toggleDropdown" class="icon-button">
+            <!-- Account Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon account-icon">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6z"/>
+            </svg>
+          </button>
+
+          <div v-if="isDropdownVisible" class="dropdown-content">
+            <router-link to="/AccountInformation">Account Information</router-link>
+            <router-link to="/AddProducts">Add Products</router-link>
+            <router-link to="/DeleteProducts">Delete Products</router-link>
+            <router-link to="/PaymentOption">Payment Option</router-link>
+            <router-link to="/ShippingAddress">Shipping Address</router-link>
+            <router-link to="/UpdateProducts">Update Products</router-link>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -66,50 +77,48 @@
 <script>
 import axios from 'axios';
 
-
 export default {
   name: 'NavbarTool',
   data() {
     return {
       searchQuery: '',
       products: [],
+      isDropdownVisible: false, // Dropdown visibility state
       categories: [
-        { name: 'CPU', image: { src: require('@/assets/cpuprocessor.png'), alt: 'CPU' } },
-        { name: 'GPU', image: { src: require('@/assets/gpu.png'), alt: 'GPU' } },
-        { name: 'Motherboard', image: { src: require('@/assets/motherboard.png'), alt: 'Motherboard' } },
-        { name: 'RAM', image: { src: require('@/assets/ramstick.png'), alt: 'RAM' } },
-        { name: 'Storage', image: { src: require('@/assets/storage.png'), alt: 'Storage' } },
-        { name: 'PSU', image: { src: require('@/assets/psu.png'), alt: 'PSU' } },
-        { name: 'Case', image: { src: require('@/assets/case.png'), alt: 'Case' } },
-        { name: 'Peripherals', image: { src: require('@/assets/peripherals.png'), alt: 'Peripherals' } },
-        { name: 'Monitors', image: { src: require('@/assets/monitor.png'), alt: 'Monitors' } },
-        { name: 'Cooling', image: { src: require('@/assets/cooler.png'), alt: 'Cooling' } },
+        {name: 'CPU', image: {src: require('@/assets/cpuprocessor.png'), alt: 'CPU'}},
+        {name: 'GPU', image: {src: require('@/assets/gpu.png'), alt: 'GPU'}},
+        {name: 'Motherboard', image: {src: require('@/assets/motherboard.png'), alt: 'Motherboard'}},
+        {name: 'RAM', image: {src: require('@/assets/ramstick.png'), alt: 'RAM'}},
+        {name: 'Storage', image: {src: require('@/assets/storage.png'), alt: 'Storage'}},
+        {name: 'PSU', image: {src: require('@/assets/psu.png'), alt: 'PSU'}},
+        {name: 'Case', image: {src: require('@/assets/case.png'), alt: 'Case'}},
+        {name: 'Peripherals', image: {src: require('@/assets/peripherals.png'), alt: 'Peripherals'}},
+        {name: 'Monitors', image: {src: require('@/assets/monitor.png'), alt: 'Monitors'}},
+        {name: 'Cooling', image: {src: require('@/assets/cooler.png'), alt: 'Cooling'}},
       ],
     };
   },
   methods: {
-        handleSearch() {
-          console.log('Search button clicked!');
-          const query = this.searchQuery.trim().toLowerCase();
-          // Check if the search query matches a category name
-          const matchingCategory = this.categories.find(category => category.name.toLowerCase() === query);
-          if (matchingCategory) {
-            // Redirect to the category page
-            this.$router.push('/' + matchingCategory.name.toLowerCase());
-          } else if (query !== '') {
-            // Otherwise, perform a product search
-            axios.get(`api/product/category/${this.searchQuery}`)
-                .then(response => {
-                  this.products = response.data;  // Update products with search results
-                })
-                .catch(error => {
-                  console.error('Error fetching products:', error);
-                });
-          }
-        }
+    handleSearch() {
+      const query = this.searchQuery.trim().toLowerCase();
+      const matchingCategory = this.categories.find(category => category.name.toLowerCase() === query);
+      if (matchingCategory) {
+        this.$router.push('/' + matchingCategory.name.toLowerCase());
+      } else if (query !== '') {
+        axios.get(`api/product/category/${this.searchQuery}`)
+            .then(response => {
+              this.products = response.data;
+            })
+            .catch(error => {
+              console.error('Error fetching products:', error);
+            });
       }
+    },
+    toggleDropdown() {
+      this.isDropdownVisible = !this.isDropdownVisible;
+    }
+  }
 }
-
 </script>
 
 <style scoped>
@@ -138,7 +147,7 @@ export default {
 }
 
 .brand-logo:hover {
-  transform: scale(1.05); /* Subtle hover effect */
+  transform: scale(1.05);
 }
 
 .search-bar {
@@ -146,7 +155,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35%; /* Adjust width for better layout */
+  width: 35%;
   margin: 0 auto;
 }
 
@@ -163,7 +172,7 @@ export default {
 }
 
 .search-input:focus {
-  border-color: #69feca; /* Change border color on focus */
+  border-color: #69feca;
 }
 
 .search-button {
@@ -177,7 +186,7 @@ export default {
 }
 
 .search-button:hover {
-  background-color: #69feca; /* Hover color */
+  background-color: #69feca;
 }
 
 /* Header Buttons */
@@ -200,57 +209,86 @@ export default {
 }
 
 .icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
+  width: 24px;
   height: 24px;
 }
 
 .icon-button:hover {
-  background-color: #57d6c2; /* Hover effect */
+  background-color: #57d6c2;
 }
 
 .home-icon {
-  fill: currentColor; /* Ensure icon uses current text color */
+  fill: currentColor;
+}
+
+/* Account Dropdown */
+.account-dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #131921;
+  border: 1px solid #69feca;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 100;
+}
+
+.dropdown-content a {
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #57d6c2;
 }
 
 /* Navbar for Categories */
 .category-navbar {
   display: flex;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-top: 20px;
 }
 
 .category-navbar ul {
   list-style: none;
-  display: flex;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .category-item {
-  margin: 0 20px;
   text-align: center;
   text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .category-image {
-  width: 100px;
   height: 100px;
-  object-fit: contain;
-  margin-bottom: 5px; /* Adjust margin to ensure proper spacing */
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s;
+}
+
+.category-image:hover {
+  transform: scale(1.1);
 }
 
 .category-name {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-top: 5px; /* Add margin-top if needed for better spacing */
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-size: 14px;
+  margin-top: 10px;
+  color: black;
 }
 </style>
