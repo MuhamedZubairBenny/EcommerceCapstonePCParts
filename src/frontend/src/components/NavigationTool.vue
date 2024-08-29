@@ -18,29 +18,31 @@
         <button class="search-button" @click="handleSearch">Search</button>
       </div>
 
-      <!-- Search Results -->
-      <div class="product-results" v-if="products.length > 0">
-        <div v-for="product in products" :key="product.id" class="product-card">
-          <h3>{{ product.name }}</h3>
-          <p>{{ product.description }}</p>
-          <span>\${{ product.price }}</span>
-        </div>
-      </div>
-
-      <!-- Cart and Account Icons -->
+      <!-- Header Buttons -->
       <div class="header-buttons">
-        <button class="icon-button">
+        <!-- Home Button -->
+        <router-link to="/" class="icon-button">
+          <!-- Home Icon SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon home-icon">
+            <path d="M12 3l1.45 1.32 7.55 6.68v10.2h-5v-6h-4v6H5V11.2l7.55-6.68L12 3z"/>
+          </svg>
+        </router-link>
+
+        <!-- Cart Button -->
+        <router-link to="/cart" class="icon-button">
           <!-- Updated Cart Icon SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon cart-icon">
             <path d="M7 4h-2l-3 7v11h18V11l-3-7h-2l-2 4H9l-2-4zm-2 7h14l2 8H5l2-8zm0 2h8v2H5v-2z"/>
           </svg>
-        </button>
-        <button class="icon-button">
+        </router-link>
+
+        <!-- Account Button -->
+        <router-link to="/account" class="icon-button">
           <!-- Account Icon SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon account-icon">
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6z"/>
           </svg>
-        </button>
+        </router-link>
       </div>
     </header>
 
@@ -115,55 +117,23 @@ export default {
   width: 100%;
 }
 
-.header-buttons {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.icon-button {
-  background-color: #febd69;
-  color: black;
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
-  height: 24px;
-}
-
-.icon-button:hover {
-  background-color: #f0c14b; /* Adjust hover effect as needed */
-}
-
-
 /* Header Section */
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #131921;
-  color: white;
   padding: 15px 30px;
+  color: white;
 }
 
 .logo {
-  position: absolute; /* Position it absolutely within header */
-  left: 10px; /* Adjust the left margin to position */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for centering */
-  padding: 0; /* Remove any padding */
+  flex: 1;
 }
 
 .brand-logo {
-  height: 115px; /* Set a reasonable height for the logo */
-  width: auto; /* Maintain aspect ratio */
+  height: 100px;
+  width: auto;
   transition: transform 0.3s;
 }
 
@@ -176,25 +146,48 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 35%; /* Adjust width for better layout */
+  margin: 0 auto;
 }
 
 .search-input {
-  width: 40%;
-  padding: 6px;
-  border-radius: 5px 0 0 5px;
-  border: none;
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #69feca;
+  border-right: none;
+  border-radius: 25px 0 0 25px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  height: 44px;
+}
+
+.search-input:focus {
+  border-color: #69feca; /* Change border color on focus */
 }
 
 .search-button {
-  padding: 6px 10px;
-  border-radius: 0 5px 5px 0;
-  background-color: #febd69;
-  border: none;
+  padding: 10px 15px;
+  background-color: #69feca;
+  border: 2px solid #69feca;
+  border-radius: 0 25px 25px 0;
   cursor: pointer;
+  font-size: 16px;
+  height: 44px;
+}
+
+.search-button:hover {
+  background-color: #69feca; /* Hover color */
+}
+
+/* Header Buttons */
+.header-buttons {
+  display: flex;
+  align-items: center;
 }
 
 .icon-button {
-  background-color: #febd69;
+  background-color: #69feca;
   color: black;
   padding: 10px;
   margin-left: 10px;
@@ -212,27 +205,14 @@ export default {
 }
 
 .icon-button:hover {
-  background-color: #f0c14b; /* Adjust hover effect as needed */
+  background-color: #57d6c2; /* Hover effect */
 }
 
-.header-buttons {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
+.home-icon {
+  fill: currentColor; /* Ensure icon uses current text color */
 }
 
-.cart-button,
-.account-button {
-  background-color: #febd69;
-  color: black;
-  padding: 10px 20px;
-  margin-left: 10px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Category Navbar */
+/* Navbar for Categories */
 .category-navbar {
   display: flex;
   justify-content: center;
@@ -268,41 +248,9 @@ export default {
   margin-top: 5px; /* Add margin-top if needed for better spacing */
 }
 
-/* Slideshow */
-.mySwiper {
-  width: 100%;
-  height: 300px;
-}
-
-.slide-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  background-color: #5f7b8a;
-  color: white;
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
-  position: relative; /* Allows positioning adjustments */
-  height: 120px; /* Set a fixed height to control spacing */
-}
-
-.logo {
-  position: absolute; /* Position it absolutely within header */
-  left: 10px; /* Align to the left */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for centering */
-  padding: 0; /* Remove any padding */
-}
-
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 </style>

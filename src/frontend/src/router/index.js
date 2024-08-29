@@ -3,7 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'; // Import the corre
 import HomePage from '@/components/HomePage.vue';
 import CpuCategory from '@/components/ProductCategories/CpuCategory.vue';
 import GpuCategory from '@/components/ProductCategories/GpuCategory.vue';
+import ShippingAddress from '@/components/Profile/ShippingAddress.vue';
 import ProductDetails from "@/components/ProductDetails.vue";
+
 //import Profile from '@/components/Profile/Profile.vue';
 // import ProductPage from '@/components/ProductPage.vue';
 // Create a router instance
@@ -30,7 +32,18 @@ const router = createRouter({
             path: '/gpu',
             name: 'GpuCategory',
             component: GpuCategory
+        },
+        {
+            path: '/cpu',
+            name: 'CpuCategory',
+            component: CpuCategory
+        },
+        {
+            path: '/shipping',
+            name: 'ShippingAddress',  // Add this route for ShippingAddress
+            component: ShippingAddress
         }
+
         // {
         //     path: '/profile',
         //     name: 'Profile',
