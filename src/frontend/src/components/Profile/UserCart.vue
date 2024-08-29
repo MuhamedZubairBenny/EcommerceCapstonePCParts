@@ -7,14 +7,14 @@
 
     <!-- Cart Items -->
     <div v-if="cartItems.length > 0" class="cart-items">
-      <div class="cart-item" v-for="item in cartItems" :key="item.id">
-        <img :src="item.image" alt="Product Image" class="cart-item-image" />
+      <div class="cart-item" v-for="item in cartItems" :key="item.productId">
+        <img :src="item.productPicture" alt="Product Image" class="cart-item-image" />
         <div class="cart-item-details">
-          <h2 class="cart-item-title">{{ item.name }}</h2>
+          <h2 class="cart-item-title">{{ item.productName }}</h2>
           <p class="cart-item-price">${{ item.price.toFixed(2) }}</p>
           <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
           <p class="cart-item-total">Total: ${{ (item.price * item.quantity).toFixed(2) }}</p>
-          <button @click="removeFromCart(item.id)" class="remove-button">Remove</button>
+          <button @click="removeFromCart(item.productId)" class="remove-button">Remove</button>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
       <div class="cart-summary">
         <h3>Cart Summary</h3>
         <p>Total Items: {{ totalItems }}</p>
-        <p>Total Price: ${{ totalPrice.toFixed(2) }}</p>
+        <p>Total Price: R{{ totalPrice.toFixed(2) }}</p>
         <button @click="proceedToCheckout" class="checkout-button">Proceed to Checkout</button>
       </div>
     </div>
@@ -35,37 +35,41 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 
 export default {
   name: 'UserCart',
   setup() {
-    const cartItems = ref([
-      {
-        id: 1,
-        name: 'Product 1',
-        price: 29.99,
-        quantity: 2,
-        image: 'https://via.placeholder.com/100'
-      },
-      {
-        id: 2,
-        name: 'Product 2',
-        price: 49.99,
-        quantity: 1,
-        image: 'https://via.placeholder.com/100'
-      },
-      {
-        id: 3,
-        name: 'Product 3',
-        price: 15.99,
-        quantity: 3,
-        image: 'https://via.placeholder.com/100'
+    const cartItems = ref([]);
+
+    const fetchCartItems = async () => {
+      try {
+        const response = await fetch('/api/cart/read/01'); // Adjust this URL to match your backend endpoint
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Fetched data:', data); // Log the data to ensure it's correct
+
+          // Assuming the data structure is like { products: [...] }
+          cartItems.value = data.products.map(product => ({
+            productId: product.productId,
+            productName: product.productName,
+            productPicture: product.productPicture,
+            price: product.price,
+            quantity: 1 // Adjust if your backend provides quantity
+          })) || []; // Ensure it's an array
+        } else {
+          console.error('Error fetching cart items:', response.statusText);
+          cartItems.value = [];
+        }
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+        cartItems.value = [];
       }
-    ]);
+    };
+
 
     const removeFromCart = (productId) => {
-      cartItems.value = cartItems.value.filter(item => item.id !== productId);
+      cartItems.value = cartItems.value.filter(item => item.productId !== productId);
     };
 
     const proceedToCheckout = () => {
@@ -80,6 +84,10 @@ export default {
       return cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
     });
 
+    onMounted(() => {
+      fetchCartItems();
+    });
+
     return {
       cartItems,
       removeFromCart,
@@ -90,7 +98,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 .cart-heading {

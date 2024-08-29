@@ -1,6 +1,7 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import za.ac.cput.domain.Cart;
@@ -36,8 +37,14 @@ public class CartController {
         cartService.delete(id);
     }
 
-    @GetMapping("/getall")
+    @GetMapping("/getAll")
     public List<Cart> getAll() {
         return cartService.getAll();
+    }
+
+    @PostMapping("/{cartId}/addProduct/{productId}")
+    public ResponseEntity<Cart> addCartProduct(@PathVariable String cartId,@PathVariable String productId){
+        Cart updatedCart = cartService.addProductToCart(cartId,productId);
+        return ResponseEntity.ok(updatedCart);
     }
 }
