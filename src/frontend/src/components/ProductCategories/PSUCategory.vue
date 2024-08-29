@@ -1,12 +1,30 @@
+<template>
+  <h1 class="gpu-heading">PSU Category</h1>
+  <div class="products-container">
+    <ul class="products-list">
+      <li
+          v-for="product in products"
+          :key="product.productId"
+          class="product-item"
+          @click="goToPage(product.productId)"
+      >
+        <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
+        <div class="product-details">
+          <h3>{{ product.productName }}</h3>
+          <p class="price">{{ formatCurrency(product.price) }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import {useRouter} from "vue-router";
-
 const router = useRouter();
-// Define the products ref
+
 const products = ref([]);
 
-// Fetch data when the component is mounted
 onMounted(() => {
   fetch("/api/product/category/PSU")
       .then((response) => response.json())
@@ -21,62 +39,39 @@ onMounted(() => {
 const goToPage = (productId) => {
   router.push({ name: 'ProductDetails', params: { id: productId } });
 };
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
-
-// Define categories for navigation
-const categories = [
-  { name: 'CPU', image: { src: require('@/assets/cpuprocessor.png'), alt: 'CPU' } },
-  { name: 'GPU', image: { src: require('@/assets/gpu.png'), alt: 'GPU' } },
-  { name: 'Motherboard', image: { src: require('@/assets/motherboard.png'), alt: 'Motherboard' } },
-  { name: 'RAM', image: { src: require('@/assets/ramstick.png'), alt: 'RAM' } },
-  { name: 'Storage', image: { src: require('@/assets/storage.png'), alt: 'Storage' } },
-  { name: 'PSU', image: { src: require('@/assets/psu.png'), alt: 'PSU' } },
-  { name: 'Case', image: { src: require('@/assets/case.png'), alt: 'Case' } },
-  { name: 'Peripherals', image: { src: require('@/assets/peripherals.png'), alt: 'Peripherals' } },
-  { name: 'Monitors', image: { src: require('@/assets/monitor.png'), alt: 'Monitors' } },
-  { name: 'Cooling', image: { src: require('@/assets/cooler.png'), alt: 'Cooling' } },
-];
 </script>
 
-<template>
-  <div class="slideshow-container">
-    <!-- Navbar for Categories -->
-    <nav class="category-navbar">
-      <ul>
-        <router-link
-            v-for="(category, index) in categories"
-            :key="index"
-            :to="`/${category.name.toLowerCase()}`"
-            class="category-item"
-            @click="goToPage(product.productId)"
-        >
-          <img :src="category.image.src" :alt="category.image.alt" class="category-image" />
-          <span class="category-name">{{ category.name }}</span>
-        </router-link>
-      </ul>
-    </nav>
-  </div>
-  <h1>Power Supply Products</h1>
+<style scoped>
 
-  <!-- Product List -->
-  <div class="products-container">
-    <ul class="products-list">
-      <li v-for="product in products" :key="product.productId" class="product-item">
-        <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
-        <div class="product-details">
-          <h3>{{ product.productName }}</h3>
-          <p class="price">{{ formatCurrency(product.price) }}</p>
-        </div>
-      </li>
-    </ul>
-  </div>
-</template>
+.gpu-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #007bff;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #e9f4fe; /* Light blue background */
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+}
 
-b<style scoped>
+.category-navbar ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .products-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -142,34 +137,9 @@ b<style scoped>
   }
 }
 
-.category-navbar {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
+.icon-button .icon {
+  width: 24px; /* Adjust size of the icons */
+  height: 24px;
 }
 
-.category-navbar ul {
-  list-style: none;
-  display: flex;
-  padding: 0;
-}
-
-.category-item {
-  margin: 0 10px;
-  text-align: center;
-  text-decoration: none;
-}
-
-.category-image {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  margin-bottom: 5px;
-}
-
-.category-name {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
 </style>
