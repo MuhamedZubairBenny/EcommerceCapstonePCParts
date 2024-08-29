@@ -6,6 +6,12 @@
         <input
             type="text"
             class="input"
+            placeholder="Customer ID"
+            v-model="payload.customerId"
+        />
+        <input
+            type="text"
+            class="input"
             placeholder="First Name"
             v-model="payload.firstName"
         />
@@ -19,13 +25,13 @@
             type="email"
             class="input"
             placeholder="Email Address"
-            v-model="payload.emailAdd"
+            v-model="payload.email"
         />
         <input
             type="password"
             class="input"
             placeholder="Password"
-            v-model="payload.userPass"
+            v-model="payload.password"
         />
         <button class="form-btn" type="submit">
           Create account
@@ -47,18 +53,18 @@ export default {
   data() {
     return {
       payload: {
-        userId: null,
+        customerId: "",
         firstName: "",
         lastName: "",
-        emailAdd: "",
-        userPass: "",
+        email: "",
+        password: "",
       },
     };
   },
   methods: {
     async addingUser() {
       try {
-        const response = await axios.post("/api/customer", this.payload);
+        const response = await axios.post("http://localhost:3000/api/customer/create", this.payload);
 
         console.log("User added successfully:", response.data);
 

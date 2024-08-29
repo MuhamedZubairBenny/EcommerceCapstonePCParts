@@ -8,13 +8,13 @@
                class="input"
                placeholder="Email"
                required
-               v-model="payload.emailAdd"
+               v-model="payload.email"
         />
         <input type="password"
                class="input"
                placeholder="Password"
                required
-               v-model="payload.userPass"
+               v-model="payload.password"
         />
         <button type="button"
                 class="form-btn"
@@ -30,26 +30,34 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
+  name: "LoginUser",
   data() {
     return {
       payload: {
-        emailAdd: "",
-        userPass: "",
-      }
-    }
-  },
-  computed: {
-    users() {
-      return this.$store.state.users;
-    }
+        email: "",
+        password: "",
+      },
+      errorMessage: ""
+    };
   },
   methods: {
-    login() {
-      this.$store.dispatch('login', this.payload);
-      alert("Please refresh the page.");
+    async login() {
+      try {
+        const response = await axios.post("/api/customer/read", this.payload);
+        console.log("User logged in successfully:", response.data);
+
+        // Save token or user data if returned, then navigate to dashboard or home page
+        localStorage.setItem("token", response.data.token);
+        this.$router.push("/home");
+      } catch (error) {
+        console.error("Error logging in user:", error);
+        this.errorMessage = error.response ? error.response.data.message : "An error occurred";
+      }
     },
-  }
+  },
 };
 </script>
 

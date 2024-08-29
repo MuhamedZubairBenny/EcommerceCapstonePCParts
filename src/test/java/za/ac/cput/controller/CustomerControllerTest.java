@@ -27,7 +27,7 @@ class CustomerControllerTest {
     @BeforeAll
     public static void setup(){
         contact = ContactFactory.buildContact("ben@gmail.com", "075 435 2231", "109 Bridge Street", "Manchester", "Tea", "4200", "England");
-        customer = CustomerFactory.buildCustomer("10", "Ben", "Maverickal", "valorant", contact);
+        customer = CustomerFactory.buildCustomer("10", "Ben", "Maverickal", "valorant", "mikaeel@gmail.com");
     }
     @Test
     void a_create() {
