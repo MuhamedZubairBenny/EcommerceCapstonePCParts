@@ -11,6 +11,8 @@ import DeleteProducts from "@/components/Profile/DeleteProducts.vue";
 import Cart from "@/components/Profile/Cart.vue";
 import UpdateProducts from "@/components/Profile/UpdateProducts.vue";
 import PaymentOption from "@/components/Profile/PaymentOption.vue";
+import RegisterView from "@/components/Profile/RegisterView.vue";
+import LoginView from "@/components/Profile/LoginView.vue";
 
 //import Profile from '@/components/Profile/Profile.vue';
 // import ProductPage from '@/components/ProductPage.vue';
@@ -78,7 +80,18 @@ const router = createRouter({
             path: '/UpdateProducts',
             name: 'UpdateProducts',
             component: UpdateProducts
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: RegisterView
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginView
         }
+
 
         // {
         //     path: '/profile',
