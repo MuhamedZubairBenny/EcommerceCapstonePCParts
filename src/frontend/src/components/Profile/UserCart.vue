@@ -1,11 +1,9 @@
 <template>
   <h1 class="cart-heading">Your Cart</h1>
   <div class="cart-container">
-    <!-- Cart Header -->
     <header class="cart-header">
     </header>
 
-    <!-- Cart Items -->
     <div v-if="cartItems.length > 0" class="cart-items">
       <div class="cart-item" v-for="item in cartItems" :key="item.productId">
         <img :src="item.productPicture" alt="Product Image" class="cart-item-image" />
@@ -18,7 +16,6 @@
         </div>
       </div>
 
-      <!-- Cart Summary -->
       <div class="cart-summary">
         <h3>Cart Summary</h3>
         <p>Total Items: {{ totalItems }}</p>
@@ -27,7 +24,6 @@
       </div>
     </div>
 
-    <!-- Empty Cart Message -->
     <div v-else class="empty-cart">
       <p>Your cart is currently empty.</p>
     </div>

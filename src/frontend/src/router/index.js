@@ -20,11 +20,8 @@ import RAMCategory from "@/components/ProductCategories/RAMCategory.vue";
 import PSUCategory from "@/components/ProductCategories/PSUCategory.vue";
 import PeripheralCategory from "@/components/ProductCategories/PeripheralCategory.vue";
 
-//import Profile from '@/components/Profile/Profile.vue';
-// import ProductPage from '@/components/ProductPage.vue';
-// Create a router instance
 const router = createRouter({
-    history: createWebHistory(), // Use createWebHistory for Vue 3
+    history: createWebHistory(),
     routes: [
         {
             path: '/product/:id',
@@ -162,14 +159,12 @@ const router = createRouter({
         //         }
             //]
        // },
-        // Dynamic route for product categories
         // {
         //     path: '/:category',
         //     name: 'ProductPage',
         //     component: ProductPage,
         //     props: route => ({ category: route.params.category })
         // },
-        // // Dynamic route for product variants (e.g., processors, GPUs)
         // {
         //     path: '/category/product',
         //     name: 'ProductDetailPage',

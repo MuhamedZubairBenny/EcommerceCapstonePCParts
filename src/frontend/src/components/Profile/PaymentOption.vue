@@ -1,6 +1,6 @@
 <template>
   <div class="payment-container">
-    <!-- Payment Form -->
+
     <form @submit.prevent="handleSubmit" class="payment-form">
       <h2>Payment Details</h2>
 
@@ -24,7 +24,6 @@
         <input type="text" id="card-name" v-model="cardName" placeholder="John Doe"  />
       </div>
 
-      <!-- Price Details -->
       <div class="price-details">
         <div class="price-item">
           <span>Subtotal:</span>
@@ -81,11 +80,8 @@ export default {
   async mounted() {
     if (this.orderId) {
       try {
-        // Fetch order data
         const orderResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}`);
         this.subtotal = orderResponse.data.overallPrice;
-
-        // Fetch customer data
         const customerResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}/customer`);
         this.customer = customerResponse.data;
       } catch (error) {
@@ -111,7 +107,6 @@ export default {
         console.log('Payment successful:', response.data);
         alert('Payment confirmed!');
       } catch (error) {
-        // Handle error
         console.error('Payment error:', error);
         alert('Payment failed. Please try again.');
       }

@@ -84,9 +84,9 @@ export default {
     return {
       searchQuery: '',
       products: [],
-      isDropdownVisible: false, // Dropdown visibility state
+      isDropdownVisible: false,
       categories: [
-        {name: 'CPU', image: {src: require('@/assets/cpuprocessor.png'), alt: 'CPU'}},
+        {name: 'CPU', image: {src: require('@/assets/cpucattemp.png'), alt: 'CPU'}},
         {name: 'GPU', image: {src: require('@/assets/gpu.png'), alt: 'GPU'}},
         {name: 'Motherboard', image: {src: require('@/assets/motherboard.png'), alt: 'Motherboard'}},
         {name: 'RAM', image: {src: require('@/assets/ramstick.png'), alt: 'RAM'}},
@@ -127,7 +127,6 @@ export default {
   width: 100%;
 }
 
-/* Header Section */
 .header {
   display: flex;
   align-items: center;
@@ -222,7 +221,6 @@ export default {
   fill: currentColor;
 }
 
-/* Account Dropdown */
 .account-dropdown {
   position: relative;
   z-index: 1010;
@@ -254,17 +252,17 @@ export default {
   background-color: #57d6c2;
 }
 
-/* Navbar for Categories */
+
 .category-navbar {
   display: flex;
   justify-content: center;
-  background-color: #232f3e; /* Dark background for contrast */
-  padding: 15px 0; /* Add padding for better spacing */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  border-bottom: 2px solid #69feca; /* Stylish bottom border */
-  position: sticky; /* Stick to the top of the page */
+  background-color: #232f3e;
+  padding: 15px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #69feca;
+  position: sticky;
   top: 0;
-  z-index: 1000; /* Ensure navbar stays above other elements */
+  z-index: 1000;
 }
 
 .category-navbar ul {
@@ -274,7 +272,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px; /* Add more space between categories */
+  gap: 40px;
 }
 
 .category-item {
@@ -283,7 +281,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 120px; /* Fix width for consistent sizing */
+  width: 120px;
   color: white;
   position: relative;
   transition: color 0.3s ease;
@@ -295,22 +293,22 @@ export default {
   left: 50%;
   width: 0;
   height: 0;
-  background-color: rgba(255, 255, 255, 0.1); /* Add semi-transparent white background */
-  border: 2px solid #69feca; /* Border color */
-  border-radius: 8px; /* Rounded corners for smooth effect */
-  transform: translate(-50%, -50%); /* Center the pseudo-element */
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid #69feca;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
   transition: all 0.3s ease;
-  z-index: -1; /* Place the background behind the content */
+  z-index: -1;
 }
 
 .category-item:hover::before {
-  width: 140px; /* Expand width on hover */
-  height: 140px; /* Expand height on hover */
-  opacity: 1; /* Ensure it's visible */
+  width: 140px;
+  height: 140px;
+  opacity: 1;
 }
 
 .category-image {
-  height: 80px; /* Adjust image height for uniformity */
+  height: 80px;
   width: auto;
   display: block;
   margin: 0 auto;
@@ -318,54 +316,54 @@ export default {
 }
 
 .category-item:hover {
-  color: #69feca; /* Change color on hover */
+  color: #69feca;
 }
 .category-image:hover {
-  transform: scale(1.2); /* Enlarge image on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  transform: scale(1.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .category-name {
-  font-size: 16px; /* Increase font size for readability */
+  font-size: 16px;
   margin-top: 8px;
   color: white;
-  text-transform: uppercase; /* Make category names uppercase for style */
+  text-transform: uppercase;
   font-weight: bold;
 }
 
 @media (max-width: 768px) {
   .category-navbar ul {
-    gap: 20px; /* Reduce gap for smaller screens */
+    gap: 20px;
   }
 
   .category-item {
-    width: 100px; /* Reduce width on smaller screens */
+    width: 100px;
   }
 
   .category-image {
-    height: 60px; /* Smaller images on mobile */
+    height: 60px;
   }
 
   .category-name {
-    font-size: 14px; /* Adjust font size for mobile */
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
   .category-navbar ul {
-    gap: 10px; /* Further reduce gap for very small screens */
+    gap: 10px;
   }
 
   .category-item {
-    width: 80px; /* Adjust width further for small devices */
+    width: 80px;
   }
 
   .category-image {
-    height: 50px; /* Adjust image size for small devices */
+    height: 50px;
   }
 
   .category-name {
-    font-size: 12px; /* Smaller font size for small screens */
+    font-size: 12px;
   }
-} /* Closing brace was missing previously */
+}
 </style>
