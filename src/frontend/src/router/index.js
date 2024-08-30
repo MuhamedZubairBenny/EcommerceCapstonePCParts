@@ -8,9 +8,17 @@ import ProductDetails from "@/components/ProductDetails.vue";
 import AccountInformation from "@/components/Profile/AccountInformation.vue";
 import AddProducts from "@/components/Profile/AddProducts.vue";
 import DeleteProducts from "@/components/Profile/DeleteProducts.vue";
-import Cart from "@/components/Profile/Cart.vue";
 import UpdateProducts from "@/components/Profile/UpdateProducts.vue";
 import PaymentOption from "@/components/Profile/PaymentOption.vue";
+import UserCart from "@/components/Profile/UserCart.vue";
+import CoolingCategory from "@/components/ProductCategories/CoolingCategory.vue";
+import CaseCategory from "@/components/ProductCategories/CaseCategory.vue";
+import MonitorCategory from "@/components/ProductCategories/MonitorCategory.vue";
+import MotherboardCategory from "@/components/ProductCategories/MotherboardCategory.vue";
+import StorageCategory from "@/components/ProductCategories/StorageCategory.vue";
+import RAMCategory from "@/components/ProductCategories/RAMCategory.vue";
+import PSUCategory from "@/components/ProductCategories/PSUCategory.vue";
+import PeripheralCategory from "@/components/ProductCategories/PeripheralCategory.vue";
 
 //import Profile from '@/components/Profile/Profile.vue';
 // import ProductPage from '@/components/ProductPage.vue';
@@ -47,38 +55,85 @@ const router = createRouter({
         {
             path: '/ShippingAddress',
             name: 'ShippingAddress',
-            component: ShippingAddress
+            component: ShippingAddress,
+            meta: { hideNavbar: true },
         },
         {
             path: '/AccountInformation',
             name: 'AccountInformation',
-            component: AccountInformation
+            component: AccountInformation,
+            meta: { hideNavbar: true },
         },
         {
             path: '/AddProducts',
             name: 'AddProducts',
-            component: AddProducts
+            component: AddProducts,
+            meta: { hideNavbar: true },
         },
         {
             path: '/DeleteProducts',
             name: 'DeleteProducts',
-            component: DeleteProducts
+            component: DeleteProducts,
+            meta: { hideNavbar: true },
         },
         {
             path: '/PaymentOption',
             name: 'PaymentOption',
-            component: PaymentOption
+            component: PaymentOption,
+            meta: { hideNavbar: true },
         },
         {
-            path: '/Cart',
-            name: 'Cart',
-            component: Cart
+            path: '/cart',
+            name: 'UserCart',
+            component: UserCart,
+            meta: { hideNavbar: true },
         },
         {
             path: '/UpdateProducts',
             name: 'UpdateProducts',
-            component: UpdateProducts
-        }
+            component: UpdateProducts,
+            meta: { hideNavbar: true },
+        },
+    {
+        path: '/Peripherals',
+        name: 'PeripheralCategory',
+        component: PeripheralCategory
+    },
+    {
+        path: '/PSU',
+        name: 'PSUCategory',
+        component: PSUCategory
+    },
+    {
+        path: '/RAM',
+        name: 'RAMCategory',
+        component: RAMCategory
+    },
+    {
+        path: '/Storage',
+        name: 'StorageCategory',
+        component: StorageCategory
+    },
+    {
+        path: '/Motherboard',
+        name: 'MotherboardCategory',
+        component: MotherboardCategory
+    },
+    {
+        path: '/Monitor',
+        name: 'MonitorCategory',
+        component: MonitorCategory
+    },
+    {
+        path: '/Case',
+        name: 'CaseCategory',
+        component: CaseCategory
+    },
+    {
+        path: '/Cooling',
+        name: 'CoolingCategory',
+        component: CoolingCategory
+    },
 
         // {
         //     path: '/profile',
@@ -125,7 +180,7 @@ const router = createRouter({
         //     })
         //}
 
-    ]
+    ],
 });
 
 
