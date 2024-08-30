@@ -21,7 +21,7 @@ public class PaymentFactory {
                 .build();
     }
 
-    public static Payment buildPayment(String paymentType,Customer customer, Order order,double paymentTotal) {
+    public static Payment buildPayment(Customer customer, Order order, String paymentType, double paymentTotal) {
         if (Helper.isNullOrEmpty(paymentType) || paymentTotal <= 0) {
             return null;
         }

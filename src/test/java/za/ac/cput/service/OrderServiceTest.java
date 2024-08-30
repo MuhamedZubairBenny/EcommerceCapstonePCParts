@@ -62,4 +62,11 @@ class OrderServiceTest {
     void f_getAll() {
         System.out.println(orderService.getAll());
     }
+
+    @Test
+    void g_findCustomerByOrderId() {
+        Customer foundCustomer = orderService.getCustomerByOrderId(order1.getOrderId());
+        assertNotNull(foundCustomer);
+        System.out.println(foundCustomer);
+    }
 }
