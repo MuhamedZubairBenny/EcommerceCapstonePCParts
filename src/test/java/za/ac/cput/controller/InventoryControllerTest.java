@@ -26,7 +26,7 @@ class InventoryControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final String BASE_URL = "http://localhost:8080/pcparts/inventory";
+    private final String BASE_URL = "http://localhost:3000/api/inventory";
     private static Inventory inventory;
     private static Brand brand;
     private static ProductCategory productCategory;

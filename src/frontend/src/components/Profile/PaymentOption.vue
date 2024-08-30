@@ -6,22 +6,22 @@
 
       <div class="form-group">
         <label for="card-number">Card Number</label>
-        <input type="text" id="card-number" v-model="cardNumber" placeholder="1234 5678 9012 3456" required />
+        <input type="text" id="card-number" v-model="cardNumber" placeholder="1234 5678 9012 3456"  />
       </div>
 
       <div class="form-group">
         <label for="card-expiry">Expiry Date</label>
-        <input type="text" id="card-expiry" v-model="expiryDate" placeholder="MM/YY" required />
+        <input type="text" id="card-expiry" v-model="expiryDate" placeholder="MM/YY"  />
       </div>
 
       <div class="form-group">
         <label for="card-cvv">CVV</label>
-        <input type="text" id="card-cvv" v-model="cvv" placeholder="123" required />
+        <input type="text" id="card-cvv" v-model="cvv" placeholder="123"  />
       </div>
 
       <div class="form-group">
         <label for="card-name">Cardholder's Name</label>
-        <input type="text" id="card-name" v-model="cardName" placeholder="John Doe" required />
+        <input type="text" id="card-name" v-model="cardName" placeholder="John Doe"  />
       </div>
 
       <div class="price-details">
@@ -54,6 +54,9 @@ export default {
       type: String,
       default: '001',
     },
+    overallPrice: {
+      default: 0,
+    }
   },
   data() {
     return {
@@ -187,8 +190,13 @@ h2 {
 }
 
 .confirm-button {
+
+  //padding: 10px 20px;
+  //background-color: #059090FF;
+
   padding: 12px;
   background-color: #28a745;
+
   color: white;
   border: none;
   border-radius: 8px;
@@ -200,6 +208,6 @@ h2 {
 }
 
 .confirm-button:hover {
-  background-color: #218838;
+  background-color: #059090FF;
 }
 </style>
