@@ -44,17 +44,26 @@ export default {
     };
   },
   methods: {
-    async login() {
-      try {
-        const response = await axios.post("/api/customer/read", this.payload);
-        console.log("User logged in successfully:", response.data);
-
-        // Save token or user data if returned, then navigate to dashboard or home page
-        localStorage.setItem("token", response.data.token);
-        this.$router.push("/home");
-      } catch (error) {
-        console.error("Error logging in user:", error);
-        this.errorMessage = error.response ? error.response.data.message : "An error occurred";
+    login() {
+      if (this.username && this.password) {
+        // Example API call using Axios (replace with your actual API endpoint)
+        axios.post('/login', {
+          username: this.username,
+          password: this.password
+        })
+            .then(response => {
+              // Handle successful login
+              window.location.href = '/home'; // Redirect to home page or another page
+            })
+            .catch(error => {
+              if (error.response && error.response.status === 401) {
+                this.errorMessage = 'Invalid username or password.';
+              } else {
+                this.errorMessage = 'An error occurred during login.';
+              }
+            });
+      } else {
+        this.errorMessage = 'Please enter your username and password.';
       }
     },
   },

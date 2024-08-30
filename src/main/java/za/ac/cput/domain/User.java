@@ -5,34 +5,37 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Inheritance
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
-
     @Column(unique = true, nullable = false)
     private String email;
-
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String password;
 
-    public Long getUserId() {
+
+    public long getUserId() {
         return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    protected User() {}
-
-    public User(String email, String password) {
-        this.email = email;
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -40,14 +43,12 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(userId, user.userId) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password);
+        return getUserId() == user.getUserId() && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, email, password);
+        return Objects.hash(getUserId(), getEmail(), getPassword());
     }
 
     @Override
@@ -59,3 +60,5 @@ public class User {
                 '}';
     }
 }
+
+

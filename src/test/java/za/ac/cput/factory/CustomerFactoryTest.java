@@ -16,12 +16,12 @@ class CustomerFactoryTest {
     @Order(1)
     void buildCustomerWithObject() {
         //Build Contact
-        Contact contact  = new ContactFactory().buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
-        assertNotNull(contact);
-        System.out.println(contact);
+//        Contact contact  = new ContactFactory().buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
+//        assertNotNull(contact);
+//        System.out.println(contact);
 
         //Build Customer
-        Customer customer = new CustomerFactory().buildCustomer("01","Muhamed","Zubair", "123", contact);
+        Customer customer = new CustomerFactory().buildCustomer("01","Muhamed","Zubair", "123", "hhhhgmail.com");
         assertNotNull(customer);
         System.out.println(customer);
     }
@@ -29,7 +29,7 @@ class CustomerFactoryTest {
     @Test
     @Order(2)
     void BuildCustomerWithStringContact() {
-        Customer customer = new CustomerFactory().buildCustomer("02", "Duane", "Prins", "321", "dprins@gmail.com", "012 345 6789", "70 Jabrone Boulevard", "Cape Town", "Western Cape", "7230", "South Africa");
+        Customer customer = new CustomerFactory().buildCustomer("02", "Duane", "Prins", "321", "dprins@gmail.com");
         assertNotNull(customer);
         System.out.println(customer);
     }
@@ -37,12 +37,12 @@ class CustomerFactoryTest {
     @Test
     @Order(3)
     void buildCustomerWithObjectFail() {
-        //Build Contact
-        Contact contact  = new ContactFactory().buildContact("zbennygmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
-        assertNotNull(contact);
-        System.out.println(contact);
+//        //Build Contact
+//        Contact contact  = new ContactFactory().buildContact("zbennygmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
+//        assertNotNull(contact);
+//        System.out.println(contact);
         //Build Customer
-        Customer customer = new CustomerFactory().buildCustomer("01","Muhamed","Zubair", "123", contact);
+        Customer customer = new CustomerFactory().buildCustomer("01","Muhamed","Zubair", "123", "hhh@gmail.com");
         assertNotNull(customer);
         System.out.println(customer);
     }
@@ -50,7 +50,7 @@ class CustomerFactoryTest {
     @Test
     @Order(4)
     void BuildCustomerWithStringFail() {
-        Customer customer = new CustomerFactory().buildCustomer("02", "Duane", "Prins", "321", "dprinsgmail.com", "098 765 4321", "70 Jabrone Boulevard", "Cape Town", "Western Cape", "7230", "South Africa");
+        Customer customer = new CustomerFactory().buildCustomer("02", "Duane", "Prins", "321", "dprinsgmail.com");
         assertNotNull(customer);
         System.out.println(customer);
     }

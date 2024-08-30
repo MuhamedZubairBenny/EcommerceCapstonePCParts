@@ -13,9 +13,9 @@ public class Customer {
     private String customerId;
     private String firstName;
     private String lastName;
+    private String email;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Contact contact;
+
 
     protected Customer() {}
 
@@ -24,7 +24,7 @@ public class Customer {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.password = builder.password;
-        this.contact = builder.contact;
+        this.email = builder.email;
     }
 
     public String getCustomerId() {
@@ -43,21 +43,20 @@ public class Customer {
         return password;
     }
 
-    public Contact getContact() {
-        return contact;
+    public String getEmail() {
+        return email;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(customerId, customer.customerId) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(password, customer.password) && Objects.equals(contact, customer.contact);
+        if (!(o instanceof Customer customer)) return false;
+        return Objects.equals(getCustomerId(), customer.getCustomerId()) && Objects.equals(getFirstName(), customer.getFirstName()) && Objects.equals(getLastName(), customer.getLastName()) && Objects.equals(getEmail(), customer.getEmail()) && Objects.equals(getPassword(), customer.getPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, firstName, lastName, password, contact);
+        return Objects.hash(getCustomerId(), getFirstName(), getLastName(), getEmail(), getPassword());
     }
 
     @Override
@@ -66,8 +65,8 @@ public class Customer {
                 "customerId='" + customerId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", contact=" + contact +
                 '}';
     }
 
@@ -75,8 +74,8 @@ public class Customer {
         private String customerId;
         private String firstName;
         private String lastName;
+        private String email;
         private String password;
-        private Contact contact;
 
         public Builder setCustomerId(String customerId) {
             this.customerId = customerId;
@@ -93,22 +92,23 @@ public class Customer {
             return this;
         }
 
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
         public Builder setPassword(String password) {
             this.password = password;
             return this;
         }
 
-        public Builder setContact(Contact contact) {
-            this.contact = contact;
-            return this;
-        }
+
 
         public Builder copy(Customer customer){
             this.customerId = customer.customerId;
             this.firstName = customer.firstName;
             this.lastName = customer.lastName;
+            this.email = customer.email;
             this.password = customer.password;
-            this.contact = customer.contact;
             return this;
         }
 

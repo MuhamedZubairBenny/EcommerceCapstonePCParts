@@ -2,7 +2,6 @@ package za.ac.cput.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Contact;
 import za.ac.cput.domain.Customer;
@@ -17,10 +16,6 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-   @GetMapping("/csrf-token")
-   public CsrfToken getCsrfToken(HttpServletRequest request){
-       return (CsrfToken) request.getAttribute("_csrf");
-   }
 
     @PostMapping("/create")
     public Customer create(@RequestBody Customer customer){return customerService.create(customer);}

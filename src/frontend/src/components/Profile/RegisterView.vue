@@ -85,7 +85,7 @@ export default {
 }
 .form-container {
   width: 350px;
-  height: 480px;
+  height: 580px;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;

@@ -22,7 +22,7 @@ public class CustomerService implements ICustomerService{
 
     @Override
     public Customer create(Customer customer) {
-        contactRepository.save(customer.getContact());
+       // contactRepository.save(customer.getContact());
         return repository.save(customer);}
 
     @Override
@@ -32,7 +32,7 @@ public class CustomerService implements ICustomerService{
 
     @Override
     public Customer update(Customer customer) {
-        contactRepository.save(customer.getContact());
+       // contactRepository.save(customer.getContact());
         return repository.save(customer);
     }
 
