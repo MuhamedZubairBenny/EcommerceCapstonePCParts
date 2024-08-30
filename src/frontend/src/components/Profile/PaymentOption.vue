@@ -23,7 +23,6 @@
         <label for="card-name">Cardholder's Name</label>
         <input type="text" id="card-name" v-model="cardName" placeholder="John Doe"  />
       </div>
-
       <div class="price-details">
         <div class="price-item">
           <span>Subtotal:</span>
@@ -92,6 +91,7 @@ export default {
   methods: {
     async handleSubmit() {
       try {
+
         const paymentData = {
           paymentId: '',
           order: {

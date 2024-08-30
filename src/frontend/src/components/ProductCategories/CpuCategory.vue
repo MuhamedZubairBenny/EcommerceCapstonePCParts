@@ -266,72 +266,51 @@ html, body {
   position: relative;
   height: 120px;
 }
+  .brand-logo {
+    height: 115px;
+    width: auto;
+    transition: transform 0.3s;
+  }
 
-.logo {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 0;
-}
-.brand-logo {
-  height: 115px;
-  width: auto;
-  transition: transform 0.3s;
-}
-.brand-logo:hover {
-  transform: scale(1.05);
-}
-.search-bar {
-  flex: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .brand-logo:hover {
+    transform: scale(1.05);
+  }
 
-.search-input {
-  width: 40%;
-  padding: 6px;
-  border-radius: 5px 0 0 5px;
-  border: none;
-}
+  .search-bar {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon-button {
+    background-color: #febd69;
+    color: black;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.search-button {
-  padding: 6px 10px;
-  border-radius: 0 5px 5px 0;
-  background-color: #febd69;
-  border: none;
-  cursor: pointer;
-}
+  .icon-button .icon {
+    width: 24px;
+    height: 24px;
+  }
 
-.icon-button {
-  background-color: #febd69;
-  color: black;
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .icon-button:hover {
+    background-color: #f0c14b;
+  }
 
-.icon-button .icon {
-  width: 24px;
-  height: 24px;
+  .header-buttons {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
-
-.icon-button:hover {
-  background-color: #f0c14b;
-}
-
-.header-buttons {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-
 
 
 </style>

@@ -13,7 +13,6 @@
 
 <script>
 export default {
-
   data() {
     return {
       productId: '',
@@ -30,11 +29,13 @@ export default {
           method: 'DELETE',
         });
 
-        if (response.ok) {
+        if (response.status === 204) {
           alert('Product deleted successfully!');
           this.productId = '';
+        } else if (response.status === 404) {
+          alert('Product not found. Please check the product ID.');
         } else {
-          alert('Failed to delete product.');
+          alert('Failed to delete product. Please try again later.');
         }
       } catch (error) {
         console.error('Error deleting product:', error);
