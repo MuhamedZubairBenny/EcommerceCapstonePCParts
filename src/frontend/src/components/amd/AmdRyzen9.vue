@@ -1,15 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-// Define the products ref
 const products = ref([]);
 
-// Fetch data when the component is mounted
 const fetchData = () => {
   fetch("/api/product/search/Ryzen 9")
       .then(response => response.json())
       .then(data => {
-        products.value = data; // Store fetched data
+        products.value = data;
         console.log(products.value.map(p => p.productPicture));
       })
       .catch(error => {
@@ -21,7 +19,6 @@ onMounted(() => {
   fetchData();
 });
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
@@ -54,60 +51,60 @@ const formatCurrency = (value) => {
 .products-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Adjusted for even spacing */
+  justify-content: space-between;
   list-style: none;
   padding: 0;
-  margin: 0; /* Ensure no extra margin on the container */
+  margin: 0;
 }
 
 .product-item {
   background-color: #f8f9fa;
-  border: 3px solid #007bff; /* Blue border */
+  border: 3px solid #007bff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, border-color 0.3s ease;
-  flex: 0 1 calc(25% - 20px); /* Each product takes up approximately 25% of the row with spacing */
-  margin: 10px; /* Reduced margin to fit more items */
-  padding: 15px; /* Increased padding */
+  flex: 0 1 calc(25% - 20px);
+  margin: 10px;
+  padding: 15px;
   text-align: center;
 }
 
 .product-item:hover {
   transform: translateY(-10px);
-  border-color: #28a745; /* Change border to green on hover */
+  border-color: #28a745;
 }
 
 .product-image {
-  width: 150px; /* Increased image width */
+  width: 150px;
   height: auto;
-  margin-bottom: 15px; /* Increased margin */
+  margin-bottom: 15px;
 }
 
 .product-details {
-  padding: 15px; /* Increased padding */
+  padding: 15px;
 }
 
 .product-details h3 {
-  font-size: 1.3rem; /* Increased font size */
-  margin-bottom: 10px; /* Increased margin */
+  font-size: 1.3rem;
+  margin-bottom: 10px;
   color: #333;
 }
 
 .product-details .price {
-  font-size: 1.2rem; /* Increased font size */
-  color: #ff5722; /* Orange color for currency */
+  font-size: 1.2rem;
+  color: #ff5722;
 }
 
 @media (max-width: 768px) {
   .product-item {
-    flex: 0 1 calc(50% - 20px); /* Each product takes up approximately 50% of the row on smaller screens */
+    flex: 0 1 calc(50% - 20px);
   }
 }
 
 @media (max-width: 480px) {
   .product-item {
-    flex: 0 1 calc(100% - 20px); /* Each product takes up the full width of the row on mobile screens */
+    flex: 0 1 calc(100% - 20px);
   }
 }
 </style>

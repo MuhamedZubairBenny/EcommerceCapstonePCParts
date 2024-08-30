@@ -29,7 +29,7 @@ const formatCurrency = (value) => {
 
 const addToCart = () => {
   if (product.value) {
-    fetch(`/api/cart/01/addProduct/${product.value.productId}`, { // Use `product.value.productId`
+    fetch(`/api/cart/01/addProduct/${product.value.productId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const addToCart = () => {
         .then(data => {
           if (data.success) {
             alert('Product added to cart!');
-            router.push('/cart'); // Redirect to the cart page after adding the product
+            router.push('/cart');
           } else {
             console.error('Error adding product to cart:', data.message);
           }
