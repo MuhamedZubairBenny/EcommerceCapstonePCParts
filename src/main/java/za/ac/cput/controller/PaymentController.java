@@ -9,7 +9,7 @@ import za.ac.cput.service.IPaymentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("api/payment")
 public class PaymentController {
 
     @Autowired

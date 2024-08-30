@@ -1,5 +1,5 @@
 <template>
-  <h1 class="gpu-heading">Monitor Category</h1>
+  <h1 class="mon-heading">Monitors</h1>
   <div class="products-container">
     <ul class="products-list">
       <li
@@ -17,11 +17,9 @@
     </ul>
   </div>
 </template>
-
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import {useRouter} from "vue-router";
-
 const router = useRouter();
 
 const products = ref([]);
@@ -30,7 +28,7 @@ onMounted(() => {
   fetch("/api/product/category/Monitor")
       .then((response) => response.json())
       .then((data) => {
-        products.value = data; // Store fetched data
+        products.value = data;
         console.log(products.value.map(p => p.productPicture));
       })
       .catch((error) => {
@@ -38,17 +36,17 @@ onMounted(() => {
       });
 });
 const goToPage = (productId) => {
-  router.push({name: 'ProductDetails', params: {id: productId}});
+  router.push({ name: 'ProductDetails', params: { id: productId } });
 };
 const formatCurrency = (value) => {
   if (!value) return '';
-  return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'ZAR'}).format(value);
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 </script>
 
 <style scoped>
 
-.gpu-heading {
+.mon-heading {
   text-align: center;
   font-size: 2.5rem;
   color: #007bff;
@@ -139,7 +137,7 @@ html, body {
 }
 
 .icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
+  width: 24px;
   height: 24px;
 }
 

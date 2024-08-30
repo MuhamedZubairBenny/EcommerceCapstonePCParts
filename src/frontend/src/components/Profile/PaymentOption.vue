@@ -1,30 +1,28 @@
 <template>
   <div class="payment-container">
-    <!-- Payment Form -->
+
     <form @submit.prevent="handleSubmit" class="payment-form">
       <h2>Payment Details</h2>
 
       <div class="form-group">
         <label for="card-number">Card Number</label>
-        <input type="text" id="card-number" v-model="cardNumber" placeholder="1234 5678 9012 3456" required />
+        <input type="text" id="card-number" v-model="cardNumber" placeholder="1234 5678 9012 3456"  />
       </div>
 
       <div class="form-group">
         <label for="card-expiry">Expiry Date</label>
-        <input type="text" id="card-expiry" v-model="expiryDate" placeholder="MM/YY" required />
+        <input type="text" id="card-expiry" v-model="expiryDate" placeholder="MM/YY"  />
       </div>
 
       <div class="form-group">
         <label for="card-cvv">CVV</label>
-        <input type="text" id="card-cvv" v-model="cvv" placeholder="123" required />
+        <input type="text" id="card-cvv" v-model="cvv" placeholder="123"  />
       </div>
 
       <div class="form-group">
         <label for="card-name">Cardholder's Name</label>
-        <input type="text" id="card-name" v-model="cardName" placeholder="John Doe" required />
+        <input type="text" id="card-name" v-model="cardName" placeholder="John Doe"  />
       </div>
-
-
       <div class="price-details">
         <div class="price-item">
           <span>Subtotal:</span>
@@ -55,6 +53,9 @@ export default {
       type: String,
       default: '001',
     },
+    overallPrice: {
+      default: 0,
+    }
   },
   data() {
     return {
@@ -64,7 +65,7 @@ export default {
       cardName: '',
       subtotal: 0,
       vatRate: 0.15,
-      customer: null,  // Add customer data
+      customer: null,
     };
   },
   computed: {
@@ -78,11 +79,8 @@ export default {
   async mounted() {
     if (this.orderId) {
       try {
-        // Fetch order data
         const orderResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}`);
         this.subtotal = orderResponse.data.overallPrice;
-
-        // Fetch customer data
         const customerResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}/customer`);
         this.customer = customerResponse.data;
       } catch (error) {
@@ -97,21 +95,18 @@ export default {
         const paymentData = {
           paymentId: '',
           order: {
-            orderId: this.orderId, // Assuming you might need to include the order ID
+            orderId: this.orderId,
           },
-          customer: this.customer, // Include customer details here
-          paymentType: 'Credit Card', // Replace with actual payment type if necessary
+          customer: this.customer,
+          paymentType: 'Credit Card',
           paymentTotal: this.total,
         };
 
-        // Make POST request to backend
         const response = await axios.post('http://localhost:3000/api/payment/create', paymentData);
 
-        // Handle successful response
         console.log('Payment successful:', response.data);
         alert('Payment confirmed!');
       } catch (error) {
-        // Handle error
         console.error('Payment error:', error);
         alert('Payment failed. Please try again.');
       }
@@ -195,8 +190,13 @@ h2 {
 }
 
 .confirm-button {
+
+  //padding: 10px 20px;
+  //background-color: #059090FF;
+
   padding: 12px;
   background-color: #28a745;
+
   color: white;
   border: none;
   border-radius: 8px;
@@ -208,6 +208,6 @@ h2 {
 }
 
 .confirm-button:hover {
-  background-color: #218838;
+  background-color: #059090FF;
 }
 </style>

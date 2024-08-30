@@ -127,7 +127,6 @@ export default {
     },
     async addProduct() {
       try {
-
         const productData = {
           productId: this.product.productId,
           productName: this.product.productName,

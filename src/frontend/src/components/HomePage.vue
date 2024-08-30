@@ -1,8 +1,9 @@
 
-<template>
+<template xmlns:th="http://www.w3.org/1999/xhtml">
   <div class="homepage-container">
 <!--    &lt;!&ndash; Navigation Tool &ndash;&gt;-->
     <NavigationTool />
+
 <!--    &lt;!&ndash; Header Section &ndash;&gt;-->
 <!--    <header class="header">-->
 <!--      <div class="logo">-->
@@ -59,7 +60,6 @@
 <!--      </ul>-->
 <!--    </nav>-->
 
-    <!-- Slideshow -->
 
   <Swiper
         :slides-per-view="1"
@@ -75,17 +75,23 @@
       </SwiperSlide>
     </Swiper>
 
-    <!-- About Us Section -->
-    <section class="About-us">
+    <section id="about-us" class="about-us-section">
+    </section>
+
+    <section class="about-us">
       <h2>About Us</h2>
-      <p>Welcome to CyberTech! We are passionate about bringing the best in PC components and technology to enthusiasts worldwide...</p>
+      <p>Welcome to CyberTech! We are a group of like-minded individuals who have a deep passion for the world of pcs.</p>
+      <p>We are passionate about bringing the best in PC components and technology to enthusiasts nationwide.
+        We are committed to delivering quality products and service to our customers and wanting to make their dreams possible.  </p>
+      <div class="about-icons">
+        </div>
     </section>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-// Ensure correct path
+
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
@@ -133,65 +139,65 @@ export default {
 </script>
 
 <style scoped>
-/* Enhanced About Us Section */
+
 .about-us {
-  background: linear-gradient(135deg, #5f7b8a, #131921); /* Subtle gradient background */
-  color: white; /* Change text color for contrast */
-  padding: 60px 30px; /* Add more padding for spacious feel */
+  background: linear-gradient(135deg, #5f7b8a, #131921);
+  color: white;
+  padding: 60px 30px;
   text-align: center;
-  border-radius: 10px; /* Add rounded corners */
-  margin: 40px auto; /* Center section with margin */
-  max-width: 1200px; /* Limit the width to avoid excessive stretching */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+  border-radius: 10px;
+  margin: 40px auto;
+  max-width: 1200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .about-us h2 {
-  font-size: 40px; /* Make heading larger */
-  margin-bottom: 25px; /* Adjust bottom margin */
-  color: #febd69; /* Use the theme color for emphasis */
-  font-family: 'Roboto', sans-serif; /* Custom font for a modern look */
-  text-transform: uppercase; /* Make heading uppercase */
-  letter-spacing: 1.5px; /* Add letter spacing for style */
+  font-size: 40px;
+  margin-bottom: 25px;
+  color: #febd69; /
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .about-us p {
-  font-size: 20px; /* Increase text size for readability */
-  line-height: 1.8; /* Add line height for spacing */
-  margin-bottom: 20px; /* Adjust bottom margin for spacing between paragraphs */
-  color: #e0e0e0; /* Softer white for less eye strain */
-  font-family: 'Open Sans', sans-serif; /* Use a clean font for body text */
+  font-size: 20px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #e0e0e0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .about-us p:last-child {
-  margin-bottom: 0; /* Remove margin from the last paragraph */
+  margin-bottom: 0;
 }
 
 .about-us p:first-child {
-  font-style: italic; /* Emphasize the first paragraph */
-  font-weight: 300; /* Lighter font weight */
+  font-style: italic;
+  font-weight: 300;
 }
 
 .about-us h2::after {
-  content: ''; /* Add a decorative line below heading */
+  content: '';
   display: block;
   width: 100px;
   height: 4px;
   background-color: #febd69;
-  margin: 10px auto; /* Center the line */
-  border-radius: 2px; /* Rounded edges */
+  margin: 10px auto;
+  border-radius: 2px;
 }
 
 @media (max-width: 768px) {
   .about-us {
-    padding: 40px 20px; /* Reduce padding on smaller screens */
+    padding: 40px 20px;
   }
 
   .about-us h2 {
-    font-size: 30px; /* Adjust font size for smaller screens */
+    font-size: 30px;
   }
 
   .about-us p {
-    font-size: 18px; /* Adjust text size for better readability */
+    font-size: 18px;
   }
 }
 .homepage-container {
@@ -218,16 +224,16 @@ export default {
 }
 
 .icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
+  width: 24px; /
   height: 24px;
 }
 
 .icon-button:hover {
-  background-color: #f0c14b; /* Adjust hover effect as needed */
+  background-color: #f0c14b;
 }
 
 
-/* Header Section */
+
 .header {
   display: flex;
   align-items: center;
@@ -237,21 +243,21 @@ export default {
 }
 
 .logo {
-  position: absolute; /* Position it absolutely within header */
-  left: 10px; /* Adjust the left margin to position */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for centering */
-  padding: 0; /* Remove any padding */
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
 }
 
 .brand-logo {
-  height: 115px; /* Set a reasonable height for the logo */
-  width: auto; /* Maintain aspect ratio */
+  height: 115px;
+  width: auto;
   transition: transform 0.3s;
 }
 
 .brand-logo:hover {
-  transform: scale(1.05); /* Subtle hover effect */
+  transform: scale(1.05);
 }
 
 .search-bar {
@@ -290,12 +296,12 @@ export default {
 }
 
 .icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
+  width: 24px;
   height: 24px;
 }
 
 .icon-button:hover {
-  background-color: #f0c14b; /* Adjust hover effect as needed */
+  background-color: #f0c14b;
 }
 
 .header-buttons {
@@ -341,17 +347,16 @@ export default {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  margin-bottom: 5px; /* Adjust margin to ensure proper spacing */
+  margin-bottom: 5px;
 }
 
 .category-name {
   font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin-top: 5px; /* Add margin-top if needed for better spacing */
+  margin-top: 5px;
 }
 
-/* Slideshow */
 .mySwiper {
   width: 100%;
   height: 300px;
@@ -368,18 +373,17 @@ export default {
   align-items: center;
   background-color: #5f7b8a;
   color: white;
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
-  position: relative; /* Allows positioning adjustments */
-  height: 120px; /* Set a fixed height to control spacing */
-}
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 120px;
 
 .logo {
-  position: absolute; /* Position it absolutely within header */
-  left: 10px; /* Align to the left */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for centering */
-  padding: 0; /* Remove any padding */
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
 }
 
 html, body {
@@ -387,6 +391,120 @@ html, body {
   padding: 0;
   box-sizing: border-box;
 }
+.about-us {
+  background: linear-gradient(135deg, #1e3b70, #2a5298);
+  color: white;
+  padding: 70px 40px;
+  text-align: center;
+  border-radius: 15px;
+  margin: 50px auto;
+  max-width: 1000px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.about-us h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  color: #febd69;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.about-us p {
+  font-size: 22px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  color: #e0e0e0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.about-us p:first-child {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.about-us h2::after {
+  content: '';
+  display: block;
+  width: 110px;
+  height: 5px;
+  background-color: #febd69;
+  margin: 12px auto;
+  border-radius: 2px;
+}
+
+.about-icons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.icon-box {
+  text-align: center;
+}
+
+.icon-box img {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 15px;
+}
+
+.icon-box h3 {
+  font-size: 20px;
+  color: #febd69;
+  font-family: 'Roboto', sans-serif;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us {
+    padding: 50px 20px;
+  }
+
+  .about-us h2 {
+    font-size: 34px;
+  }
+
+  .about-us p {
+    font-size: 18px;
+  }
+
+  .about-icons {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .icon-box img {
+    width: 60px;
+    height: 60px;
+  }
+}}
 
 
 </style>

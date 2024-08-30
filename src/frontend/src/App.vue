@@ -1,4 +1,3 @@
-<!-- src/App.vue -->
 <template>
   <div id="app">
     <Navigation @nav-toggle="handleNavToggle"/>
@@ -33,6 +32,6 @@ export default {
 
 <style>
 .content-shift {
-  margin-top: 200px; /* Adjust this value based on the height of your expanded navbar */
+  margin-top: 200px;
 }
 </style>

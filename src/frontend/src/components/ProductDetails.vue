@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 
 const route = useRoute();
+const router = useRouter();
 const product = ref(null);
 
-// Fetch product data based on the product ID from the route
 const fetchProductDetails = () => {
   const productId = route.params.id;
   fetch(`/api/product/read/${productId}`)
@@ -22,13 +22,34 @@ onMounted(() => {
   fetchProductDetails();
 });
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 
-// Navigate back to the product list
+const addToCart = () => {
+  if (product.value) {
+    fetch(`/api/cart/01/addProduct/${product.value.productId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Product added to cart!');
+            router.push('/cart');
+          } else {
+            console.error('Error adding product to cart:', data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error adding product to cart:', error);
+        });
+  }
+};
+
 const goBack = () => {
   window.history.back();
 };
@@ -168,6 +189,10 @@ const goBack = () => {
 }
 
 .back-button:hover, .cart-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+.cart-button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
