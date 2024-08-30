@@ -68,7 +68,6 @@ export default {
   methods: {
     async addProduct() {
       try {
-        // Structure data according to backend expectations
         const productData = {
           productId: this.product.productId,
           productName: this.product.productName,

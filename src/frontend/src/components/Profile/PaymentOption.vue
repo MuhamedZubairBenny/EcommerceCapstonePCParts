@@ -1,6 +1,6 @@
 <template>
   <div class="payment-container">
-    <!-- Payment Form -->
+
     <form @submit.prevent="handleSubmit" class="payment-form">
       <h2>Payment Details</h2>
 
@@ -24,7 +24,6 @@
         <input type="text" id="card-name" v-model="cardName" placeholder="John Doe" required />
       </div>
 
-      <!-- Price Details -->
       <div class="price-details">
         <div class="price-item">
           <span>Subtotal:</span>
@@ -64,7 +63,7 @@ export default {
       cardName: '',
       subtotal: 0,
       vatRate: 0.15,
-      customer: null,  // Add customer data
+      customer: null,
     };
   },
   computed: {
@@ -78,11 +77,8 @@ export default {
   async mounted() {
     if (this.orderId) {
       try {
-        // Fetch order data
         const orderResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}`);
         this.subtotal = orderResponse.data.overallPrice;
-
-        // Fetch customer data
         const customerResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}/customer`);
         this.customer = customerResponse.data;
       } catch (error) {
@@ -93,25 +89,21 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        // Construct payment data object
         const paymentData = {
-          paymentId: '', // You might want to generate or obtain this ID
+          paymentId: '',
           order: {
-            orderId: this.orderId, // Assuming you might need to include the order ID
+            orderId: this.orderId,
           },
-          customer: this.customer, // Include customer details here
-          paymentType: 'Credit Card', // Replace with actual payment type if necessary
+          customer: this.customer,
+          paymentType: 'Credit Card',
           paymentTotal: this.total,
         };
 
-        // Make POST request to backend
         const response = await axios.post('http://localhost:3000/api/payment/create', paymentData);
 
-        // Handle successful response
         console.log('Payment successful:', response.data);
         alert('Payment confirmed!');
       } catch (error) {
-        // Handle error
         console.error('Payment error:', error);
         alert('Payment failed. Please try again.');
       }

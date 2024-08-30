@@ -1,5 +1,12 @@
 <template>
   <h1 class="cpu-heading">CPU Category</h1>
+  <div class="category-info">
+    <img src="@/assets/cputester.png" alt="CPU Category Image" class="category-image"/>
+    <p class="category-description">
+      Explore our wide range of CPUs from top brands like AMD and Intel. Whether you're building a gaming rig or need powerful processors for work, we have the right option for you.
+    </p>
+  </div>
+
     <div class="products-container">
       <ul class="products-list">
         <li
@@ -23,16 +30,12 @@ import {useRouter} from "vue-router";
 
  const router = useRouter();
 
-// Define the products ref
 const products = ref([]);
-// const searchQuery = ref(''); // Bind this to the search bar
-
-// Fetch data when the component is mounted
 onMounted(() => {
   fetch("/api/product/category/CPU")
       .then((response) => response.json())
       .then((data) => {
-        products.value = data; // Store fetched data
+        products.value = data;
         console.log(products.value.map(p => p.productPicture));
       })
       .catch((error) => {
@@ -43,40 +46,49 @@ const goToPage = (productId) => {
   router.push({ name: 'ProductDetails', params: { id: productId } });
 };
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 
-
-// const goToBrand = (brand) => {
-//   const brandRoutes = {
-//     "AMD": "src/frontend/src/components/amd",
-//     "Intel": "src/frontend/src/components/intel"
-//   };
-
-//   const route = brandRoutes[brand] || '/cpu-not-found';
-//   router.push(route);
-// };
-// Function to handle the search input
-// const handleSearch = () => {
-//   const searchTerm = searchQuery.value.trim().toLowerCase();
-
-  // Basic check for "CPU" and route to the CPU page
-//   if (searchTerm === 'cpu') {
-//     router.push('/cpu'); // Navigate to the CPU category page if the search term is "cpu"
-//   } else {
-//     console.log('Search term does not match CPU'); // Handle other cases as needed
-//
-// };
 </script>
 
-
-
-
 <style scoped>
-/* Add styles for the AMD and Intel buttons */
+.cpu-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #007bff;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #e9f4fe;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+}
+.category-image {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+.category-info {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.category-description {
+  font-size: 1.4rem;
+  color: #333;
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .cpu-buttons {
   display: flex;
   justify-content: center;
@@ -118,7 +130,7 @@ const formatCurrency = (value) => {
   color: #007bff;
   margin: 30px 0;
   padding: 10px;
-  background-color: #e9f4fe; /* Light blue background */
+  background-color: #e9f4fe;
   border-radius: 10px;
   text-transform: uppercase;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -163,14 +175,14 @@ const formatCurrency = (value) => {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  margin-bottom: 5px; /* Adjust margin to ensure proper spacing */
+  margin-bottom: 5px;
 }
 
 .category-name {
   font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin-top: 5px; /* Add margin-top if needed for better spacing */
+  margin-top: 5px;
 }
 
 
@@ -249,26 +261,26 @@ html, body {
   align-items: center;
   background-color: #5f7b8a;
   color: white;
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
-  position: relative; /* Allows positioning adjustments */
-  height: 120px; /* Set a fixed height to control spacing */
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 120px;
 }
 
 .logo {
-  position: absolute; /* Position it absolutely within header */
-  left: 10px; /* Align to the left */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for centering */
-  padding: 0; /* Remove any padding */
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
 }
 .brand-logo {
-  height: 115px; /* Set a reasonable height for the logo */
-  width: auto; /* Maintain aspect ratio */
+  height: 115px;
+  width: auto;
   transition: transform 0.3s;
 }
 .brand-logo:hover {
-  transform: scale(1.05); /* Subtle hover effect */
+  transform: scale(1.05);
 }
 .search-bar {
   flex: 2;
@@ -306,12 +318,12 @@ html, body {
 }
 
 .icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
+  width: 24px;
   height: 24px;
 }
 
 .icon-button:hover {
-  background-color: #f0c14b; /* Adjust hover effect as needed */
+  background-color: #f0c14b;
 }
 
 .header-buttons {

@@ -11,7 +11,6 @@
     <SwiperSlide v-for="(image, index) in images" :key="index">
       <img :src="image.src" :alt="image.alt" class="slide-image" />
     </SwiperSlide>
-    <!-- Add Swiper pagination and navigation elements -->
     <div class="swiper-pagination"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
@@ -49,7 +48,7 @@ export default {
 <style scoped>
 .mySwiper {
   width: 100%;
-  height: 800px; /* Adjust height as needed */
+  height: 800px;
   position: relative;
 }
 
@@ -57,31 +56,30 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease-in-out; /* Smooth transition */
+  transition: transform 0.5s ease-in-out;
 }
 
-/* Customize Swiper navigation and pagination */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #fff; /* Change navigation button color */
+  color: #fff;
   width: 50px;
   height: 50px;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .swiper-pagination-bullet {
-  background: #fff; /* Bullet color */
-  opacity: 0.7; /* Bullet opacity */
+  background: #fff;
+  opacity: 0.7;
 }
 
 .swiper-pagination-bullet-active {
-  background: #febd69; /* Active bullet color */
-  opacity: 1; /* Full opacity for active bullet */
+  background: #febd69;
+  opacity: 1;
 }
 </style>

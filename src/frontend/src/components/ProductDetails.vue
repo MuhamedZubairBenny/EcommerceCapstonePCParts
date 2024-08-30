@@ -5,7 +5,6 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 const product = ref(null);
 
-// Fetch product data based on the product ID from the route
 const fetchProductDetails = () => {
   const productId = route.params.id;
   fetch(`/api/product/read/${productId}`)
@@ -22,13 +21,11 @@ onMounted(() => {
   fetchProductDetails();
 });
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 
-// Navigate back to the product list
 const goBack = () => {
   window.history.back();
 };

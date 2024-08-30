@@ -32,7 +32,7 @@ export default {
 
         if (response.ok) {
           alert('Product deleted successfully!');
-          this.productId = ''; // Reset the input field
+          this.productId = '';
         } else {
           alert('Failed to delete product.');
         }
