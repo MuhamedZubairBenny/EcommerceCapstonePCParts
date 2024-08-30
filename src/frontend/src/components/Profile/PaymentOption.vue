@@ -24,7 +24,7 @@
         <input type="text" id="card-name" v-model="cardName" placeholder="John Doe" required />
       </div>
 
-      <!-- Price Details -->
+
       <div class="price-details">
         <div class="price-item">
           <span>Subtotal:</span>
@@ -93,9 +93,9 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        // Construct payment data object
+
         const paymentData = {
-          paymentId: '', // You might want to generate or obtain this ID
+          paymentId: '',
           order: {
             orderId: this.orderId, // Assuming you might need to include the order ID
           },

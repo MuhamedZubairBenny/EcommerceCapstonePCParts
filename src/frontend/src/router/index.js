@@ -27,6 +27,11 @@ const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
     routes: [
         {
+            path: '/search',
+            name: 'SearchResults',
+            component: () => import('@/components/SearchResults.vue')
+        },
+        {
             path: '/product/:id',
             name: 'ProductDetails',
             component: ProductDetails,

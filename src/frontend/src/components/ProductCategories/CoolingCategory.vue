@@ -54,8 +54,7 @@ const formatCurrency = (value) => {
   color: #007bff;
   margin: 30px 0;
   padding: 10px;
-  background-color: #e9f4fe; /* Light blue background */
-  border-radius: 10px;
+  background-color: #e9f4fe;
   text-transform: uppercase;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   letter-spacing: 1.5px;
@@ -139,7 +138,7 @@ html, body {
 }
 
 .icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
+  width: 24px;
   height: 24px;
 }
 

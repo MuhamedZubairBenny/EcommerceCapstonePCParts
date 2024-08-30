@@ -5,7 +5,7 @@
     <header class="cart-header">
     </header>
 
-    <!-- Cart Items -->
+
     <div v-if="cartItems.length > 0" class="cart-items">
       <div class="cart-item" v-for="item in cartItems" :key="item.id">
         <img :src="item.image" alt="Product Image" class="cart-item-image" />

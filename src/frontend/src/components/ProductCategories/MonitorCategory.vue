@@ -54,7 +54,7 @@ const formatCurrency = (value) => {
   color: #007bff;
   margin: 30px 0;
   padding: 10px;
-  background-color: #e9f4fe; /* Light blue background */
+  background-color: #e9f4fe;
   border-radius: 10px;
   text-transform: uppercase;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);

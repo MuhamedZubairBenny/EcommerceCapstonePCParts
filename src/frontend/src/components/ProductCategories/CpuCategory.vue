@@ -50,33 +50,13 @@ const formatCurrency = (value) => {
 };
 
 
-// const goToBrand = (brand) => {
-//   const brandRoutes = {
-//     "AMD": "src/frontend/src/components/amd",
-//     "Intel": "src/frontend/src/components/intel"
-//   };
-
-//   const route = brandRoutes[brand] || '/cpu-not-found';
-//   router.push(route);
-// };
-// Function to handle the search input
-// const handleSearch = () => {
-//   const searchTerm = searchQuery.value.trim().toLowerCase();
-
-  // Basic check for "CPU" and route to the CPU page
-//   if (searchTerm === 'cpu') {
-//     router.push('/cpu'); // Navigate to the CPU category page if the search term is "cpu"
-//   } else {
-//     console.log('Search term does not match CPU'); // Handle other cases as needed
-//
-// };
 </script>
 
 
 
 
 <style scoped>
-/* Add styles for the AMD and Intel buttons */
+
 .cpu-buttons {
   display: flex;
   justify-content: center;
@@ -118,7 +98,7 @@ const formatCurrency = (value) => {
   color: #007bff;
   margin: 30px 0;
   padding: 10px;
-  background-color: #e9f4fe; /* Light blue background */
+  background-color: #e9f4fe;
   border-radius: 10px;
   text-transform: uppercase;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -163,14 +143,14 @@ const formatCurrency = (value) => {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  margin-bottom: 5px; /* Adjust margin to ensure proper spacing */
+  margin-bottom: 5px;
 }
 
 .category-name {
   font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin-top: 5px; /* Add margin-top if needed for better spacing */
+  margin-top: 5px;
 }
 
 
@@ -249,77 +229,77 @@ html, body {
   align-items: center;
   background-color: #5f7b8a;
   color: white;
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
-  position: relative; /* Allows positioning adjustments */
-  height: 120px; /* Set a fixed height to control spacing */
-}
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 120px;
 
-.logo {
-  position: absolute; /* Position it absolutely within header */
-  left: 10px; /* Align to the left */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for centering */
-  padding: 0; /* Remove any padding */
-}
-.brand-logo {
-  height: 115px; /* Set a reasonable height for the logo */
-  width: auto; /* Maintain aspect ratio */
-  transition: transform 0.3s;
-}
-.brand-logo:hover {
-  transform: scale(1.05); /* Subtle hover effect */
-}
-.search-bar {
-  flex: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .logo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-.search-input {
-  width: 40%;
-  padding: 6px;
-  border-radius: 5px 0 0 5px;
-  border: none;
-}
+  .brand-logo {
+    height: 115px;
+    width: auto;
+    transition: transform 0.3s;
+  }
 
-.search-button {
-  padding: 6px 10px;
-  border-radius: 0 5px 5px 0;
-  background-color: #febd69;
-  border: none;
-  cursor: pointer;
-}
+  .brand-logo:hover {
+    transform: scale(1.05);
+  }
 
-.icon-button {
-  background-color: #febd69;
-  color: black;
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .search-bar {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
-  height: 24px;
-}
+  .search-input {
+    width: 40%;
+    padding: 6px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+  }
 
-.icon-button:hover {
-  background-color: #f0c14b; /* Adjust hover effect as needed */
-}
+  .search-button {
+    padding: 6px 10px;
+    border-radius: 0 5px 5px 0;
+    background-color: #febd69;
+    border: none;
+    cursor: pointer;
+  }
 
-.header-buttons {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
+  .icon-button {
+    background-color: #febd69;
+    color: black;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .icon-button .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon-button:hover {
+    background-color: #f0c14b;
+  }
+
+  .header-buttons {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
 
 
 </style>
