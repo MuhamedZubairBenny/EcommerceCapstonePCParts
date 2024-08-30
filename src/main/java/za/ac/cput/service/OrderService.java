@@ -3,12 +3,14 @@ package za.ac.cput.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Order;
 
 import za.ac.cput.domain.OrderItem;
 import za.ac.cput.domain.Payment;
 import za.ac.cput.repository.CustomerRepository;
 import za.ac.cput.repository.OrderRepository;
+
 
 import java.util.List;
 @Service
@@ -48,4 +50,10 @@ public class OrderService implements IOrderService {
     public List<Order> getAll() {
         return repository.findAll();
     }
+    // OrderService.java
+    public Customer getCustomerByOrderId(String orderId) {
+        Order order = repository.findById(orderId).orElse(null);
+        return order.getCustomer();
+    }
+
 }
