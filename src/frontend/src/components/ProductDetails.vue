@@ -6,7 +6,6 @@ const route = useRoute();
 const router = useRouter();
 const product = ref(null);
 
-// Fetch product data based on the product ID from the route
 const fetchProductDetails = () => {
   const productId = route.params.id;
   fetch(`/api/product/read/${productId}`)
@@ -18,19 +17,16 @@ const fetchProductDetails = () => {
         console.error('Error fetching product details:', error);
       });
 };
-// const props = defineProps({
-//   product: Object
-// });
+
 onMounted(() => {
   fetchProductDetails();
 });
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
-// Method to add product to cart
+
 const addToCart = () => {
   if (product.value) {
     fetch(`/api/cart/01/addProduct/${product.value.productId}`, { // Use `product.value.productId`
@@ -54,8 +50,6 @@ const addToCart = () => {
   }
 };
 
-
-// Navigate back to the product list
 const goBack = () => {
   window.history.back();
 };

@@ -11,9 +11,9 @@
         <img :src="item.productPicture" alt="Product Image" class="cart-item-image" />
         <div class="cart-item-details">
           <h2 class="cart-item-title">{{ item.productName }}</h2>
-          <p class="cart-item-price">${{ item.price.toFixed(2) }}</p>
+          <p class="cart-item-price">R{{ item.price.toFixed(2) }}</p>
           <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
-          <p class="cart-item-total">Total: ${{ (item.price * item.quantity).toFixed(2) }}</p>
+          <p class="cart-item-total">Total: R{{ (item.price * item.quantity).toFixed(2) }}</p>
           <button @click="removeFromCart(item.productId)" class="remove-button">Remove</button>
         </div>
       </div>
@@ -44,19 +44,18 @@ export default {
 
     const fetchCartItems = async () => {
       try {
-        const response = await fetch('/api/cart/read/01'); // Adjust this URL to match your backend endpoint
+        const response = await fetch('/api/cart/read/01');
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched data:', data); // Log the data to ensure it's correct
+          console.log('Fetched data:', data);
 
-          // Assuming the data structure is like { products: [...] }
           cartItems.value = data.products.map(product => ({
             productId: product.productId,
             productName: product.productName,
             productPicture: product.productPicture,
             price: product.price,
-            quantity: 1 // Adjust if your backend provides quantity
-          })) || []; // Ensure it's an array
+            quantity: 1
+          })) || [];
         } else {
           console.error('Error fetching cart items:', response.statusText);
           cartItems.value = [];
@@ -68,8 +67,25 @@ export default {
     };
 
 
-    const removeFromCart = (productId) => {
-      cartItems.value = cartItems.value.filter(item => item.productId !== productId);
+    const removeFromCart = async (productId) => {
+      try {
+        const response = await fetch(`/api/cart/01/removeProduct/${productId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+
+          cartItems.value = cartItems.value.filter(item => item.productId !== productId);
+          alert('Product removed from cart');
+        } else {
+          console.error('Error removing product from cart:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error removing product from cart:', error);
+      }
     };
 
     const proceedToCheckout = () => {
@@ -106,7 +122,7 @@ export default {
   color: #007bff;
   margin: 30px 0;
   padding: 10px;
-  background-color: #e9f4fe; /* Light blue background */
+  background-color: #e9f4fe;
   border-radius: 10px;
   text-transform: uppercase;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);

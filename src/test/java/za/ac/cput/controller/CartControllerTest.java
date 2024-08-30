@@ -24,24 +24,19 @@ class CartControllerTest {
     private static Product product2;
     @BeforeAll
     public static void setup(){
-        //Build Customer
         Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
         assertNotNull(contact);
         customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
         assertNotNull(customer);
 
-        //Build Product
         ProductCategory category = ProductCategoryFactory.buildProductCategory("02", "CPU");
         Brand brand = BrandFactory.buildBrand("101", "AMD");
         Product product = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
         product2 = ProductFactory.buildProduct("005","Ryzen 5 5500GT", category, brand, "Ryzen CPU", 3499.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5500GT.png");
 
-        //Create list of Products
         List<Product> productList = new ArrayList<>();
         productList.add(product);
-        //productList.add(product2);
 
-        //Create Cart
         cart = CartFactory.buildCart("01", customer, productList);
         assertNotNull(cart);
         System.out.println(cart);
@@ -107,15 +102,28 @@ class CartControllerTest {
         String url = BASE_URL + "/" + cart.getCartId() + "/addProduct/" + product2.getProductId();
         System.out.println("URL: " + url);
 
-        // Since you're adding data, you should use postForEntity instead of getForEntity.
         ResponseEntity<Cart> postResponse = restTemplate.postForEntity(url, null, Cart.class);
 
-        // Check if the status code is OK (200) and ensure that the cart contains the added product
         assertEquals(HttpStatus.OK, postResponse.getStatusCode());
         assertNotNull(postResponse.getBody());
         assertTrue(postResponse.getBody().getProducts().contains(product2));
 
         System.out.println("Updated Cart: " + postResponse.getBody());
+    }
+    @Disabled
+    @Test
+    void g_removeCartProduct() {
+        String url = BASE_URL + "/" + cart.getCartId() + "/removeProduct/" + product2.getProductId();
+        System.out.println("URL: " + url);
+
+        restTemplate.delete(url);
+
+        ResponseEntity<Cart> getResponse = restTemplate.getForEntity(BASE_URL + "/read/" + cart.getCartId(), Cart.class);
+        Cart updatedCart = getResponse.getBody();
+
+        assertNotNull(updatedCart);
+        assertFalse(updatedCart.getProducts().contains(product2));
+        System.out.println("Updated Cart after removal: " + updatedCart);
     }
 
 }
