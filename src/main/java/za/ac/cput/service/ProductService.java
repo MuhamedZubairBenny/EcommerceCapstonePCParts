@@ -25,8 +25,6 @@ public class ProductService implements IProductService {
 
     @Override
     public Product create(Product product) {
-        productCategoryRepository.save(product.getCategory());
-        brandRepository.save((product.getBrand()));
         return repository.save(product);
     }
 
@@ -64,4 +62,5 @@ public class ProductService implements IProductService {
     public List<Product> searchProductsById(String productId) {
         return repository.findByProductIdIgnoreCase(productId);
     }
+
 }

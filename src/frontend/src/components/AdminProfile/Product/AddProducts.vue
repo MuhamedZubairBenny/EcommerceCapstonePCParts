@@ -2,19 +2,17 @@
   <div class="container mt-5">
     <h2>Add New Product</h2>
     <form @submit.prevent="addProduct">
-      <!-- Product ID Input -->
+
       <div class="mb-3">
         <label for="productId" class="form-label">Product ID</label>
         <input type="text" v-model="product.productId" class="form-control" id="productId" required />
       </div>
 
-      <!-- Product Name Input -->
       <div class="mb-3">
         <label for="productName" class="form-label">Product Name</label>
         <input type="text" v-model="product.productName" class="form-control" id="productName" required />
       </div>
 
-      <!-- Category Select -->
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
         <select v-model="product.categoryId" class="form-control" id="categoryId" required>
@@ -24,7 +22,6 @@
         </select>
       </div>
 
-      <!-- Brand Select -->
       <div class="mb-3">
         <label for="brand" class="form-label">Brand</label>
         <select v-model="product.brandId" class="form-control" id="brandId" required>
@@ -34,45 +31,39 @@
         </select>
       </div>
 
-
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
         <textarea v-model="product.description" class="form-control" id="description"></textarea>
       </div>
-
 
       <div class="mb-3">
         <label for="price" class="form-label">Price</label>
         <input type="number" v-model="product.price" class="form-control" id="price" required />
       </div>
 
-
       <div class="mb-3">
         <label for="stockQuantity" class="form-label">Stock Quantity</label>
         <input type="number" v-model="product.stockQuantity" class="form-control" id="stockQuantity" required />
       </div>
-
 
       <div class="mb-3">
         <label for="dimension" class="form-label">Dimension</label>
         <input type="text" v-model="product.dimension" class="form-control" id="dimension" />
       </div>
 
-
       <div class="mb-3">
         <label for="warranty" class="form-label">Warranty</label>
         <input type="text" v-model="product.warranty" class="form-control" id="warranty" />
       </div>
 
-
       <div class="mb-3">
-        <label for="productPicture" class="form-label">Product Picture (File Path)</label>
+        <label for="productPicture" class="form-label">Product Picture (File Path or URL)</label>
         <input type="text" v-model="product.productPicture" class="form-control" id="productPicture" @input="updateImagePreview" />
         <img v-if="imagePreview" :src="imagePreview" alt="Product Image Preview" class="product-image mt-3" />
       </div>
 
-      <!-- Submit Button -->
       <button type="submit" class="btn btn-primary">Add Product</button>
+      <button type="button" class="btn btn-primary" @click="goBack">Back to Admin Page</button>
     </form>
   </div>
 </template>
@@ -122,12 +113,10 @@ export default {
       }
     },
     updateImagePreview() {
-
       this.imagePreview = this.product.productPicture ? this.product.productPicture : '';
     },
     async addProduct() {
       try {
-
         const productData = {
           productId: this.product.productId,
           productName: this.product.productName,
@@ -141,12 +130,10 @@ export default {
           productPicture: this.product.productPicture
         };
 
-
         const response = await axios.post('http://localhost:3000/api/product/create', productData);
 
         if (response.status === 200 || response.status === 201) {
           alert('Product added successfully!');
-          this.$router.push('/');
         } else {
           alert('Failed to add product. Please check the console for more details.');
         }
@@ -154,7 +141,10 @@ export default {
         console.error('Error adding product:', error);
         alert('An error occurred while adding the product.');
       }
-    }
+    },
+    goBack() {
+      this.$router.push('/AdminPage');
+    },
   },
   watch: {
     'product.productPicture': function () {
@@ -164,7 +154,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   max-width: 600px;
 }
@@ -173,5 +163,17 @@ export default {
   width: 100%;
   max-width: 600px;
   height: auto;
+}
+button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 </style>
