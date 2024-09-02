@@ -24,6 +24,11 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
+            path: '/search',
+            name: 'SearchResults',
+            component: () => import('@/components/SearchResults.vue')
+        },
+        {
             path: '/product/:id',
             name: 'ProductDetails',
             component: ProductDetails,

@@ -3,7 +3,7 @@
   <div class="cart-container">
     <header class="cart-header">
     </header>
-
+    
     <div v-if="cartItems.length > 0" class="cart-items">
       <div class="cart-item" v-for="item in cartItems" :key="item.productId">
         <img :src="item.productPicture" alt="Product Image" class="cart-item-image" />
