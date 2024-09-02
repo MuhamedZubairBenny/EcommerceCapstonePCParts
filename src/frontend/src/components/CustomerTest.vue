@@ -20,7 +20,6 @@
         <td>{{ customer.contact.email }}</td>
         <td>{{ customer.contact.mobile }}</td>
         <td>{{ customer.contact.address }}</td>
-        <!-- Add more data columns as needed -->
       </tr>
       </tbody>
     </table>
@@ -32,7 +31,7 @@ export default {
   name: 'CustomerTest',
   data() {
     return {
-      customers: [] // Array to store fetched data
+      customers: []
     }
   },
   mounted() {
@@ -43,7 +42,7 @@ export default {
       fetch("/api/customer/getall")
           .then((response) => response.json()) // Assuming the response is JSON
           .then((data) => {
-            this.customers = data; // Store fetched data
+            this.customers = data;
           })
           .catch((error) => {
             console.error('Error fetching data:', error);
@@ -54,7 +53,6 @@ export default {
 </script>
 
 <style scoped>
-/* Scoped styles for the component */
 .table {
   width: 100%;
   border-collapse: collapse;

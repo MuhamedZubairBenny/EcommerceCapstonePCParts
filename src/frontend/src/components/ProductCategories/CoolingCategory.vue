@@ -30,7 +30,7 @@ onMounted(() => {
   fetch("/api/product/category/Cooling")
       .then((response) => response.json())
       .then((data) => {
-        products.value = data; // Store fetched data
+        products.value = data;
         console.log(products.value.map(p => p.productPicture));
       })
       .catch((error) => {
@@ -55,6 +55,7 @@ const formatCurrency = (value) => {
   margin: 30px 0;
   padding: 10px;
   background-color: #e9f4fe;
+  border-radius: 10px;
   text-transform: uppercase;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   letter-spacing: 1.5px;

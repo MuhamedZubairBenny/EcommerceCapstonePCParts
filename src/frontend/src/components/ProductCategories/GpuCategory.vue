@@ -29,7 +29,7 @@ onMounted(() => {
   fetch("/api/product/category/GPU")
       .then((response) => response.json())
       .then((data) => {
-        products.value = data; // Store fetched data
+        products.value = data;
         console.log(products.value.map(p => p.productPicture));
       })
       .catch((error) => {
@@ -138,7 +138,7 @@ html, body {
 }
 
 .icon-button .icon {
-  width: 24px; /* Adjust size of the icons */
+  width: 24px;
   height: 24px;
 }
 

@@ -112,14 +112,14 @@ export default {
       // Search for products by name or brand
       if (query !== '') {
         axios.get(`http://localhost:3000/api/product/search/${query}`)
-            .then(response => {
-              this.products = response.data;
-              if (this.products.length > 0) {
-                this.$router.push({ name: 'SearchResults', query: { q: this.searchQuery } });
-              } else {
-                alert('No products found.');
-              }
-            })
+      .then(response => {
+          this.products = response.data;
+          if (this.products.length > 0) {
+            this.$router.push({ name: 'SearchResults', query: { q: this.searchQuery } });
+          } else {
+            alert('No products found.');
+          }
+        })
             .catch(error => {
               console.error('Error fetching products:', error);
               alert('An error occurred while searching. Please try again.');

@@ -1,15 +1,16 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Product;
 import za.ac.cput.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/product")
-@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
     private ProductService productService;
     @Autowired
@@ -37,4 +38,6 @@ public class ProductController {
 
     @GetMapping("/searchById/{searchString}")
     public List<Product> searchProductsById(@PathVariable String searchString){return productService.searchProductsById(searchString);}
-}
+
+    }
+

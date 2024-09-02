@@ -1,18 +1,18 @@
 <script setup>
 import {ref, computed} from 'vue';
-import axios from 'axios'; // Import axios for HTTP requests
+import axios from 'axios';
 
 // Reactive data properties
 const searchQuery = ref('');
 const brands = ref([]);
 const products = ref([]);
 
-// Fetch data from your Java backend
+
 const fetchData = async () => {
   try {
-    // Fetch brands from the BrandController
+
     const brandsResponse = await axios.get('/api/brand/getAll');
-    // Fetch products from a product controller (you would have a similar controller for products)
+
     const productsResponse = await axios.get('/api/product/getAll');
 
     brands.value = brandsResponse.data;
@@ -22,10 +22,8 @@ const fetchData = async () => {
   }
 };
 
-// Call fetchData on component setup
 fetchData();
 
-// Computed property to filter products based on the search query
 const filteredProducts = computed(() => {
   const query = searchQuery.value.toLowerCase();
   return products.value.filter(product =>

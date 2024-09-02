@@ -1,10 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-// Define AMD products ref
 const amdProducts = ref([]);
 
-// Fetch AMD products when the component is mounted
 onMounted(() => {
   fetch("/api/product/category/CPU")
       .then((response) => response.json())
@@ -16,7 +14,6 @@ onMounted(() => {
       });
 });
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);

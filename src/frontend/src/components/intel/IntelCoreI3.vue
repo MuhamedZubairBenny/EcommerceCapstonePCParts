@@ -5,12 +5,11 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const products = ref([]);
 
-// Fetch data when the component is mounted
 const fetchData = () => {
   fetch("/api/product/search/i3")
       .then(response => response.json())
       .then(data => {
-        products.value = data; // Store fetched data
+        products.value = data;
         console.log(products.value.map(p => p.productPicture));
       })
       .catch(error => {
@@ -27,7 +26,6 @@ const goToPage = (productId) => {
 };
 
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
@@ -78,7 +76,7 @@ const formatCurrency = (value) => {
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, border-color 0.3s ease;
-  flex: 0 1 22%; /* Each product takes up 22% of the row */
+  flex: 0 1 22%;
   margin: 20px 0;
   padding: 15px;
   text-align: center;
@@ -113,13 +111,13 @@ const formatCurrency = (value) => {
 
 @media (max-width: 768px) {
   .product-card {
-    flex: 0 1 48%; /* 48% of the row on smaller screens */
+    flex: 0 1 48%;
   }
 }
 
 @media (max-width: 480px) {
   .product-card {
-    flex: 0 1 100%; /* Full width of the row on mobile screens */
+    flex: 0 1 100%;
   }
 }
 </style>

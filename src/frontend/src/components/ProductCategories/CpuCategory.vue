@@ -1,5 +1,12 @@
 <template>
   <h1 class="cpu-heading">CPU Category</h1>
+  <div class="category-info">
+    <img src="@/assets/cputester.png" alt="CPU Category Image" class="category-image"/>
+    <p class="category-description">
+      Explore our wide range of CPUs from top brands like AMD and Intel. Whether you're building a gaming rig or need powerful processors for work, we have the right option for you.
+    </p>
+  </div>
+
     <div class="products-container">
       <ul class="products-list">
         <li
@@ -23,16 +30,12 @@ import {useRouter} from "vue-router";
 
  const router = useRouter();
 
-// Define the products ref
 const products = ref([]);
-// const searchQuery = ref(''); // Bind this to the search bar
-
-// Fetch data when the component is mounted
 onMounted(() => {
   fetch("/api/product/category/CPU")
       .then((response) => response.json())
       .then((data) => {
-        products.value = data; // Store fetched data
+        products.value = data;
         console.log(products.value.map(p => p.productPicture));
       })
       .catch((error) => {
@@ -43,19 +46,48 @@ const goToPage = (productId) => {
   router.push({ name: 'ProductDetails', params: { id: productId } });
 };
 
-// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 
-
 </script>
 
-
-
-
 <style scoped>
+.cpu-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #007bff;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #e9f4fe;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+}
+.category-image {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+.category-info {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.category-description {
+  font-size: 1.4rem;
+  color: #333;
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 .cpu-buttons {
   display: flex;
@@ -233,13 +265,7 @@ html, body {
   margin: 0;
   position: relative;
   height: 120px;
-
-  .logo {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
+}
   .brand-logo {
     height: 115px;
     width: auto;
@@ -256,22 +282,7 @@ html, body {
     justify-content: center;
     align-items: center;
   }
-
-  .search-input {
-    width: 40%;
-    padding: 6px;
-    border-radius: 5px 0 0 5px;
-    border: none;
-  }
-
-  .search-button {
-    padding: 6px 10px;
-    border-radius: 0 5px 5px 0;
-    background-color: #febd69;
-    border: none;
-    cursor: pointer;
-  }
-
+  
   .icon-button {
     background-color: #febd69;
     color: black;
@@ -299,7 +310,5 @@ html, body {
     display: flex;
     justify-content: flex-end;
   }
-}
-
 
 </style>

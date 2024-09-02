@@ -6,10 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.domain.Contact;
+import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.Customer;
-import za.ac.cput.factory.ContactFactory;
+import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Shipping;
+import za.ac.cput.factory.CartFactory;
 import za.ac.cput.factory.CustomerFactory;
+import za.ac.cput.factory.ShippingFactory;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,33 +26,44 @@ class CustomerServiceTest {
     @Autowired
     private CustomerService customerService;
 
-    private static Contact contact1;
-    private static Contact contact2;
     private static Customer customer1;
     private static Customer customer2;
 
     @Test
     void a_setup(){
-        contact1 = ContactFactory.buildContact("zbenny@gmail.com","012 345 6789", "21 Jump Street", "Cape Town" ,"Western Cape" , "7540", "South Africa");
-        customer1 = CustomerFactory.buildCustomer("01","Zubair", "Benny", "123", contact1);
+        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        assertNotNull(shipping);
+        System.out.println(shipping);
+        List<Product> products = new ArrayList<>();
+        Cart cart = CartFactory.buildCart(products);
+
+        //Build Customer
+        customer1 = CustomerFactory.buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
         assertNotNull(customer1);
-        contact2 = ContactFactory.buildContact("dprins@gmail.com","098 765 4321", "40 Champion Street", "Cape Town" ,"Western Cape" , "7607", "South Africa");
-        customer2 = CustomerFactory.buildCustomer("02","Duane", "Prins", "321", contact2);
+        System.out.println(customer1);
+
+        Shipping shipping2 = ShippingFactory.buildShipping("Ship02", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        assertNotNull(shipping2);
+        System.out.println(shipping2);
+        List<Product> products2 = new ArrayList<>();
+        Cart cart2 = CartFactory.buildCart(products2);
+
+        //Build Customer
+        customer2 = CustomerFactory.buildCustomer("Cust02","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping2, cart2);
         assertNotNull(customer2);
+        System.out.println(customer2);
     }
     @Test
     void b_create() {
-        Customer created1 = customerService.create(customer1);
+        Customer created1 = customerService.create(customer2);
         assertNotNull(created1);
         System.out.println(created1);
-        Customer created2 = customerService.create(customer2);
-        assertNotNull(created2);
-        System.out.println(created2);
+
     }
 
     @Test
     void c_read() {
-        Customer read = customerService.read(customer1.getCustomerId());
+        Customer read = customerService.read(customer1.getCustomer_id());
         assertNotNull(read);
         System.out.println(read);
     }
@@ -61,7 +79,7 @@ class CustomerServiceTest {
     @Test
     @Disabled
     void e_delete(){
-        customerService.delete(customer2.getCustomerId());
+        customerService.delete(customer2.getCustomer_id());
     }
     @Test
     void f_getAll() {

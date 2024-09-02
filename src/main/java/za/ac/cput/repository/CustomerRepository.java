@@ -6,8 +6,10 @@ import za.ac.cput.domain.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
-    Customer findByFirstName(String firstName);
+    Customer findByEmail(String email);
+    Optional<Customer> findByEmailAndPassword(String email, String password);
 }

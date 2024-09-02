@@ -16,8 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("api/delivery")
 public class DeliveryController {
-    @Autowired
     private DeliveryService deliveryService;
+    @Autowired
+    DeliveryController(DeliveryService deliveryService){this.deliveryService = deliveryService;}
 
     @PostMapping("/create")
     public Delivery create(@RequestBody Delivery delivery){return deliveryService.create(delivery);}

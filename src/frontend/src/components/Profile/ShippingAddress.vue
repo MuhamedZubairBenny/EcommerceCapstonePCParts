@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 
-// Sample data for shipping information
 const shippingInfo = ref({
   fullName: "Hanz Homey",
   addressLine1: "123 Main Street",
@@ -18,7 +17,6 @@ const shippingInfo = ref({
   <div class="shipping-container">
     <h1>Shipping Address</h1>
 
-    <!-- Shipping Details Section -->
     <div class="shipping-details">
       <p><strong>Full Name:</strong> {{ shippingInfo.fullName }}</p>
       <p><strong>Address Line 1:</strong> {{ shippingInfo.addressLine1 }}</p>
