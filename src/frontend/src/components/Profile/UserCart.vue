@@ -1,9 +1,7 @@
 <template>
   <h1 class="cart-heading">Your Cart</h1>
   <div class="cart-container">
-    <header class="cart-header">
-    </header>
-    
+    <!-- Cart Items -->
     <div v-if="cartItems.length > 0" class="cart-items">
       <div class="cart-item" v-for="item in cartItems" :key="item.productId">
         <img :src="item.productPicture" alt="Product Image" class="cart-item-image" />
@@ -16,6 +14,7 @@
         </div>
       </div>
 
+      <!-- Cart Summary -->
       <div class="cart-summary">
         <h3>Cart Summary</h3>
         <p>Total Items: {{ totalItems }}</p>
@@ -24,6 +23,7 @@
       </div>
     </div>
 
+    <!-- Empty Cart Message -->
     <div v-else class="empty-cart">
       <p>Your cart is currently empty.</p>
     </div>
@@ -35,12 +35,18 @@ import { computed, ref, onMounted } from 'vue';
 
 export default {
   name: 'UserCart',
-  setup() {
+  props: {
+    cartId: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     const cartItems = ref([]);
 
     const fetchCartItems = async () => {
       try {
-        const response = await fetch('/api/cart/read/01');
+        const response = await fetch(`/api/cart/read/${props.cartId}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched data:', data);
@@ -50,7 +56,7 @@ export default {
             productName: product.productName,
             productPicture: product.productPicture,
             price: product.price,
-            quantity: 1
+            quantity: 1,
           })) || [];
         } else {
           console.error('Error fetching cart items:', response.statusText);
@@ -62,10 +68,9 @@ export default {
       }
     };
 
-
     const removeFromCart = async (productId) => {
       try {
-        const response = await fetch(`/api/cart/01/removeProduct/${productId}`, {
+        const response = await fetch(`/api/cart/${props.cartId}/removeProduct/${productId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -73,7 +78,6 @@ export default {
         });
 
         if (response.ok) {
-
           cartItems.value = cartItems.value.filter(item => item.productId !== productId);
           alert('Product removed from cart');
         } else {
@@ -105,10 +109,10 @@ export default {
       removeFromCart,
       proceedToCheckout,
       totalItems,
-      totalPrice
+      totalPrice,
     };
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -127,11 +131,6 @@ export default {
 
 .cart-container {
   padding: 20px;
-}
-
-.cart-header {
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 .cart-items {

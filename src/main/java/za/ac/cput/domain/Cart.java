@@ -8,8 +8,6 @@ import java.util.Objects;
 public class Cart {
     @Id
     private String cartId;
-    @OneToOne
-    private Customer customer;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "cart_product",
             joinColumns = @JoinColumn(name = "cart_id"),
@@ -21,16 +19,11 @@ public class Cart {
 
     public Cart(Builder builder) {
         this.cartId = builder.cartId;
-        this.customer = builder.customer;
         this.products = builder.products;
         this.cartTotal = calculateCartTotal();
     }
     public String getCartId() {
         return cartId;
-    }
-
-    public Customer getCustomer() {
-        return customer;
     }
 
     public List<Product> getProducts() {
@@ -52,7 +45,6 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "cartId='" + cartId + '\'' +
-                ", customer=" + customer +
                 ", products=" + products +
                 ", cartTotal=" + cartTotal +
                 '}';
@@ -63,27 +55,21 @@ public class Cart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return Double.compare(cartTotal, cart.cartTotal) == 0 && Objects.equals(cartId, cart.cartId) && Objects.equals(customer, cart.customer) && Objects.equals(products, cart.products);
+        return Double.compare(cartTotal, cart.cartTotal) == 0 && Objects.equals(cartId, cart.cartId) && Objects.equals(products, cart.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, customer, products, cartTotal);
+        return Objects.hash(cartId, products, cartTotal);
     }
 
     public static class Builder {
         private String cartId;
-        private Customer customer;
         private List<Product> products;
         private double cartTotal;
 
         public Builder setCartId(String cartId) {
             this.cartId = cartId;
-            return this;
-        }
-
-        public Builder setCustomer(Customer customer) {
-            this.customer = customer;
             return this;
         }
 
@@ -100,7 +86,6 @@ public class Cart {
 
         public Builder copy(Cart cart){
             this.cartId = cart.cartId;
-            this.customer = cart.customer;
             this.products = cart.products;
             this.cartTotal = cart.cartTotal;
             return this;
@@ -109,4 +94,3 @@ public class Cart {
         public Cart build() {return new Cart(this);}
     }
 }
-

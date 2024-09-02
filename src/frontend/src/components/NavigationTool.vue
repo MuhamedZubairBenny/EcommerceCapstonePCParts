@@ -21,7 +21,7 @@
       <!-- Header Buttons -->
       <div class="header-buttons">
         <!-- Home Button -->
-        <router-link to="/" class="icon-button">
+        <router-link to="/home" class="icon-button">
           <!-- Home Icon SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon home-icon">
             <path d="M12 3l1.45 1.32 7.55 6.68v10.2h-5v-6h-4v6H5V11.2l7.55-6.68L12 3z"/>
@@ -47,13 +47,12 @@
 
           <div v-if="isDropdownVisible" class="dropdown-content">
             <router-link to="/AccountInformation">Account Information</router-link>
-            <router-link to="/AddProducts">Add Products</router-link>
-            <router-link to="/DeleteProducts">Delete Products</router-link>
             <router-link to="/PaymentOption">Payment Option</router-link>
             <router-link to="/ShippingAddress">Shipping Address</router-link>
             <router-link to="/UpdateProducts">Update Products</router-link>
             <router-link to="/UpdateCustomer">Update Customer</router-link>
             <router-link to="/UpdateContact">Update Contact</router-link>
+            <router-link to="/AdminPage">Admin Page</router-link>
           </div>
         </div>
       </div>
@@ -86,9 +85,9 @@ export default {
     return {
       searchQuery: '',
       products: [],
-      isDropdownVisible: false,
+      isDropdownVisible: false, // Dropdown visibility state
       categories: [
-        {name: 'CPU', image: {src: require('@/assets/cpucattemp.png'), alt: 'CPU'}},
+        {name: 'CPU', image: {src: require('@/assets/cpuprocessor.png'), alt: 'CPU'}},
         {name: 'GPU', image: {src: require('@/assets/gpu.png'), alt: 'GPU'}},
         {name: 'Motherboard', image: {src: require('@/assets/motherboard.png'), alt: 'Motherboard'}},
         {name: 'RAM', image: {src: require('@/assets/ramstick.png'), alt: 'RAM'}},
@@ -115,14 +114,14 @@ export default {
       // Search for products by name or brand
       if (query !== '') {
         axios.get(`http://localhost:3000/api/product/search/${query}`)
-            .then(response => {
-              this.products = response.data;
-              if (this.products.length > 0) {
-                this.$router.push({ name: 'SearchResults', query: { q: this.searchQuery } });
-              } else {
-                alert('No products found.');
-              }
-            })
+      .then(response => {
+          this.products = response.data;
+          if (this.products.length > 0) {
+            this.$router.push({ name: 'SearchResults', query: { q: this.searchQuery } });
+          } else {
+            alert('No products found.');
+          }
+        })
             .catch(error => {
               console.error('Error fetching products:', error);
               alert('An error occurred while searching. Please try again.');
@@ -141,6 +140,7 @@ export default {
   width: 100%;
 }
 
+/* Header Section */
 .header {
   display: flex;
   align-items: center;
@@ -235,6 +235,7 @@ export default {
   fill: currentColor;
 }
 
+/* Account Dropdown */
 .account-dropdown {
   position: relative;
   z-index: 1010;
@@ -266,17 +267,17 @@ export default {
   background-color: #57d6c2;
 }
 
-
+/* Navbar for Categories */
 .category-navbar {
   display: flex;
   justify-content: center;
-  background-color: #232f3e;
-  padding: 15px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-bottom: 2px solid #69feca;
-  position: sticky;
+  background-color: #232f3e; /* Dark background for contrast */
+  padding: 15px 0; /* Add padding for better spacing */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border-bottom: 2px solid #69feca; /* Stylish bottom border */
+  position: sticky; /* Stick to the top of the page */
   top: 0;
-  z-index: 1000;
+  z-index: 1000; /* Ensure navbar stays above other elements */
 }
 
 .category-navbar ul {
@@ -286,7 +287,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px;
+  gap: 40px; /* Add more space between categories */
 }
 
 .category-item {
@@ -295,7 +296,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 120px;
+  width: 120px; /* Fix width for consistent sizing */
   color: white;
   position: relative;
   transition: color 0.3s ease;
@@ -307,22 +308,22 @@ export default {
   left: 50%;
   width: 0;
   height: 0;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid #69feca;
-  border-radius: 8px;
-  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.1); /* Add semi-transparent white background */
+  border: 2px solid #69feca; /* Border color */
+  border-radius: 8px; /* Rounded corners for smooth effect */
+  transform: translate(-50%, -50%); /* Center the pseudo-element */
   transition: all 0.3s ease;
-  z-index: -1;
+  z-index: -1; /* Place the background behind the content */
 }
 
 .category-item:hover::before {
-  width: 140px;
-  height: 140px;
-  opacity: 1;
+  width: 140px; /* Expand width on hover */
+  height: 140px; /* Expand height on hover */
+  opacity: 1; /* Ensure it's visible */
 }
 
 .category-image {
-  height: 80px;
+  height: 80px; /* Adjust image height for uniformity */
   width: auto;
   display: block;
   margin: 0 auto;
@@ -330,54 +331,54 @@ export default {
 }
 
 .category-item:hover {
-  color: #69feca;
+  color: #69feca; /* Change color on hover */
 }
 .category-image:hover {
-  transform: scale(1.2);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2); /* Enlarge image on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
 .category-name {
-  font-size: 16px;
+  font-size: 16px; /* Increase font size for readability */
   margin-top: 8px;
   color: white;
-  text-transform: uppercase;
+  text-transform: uppercase; /* Make category names uppercase for style */
   font-weight: bold;
 }
 
 @media (max-width: 768px) {
   .category-navbar ul {
-    gap: 20px;
+    gap: 20px; /* Reduce gap for smaller screens */
   }
 
   .category-item {
-    width: 100px;
+    width: 100px; /* Reduce width on smaller screens */
   }
 
   .category-image {
-    height: 60px;
+    height: 60px; /* Smaller images on mobile */
   }
 
   .category-name {
-    font-size: 14px;
+    font-size: 14px; /* Adjust font size for mobile */
   }
 }
 
 @media (max-width: 480px) {
   .category-navbar ul {
-    gap: 10px;
+    gap: 10px; /* Further reduce gap for very small screens */
   }
 
   .category-item {
-    width: 80px;
+    width: 80px; /* Adjust width further for small devices */
   }
 
   .category-image {
-    height: 50px;
+    height: 50px; /* Adjust image size for small devices */
   }
 
   .category-name {
-    font-size: 12px;
+    font-size: 12px; /* Smaller font size for small screens */
   }
-}
+} /* Closing brace was missing previously */
 </style>

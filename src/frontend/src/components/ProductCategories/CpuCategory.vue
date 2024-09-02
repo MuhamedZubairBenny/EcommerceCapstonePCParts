@@ -310,7 +310,5 @@ html, body {
     display: flex;
     justify-content: flex-end;
   }
-}
-
 
 </style>

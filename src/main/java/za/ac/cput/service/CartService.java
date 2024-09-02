@@ -1,6 +1,5 @@
 package za.ac.cput.service;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Cart;
@@ -32,69 +31,56 @@ public class CartService implements ICartService {
     public List<Cart> getAll() {return repository.findAll();}
 
     public Cart addProductToCart(String cartId, String productId) {
-        // Fetch the cart by ID
         Cart cart = repository.findByCartId(cartId);
 
         if (cart == null) {
             throw new IllegalArgumentException("Cart not found");
         }
 
-        // Fetch the product by ID
         Product product = productRepository.findByProductId(productId);
 
         if (product == null) {
             throw new IllegalArgumentException("Product not found");
         }
 
-        // Add the product to the cart's product list
         cart.getProducts().add(product);
 
-        //cart.setCartTotal(cart.calculateCartTotal());
         Cart updatedCart = new Cart.Builder()
                 .copy(cart)
                 .setCartTotal(cart.getProducts().stream().mapToDouble(Product::getPrice).sum())
                 .build();
 
-        // Save the updated cart
         return repository.save(updatedCart);
     }
 
     public boolean removeProductFromCart(String cartId, String productId) {
-        // Fetch the cart by ID
         Cart cart = repository.findByCartId(cartId);
 
         if (cart == null) {
             throw new IllegalArgumentException("Cart not found");
         }
 
-        // Fetch the product by ID
         Product product = productRepository.findByProductId(productId);
 
         if (product == null) {
             throw new IllegalArgumentException("Product not found");
         }
 
-        // Remove the product from the cart's product list
         boolean removed = cart.getProducts().removeIf(p -> p.getProductId().equals(productId));
 
         if (removed) {
-            // Calculate the new cart total
             double newTotal = cart.getProducts().stream().mapToDouble(Product::getPrice).sum();
 
-            // Use the Builder to update the cart
             Cart updatedCart = new Cart.Builder()
                     .copy(cart)
                     .setCartTotal(newTotal)
                     .build();
 
-            // Save the updated cart
             repository.save(updatedCart);
         }
 
         return removed;
     }
-
-
 
 
 }

@@ -1,11 +1,11 @@
 <template>
   <Swiper
-      :slides-per-view="1"
-      :space-between="10"
-      :pagination="{ clickable: true, el: '.swiper-pagination' }"
-      :navigation="true"
-      :loop="true"
-      :autoplay="{ delay: 3000 }"
+      slides-per-view="1"
+      space-between="10"
+      pagination={{ clickable: true }}
+      navigation
+      loop
+      autoplay={{ delay: 3000 }}
       class="mySwiper"
   >
     <SwiperSlide v-for="(image, index) in images" :key="index">

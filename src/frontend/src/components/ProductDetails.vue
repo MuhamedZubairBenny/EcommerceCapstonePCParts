@@ -1,62 +1,5 @@
-<script setup>
-import { ref, onMounted } from 'vue';
-import {useRoute, useRouter} from 'vue-router';
-
-const route = useRoute();
-const router = useRouter();
-const product = ref(null);
-
-const fetchProductDetails = () => {
-  const productId = route.params.id;
-  fetch(`/api/product/read/${productId}`)
-      .then(response => response.json())
-      .then(data => {
-        product.value = data;
-      })
-      .catch(error => {
-        console.error('Error fetching product details:', error);
-      });
-};
-
-onMounted(() => {
-  fetchProductDetails();
-});
-
-const formatCurrency = (value) => {
-  if (!value) return '';
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
-};
-
-const addToCart = () => {
-  if (product.value) {
-    fetch(`/api/cart/01/addProduct/${product.value.productId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert('Product added to cart!');
-            router.push('/cart');
-          } else {
-            console.error('Error adding product to cart:', data.message);
-          }
-        })
-        .catch(error => {
-          console.error('Error adding product to cart:', error);
-        });
-  }
-};
-
-const goBack = () => {
-  window.history.back();
-};
-</script>
-
 <template>
-  <div v-if="product" class="product-details-container">
+  <div v-if="product && cart" class="product-details-container">
     <div class="product-header">
       <h1 class="product-title">{{ product.productName }}</h1>
       <p class="product-price">{{ formatCurrency(product.price) }}</p>
@@ -90,6 +33,86 @@ const goBack = () => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+
+const product = ref(null);
+const cart = ref(null);
+
+const fetchProductDetails = async () => {
+  const productId = route.params.id;
+  try {
+    const response = await fetch(`/api/product/read/${productId}`);
+    const data = await response.json();
+    product.value = data;
+  } catch (error) {
+    console.error('Error fetching product details:', error);
+  }
+};
+
+const fetchCartDetails = async () => {
+  const customerId = store.state.customerId; // Assuming customerId is stored in Vuex
+  try {
+    const response = await fetch(`/api/cart/${customerId}`);
+    const data = await response.json();
+    cart.value = data;
+  } catch (error) {
+    console.error('Error fetching cart details:', error);
+  }
+};
+
+const addToCart = async () => {
+  if (product.value && cart.value) {
+    try {
+      const response = await fetch(`/api/cart/'5c27f221-3fad-4310-8028-ae3e869c0933/addProduct/${product.value.productId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Server response:', data); // Log the server response
+        if (data) {
+          alert('Product added to cart!');
+          router.push('/cart');
+        } else {
+          console.error('Error adding product to cart: No data received');
+        }
+      } else {
+        console.error('Error adding product to cart:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  } else {
+    console.error('Product or cart not available');
+  }
+};
+
+
+const goBack = () => {
+  window.history.back();
+};
+
+onMounted(() => {
+  fetchProductDetails();
+  fetchCartDetails();
+});
+
+const formatCurrency = (value) => {
+  if (!value) return '';
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
+};
+</script>
 
 <style scoped>
 .product-details-container {

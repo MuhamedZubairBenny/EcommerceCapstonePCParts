@@ -6,9 +6,9 @@ import GpuCategory from '@/components/ProductCategories/GpuCategory.vue';
 import ShippingAddress from '@/components/Profile/ShippingAddress.vue';
 import ProductDetails from "@/components/ProductDetails.vue";
 import AccountInformation from "@/components/Profile/AccountInformation.vue";
-import AddProducts from "@/components/Profile/AddProducts.vue";
-import DeleteProducts from "@/components/Profile/DeleteProducts.vue";
-import UpdateProducts from "@/components/Profile/UpdateProducts.vue";
+import AddProducts from "@/components/AdminProfile/Product/AddProducts.vue";
+import DeleteProducts from "@/components/AdminProfile/Product/DeleteProducts.vue";
+import UpdateProducts from "@/components/AdminProfile/Product/UpdateProducts.vue";
 import PaymentOption from "@/components/Profile/PaymentOption.vue";
 import UserCart from "@/components/Profile/UserCart.vue";
 import CoolingCategory from "@/components/ProductCategories/CoolingCategory.vue";
@@ -21,10 +21,34 @@ import PSUCategory from "@/components/ProductCategories/PSUCategory.vue";
 import PeripheralCategory from "@/components/ProductCategories/PeripheralCategory.vue";
 import UpdateCustomer from "@/components/Profile/UpdateCustomer.vue";
 import UpdateContact from "@/components/Profile/UpdateContact.vue";
+import AddCategory from "@/components/AdminProfile/Category/AddCategory.vue";
+import UpdateCategory from "@/components/AdminProfile/Category/UpdateCategory.vue";
+import DeleteCategory from "@/components/AdminProfile/Category/DeleteCategory.vue";
+import AddBrand from "@/components/AdminProfile/Brand/AddBrand.vue";
+import UpdateBrand from "@/components/AdminProfile/Brand/UpdateBrand.vue";
+import DeleteBrand from "@/components/AdminProfile/Brand/DeleteBrand.vue";
+import AdminPage from "@/components/AdminPage.vue";
+import LoginPage from "@/components/LoginPage.vue";
+import RegisterPage from "@/components/RegisterPage.vue";
+import store from "@/store";
 
+//import Profile from '@/components/Profile/Profile.vue';
+// import ProductPage from '@/components/ProductPage.vue';
+// Create a router instance
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(), // Use createWebHistory for Vue 3
     routes: [
+        { path: '/', redirect: '/login' },
+        {
+            path: '/login',
+            name: 'Login',
+            component: LoginPage
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: RegisterPage
+        },
         {
             path: '/search',
             name: 'SearchResults',
@@ -37,7 +61,7 @@ const router = createRouter({
             props: true
         },
         {
-            path: '/',
+            path: '/home',
             name: 'HomePage',
             component: HomePage
         },
@@ -150,51 +174,55 @@ const router = createRouter({
         name: 'CoolingCategory',
         component: CoolingCategory
     },
+        {
+            path: '/AddCategory',
+            name: 'AddCategory',
+            component: AddCategory
+        },
+        {
+            path: '/UpdateCategory',
+            name: 'UpdateCategory',
+            component: UpdateCategory
+        },
+        {
+            path: '/DeleteCategory',
+            name: 'DeleteCategory',
+            component: DeleteCategory
+        },
+        {
+            path: '/AddBrand',
+            name: 'AddBrand',
+            component: AddBrand
+        },
+        {
+            path: '/UpdateBrand',
+            name: 'UpdateBrand',
+            component: UpdateBrand
+        },
+        {
+            path: '/DeleteBrand',
+            name: 'DeleteBrand',
+            component: DeleteBrand
+        },
+        {
+            path: '/AdminPage',
+            name: 'AdminPage',
+            component: AdminPage
+        },
 
-        // {
-        //     path: '/profile',
-        //     name: 'Profile',
-        //     component: Profile,
-        //     children: [
-        //         {
-        //             path: 'account',
-        //             name: 'AccountInformation',
-        //             component: () => import('@/components/Profile/AccountInformation.vue')
-        //         },
-        //         {
-        //             path: 'cart',
-        //             name: 'ProductCart',
-        //             component: () => import('@/components/Profile/Cart.vue')
-        //         },
-        //         {
-        //             path: 'payment',
-        //             name: 'PaymentOption',
-        //             component: () => import('@/components/Profile/Payment.vue')
-        //         },
-        //         {
-        //             path: 'address',
-        //             name: 'ShippingAddress',
-        //             component: () => import('@/components/Profile/ShippingAddress.vue')
-        //         }
-            //]
-       // },
-        // {
-        //     path: '/:category',
-        //     name: 'ProductPage',
-        //     component: ProductPage,
-        //     props: route => ({ category: route.params.category })
-        // },
-        // {
-        //     path: '/category/product',
-        //     name: 'ProductDetailPage',
-        //     component: ProductPage,
-        //     props: route => ({
-        //         category: route.params.category,
-        //         product: route.params.product
-        //     })
-        //}
 
     ],
+});
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = store.state.isAuthenticated;
+    const publicPages = ['/login', '/register'];
+    const authRequired = !publicPages.includes(to.path);
+
+    if (authRequired && !isAuthenticated) {
+        return next('/login');
+    }
+
+    next();
 });
 
 
