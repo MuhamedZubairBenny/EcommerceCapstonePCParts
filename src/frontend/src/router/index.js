@@ -6,9 +6,9 @@ import GpuCategory from '@/components/ProductCategories/GpuCategory.vue';
 import ShippingAddress from '@/components/Profile/ShippingAddress.vue';
 import ProductDetails from "@/components/ProductDetails.vue";
 import AccountInformation from "@/components/Profile/AccountInformation.vue";
-import AddProducts from "@/components/Profile/AddProducts.vue";
-import DeleteProducts from "@/components/Profile/DeleteProducts.vue";
-import UpdateProducts from "@/components/Profile/UpdateProducts.vue";
+import AddProducts from "@/components/AdminProfile/Product/AddProducts.vue";
+import DeleteProducts from "@/components/AdminProfile/Product/DeleteProducts.vue";
+import UpdateProducts from "@/components/AdminProfile/Product/UpdateProducts.vue";
 import PaymentOption from "@/components/Profile/PaymentOption.vue";
 import UserCart from "@/components/Profile/UserCart.vue";
 import CoolingCategory from "@/components/ProductCategories/CoolingCategory.vue";
@@ -19,9 +19,19 @@ import StorageCategory from "@/components/ProductCategories/StorageCategory.vue"
 import RAMCategory from "@/components/ProductCategories/RAMCategory.vue";
 import PSUCategory from "@/components/ProductCategories/PSUCategory.vue";
 import PeripheralCategory from "@/components/ProductCategories/PeripheralCategory.vue";
+import AddCategory from "@/components/AdminProfile/Category/AddCategory.vue";
+import UpdateCategory from "@/components/AdminProfile/Category/UpdateCategory.vue";
+import DeleteCategory from "@/components/AdminProfile/Category/DeleteCategory.vue";
+import AddBrand from "@/components/AdminProfile/Brand/AddBrand.vue";
+import UpdateBrand from "@/components/AdminProfile/Brand/UpdateBrand.vue";
+import DeleteBrand from "@/components/AdminProfile/Brand/DeleteBrand.vue";
+import AdminPage from "@/components/AdminPage.vue";
 
+//import Profile from '@/components/Profile/Profile.vue';
+// import ProductPage from '@/components/ProductPage.vue';
+// Create a router instance
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(), // Use createWebHistory for Vue 3
     routes: [
         {
             path: '/search',
@@ -33,11 +43,6 @@ const router = createRouter({
             name: 'ProductDetails',
             component: ProductDetails,
             props: true
-        },
-        {
-            path: '/search',
-            name: 'SearchResults',
-            component: () => import('@/components/SearchResults.vue')
         },
         {
             path: '/',
@@ -141,7 +146,41 @@ const router = createRouter({
         name: 'CoolingCategory',
         component: CoolingCategory
     },
-
+        {
+            path: '/AddCategory',
+            name: 'AddCategory',
+            component: AddCategory
+        },
+        {
+            path: '/UpdateCategory',
+            name: 'UpdateCategory',
+            component: UpdateCategory
+        },
+        {
+            path: '/DeleteCategory',
+            name: 'DeleteCategory',
+            component: DeleteCategory
+        },
+        {
+            path: '/AddBrand',
+            name: 'AddBrand',
+            component: AddBrand
+        },
+        {
+            path: '/UpdateBrand',
+            name: 'UpdateBrand',
+            component: UpdateBrand
+        },
+        {
+            path: '/DeleteBrand',
+            name: 'DeleteBrand',
+            component: DeleteBrand
+        },
+        {
+            path: '/AdminPage',
+            name: 'AdminPage',
+            component: AdminPage
+        },
 
 
     ],

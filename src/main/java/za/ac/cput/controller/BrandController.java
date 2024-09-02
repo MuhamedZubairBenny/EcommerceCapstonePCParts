@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/brand")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BrandController {
     @Autowired
     private BrandService brandService;
@@ -16,13 +17,13 @@ public class BrandController {
     @PostMapping("/create")
     public Brand create(@RequestBody Brand brand){return brandService.create(brand);}
 
-    @PostMapping("/read/{id}")
+    @PostMapping("/read/{brandId}")
     public Brand read(@PathVariable String brandId){return brandService.read(brandId);}
 
    @PostMapping("/update")
    public Brand update(@RequestBody Brand brand){return brandService.update(brand);}
 
-   @DeleteMapping("/delete/{id}")
+   @DeleteMapping("/delete/{brandId}")
     public void delete(@PathVariable String brandId){brandService.delete(brandId);}
 
     @GetMapping("/getAll")

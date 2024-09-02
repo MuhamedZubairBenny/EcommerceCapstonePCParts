@@ -47,11 +47,10 @@
 
           <div v-if="isDropdownVisible" class="dropdown-content">
             <router-link to="/AccountInformation">Account Information</router-link>
-            <router-link to="/AddProducts">Add Products</router-link>
-            <router-link to="/DeleteProducts">Delete Products</router-link>
             <router-link to="/PaymentOption">Payment Option</router-link>
             <router-link to="/ShippingAddress">Shipping Address</router-link>
-            <router-link to="/UpdateProducts">Update Products</router-link>
+            <router-link to="/PaymentOption">Payment Option</router-link>
+            <router-link to="/AdminPage">Admin Page</router-link>
           </div>
         </div>
       </div>

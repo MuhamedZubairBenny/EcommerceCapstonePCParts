@@ -18,6 +18,7 @@ public class BrandServiceTest {
     private BrandService brandService;
     private static Brand brand1;
     private static Brand brand2;
+    private static Brand brand3;
 
     @Test
     void a_setup(){
@@ -27,6 +28,9 @@ public class BrandServiceTest {
         brand2= BrandFactory.buildBrand("002", "HP");
         assertNotNull(brand2);
         System.out.println(brand2);
+        brand3= BrandFactory.buildBrand("003", "Intel");
+        assertNotNull(brand3);
+        System.out.println(brand3);
     }
 
 
@@ -38,6 +42,9 @@ public class BrandServiceTest {
         Brand created2 = brandService.create(brand2);
         assertNotNull(created2);
         System.out.println(created2);
+        Brand created3 = brandService.create(brand3);
+        assertNotNull(created3);
+       System.out.println(created3);
     }
 
     @Test
@@ -56,9 +63,8 @@ public class BrandServiceTest {
     }
 
     @Test
-    @Disabled
     void e_delete(){
-        brandService.delete(brand1.getBrandId());
+        brandService.delete(brand3.getBrandId());
     }
 
     @Test
