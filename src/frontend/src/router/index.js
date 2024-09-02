@@ -19,6 +19,8 @@ import StorageCategory from "@/components/ProductCategories/StorageCategory.vue"
 import RAMCategory from "@/components/ProductCategories/RAMCategory.vue";
 import PSUCategory from "@/components/ProductCategories/PSUCategory.vue";
 import PeripheralCategory from "@/components/ProductCategories/PeripheralCategory.vue";
+import UpdateCustomer from "@/components/Profile/UpdateCustomer.vue";
+import UpdateContact from "@/components/Profile/UpdateContact.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -83,6 +85,18 @@ const router = createRouter({
             name: 'PaymentOption',
             component: PaymentOption,
             meta: { hideNavbar: true },
+        },
+        {
+            path: '/UpdateCustomer',
+            name:'UpdateCustomer',
+            component: UpdateCustomer,
+            meta: { hideNavbar: true},
+        },
+        {
+            path: '/UpdateContact',
+            name:'UpdateContact',
+            component: UpdateContact,
+            meta: { hideNavbar: true},
         },
         {
             path: '/cart',

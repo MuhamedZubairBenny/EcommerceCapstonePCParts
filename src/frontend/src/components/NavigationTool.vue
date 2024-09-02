@@ -52,6 +52,8 @@
             <router-link to="/PaymentOption">Payment Option</router-link>
             <router-link to="/ShippingAddress">Shipping Address</router-link>
             <router-link to="/UpdateProducts">Update Products</router-link>
+            <router-link to="/UpdateCustomer">Update Customer</router-link>
+            <router-link to="/UpdateContact">Update Contact</router-link>
           </div>
         </div>
       </div>
