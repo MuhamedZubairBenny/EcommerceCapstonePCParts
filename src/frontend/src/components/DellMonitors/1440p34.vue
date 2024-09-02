@@ -5,8 +5,9 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const products = ref([]);
 
+// Fetch data when the component is mounted
 const fetchData = () => {
-  fetch("/api/product/search/Ryzen 7")
+  fetch("/api/product/search/Monitor")
       .then(response => response.json())
       .then(data => {
         products.value = data;
@@ -22,18 +23,10 @@ onMounted(() => {
 });
 
 const goToPage = (productId) => {
-  const productRoutes = {
-    "008": "/amd/Ryzen7Processors/5700",
-    "009": "/amd/Ryzen7Processors/8700F",
-    "010": "/amd/Ryzen7Processors/5800XT",
-    "011": "/amd/Ryzen7Processors/8700G",
-    "013": "/amd/Ryzen7Processors/9700X"
-  };
-
-  const pagePath = productRoutes[productId] || '/product-not-found';
-  router.push(pagePath);
+  router.push({ name: 'ProductDetails', params: { id: productId } });
 };
 
+// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
@@ -42,8 +35,8 @@ const formatCurrency = (value) => {
 
 <template>
   <div class="products-container">
-    <h1>AMD Ryzen 7 Processors</h1>
-    <p>Check out the latest Ryzen 7 products:</p>
+    <h1>Dell 1440p 34" Monitor</h1>
+    <p>Check out the latest Dell products:</p>
     <div class="products-grid">
       <div
           class="product-card"
@@ -84,7 +77,7 @@ const formatCurrency = (value) => {
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, border-color 0.3s ease;
-  flex: 0 1 22%;
+  flex: 0 1 22%; /* Each product takes up 22% of the row */
   margin: 20px 0;
   padding: 15px;
   text-align: center;
@@ -119,13 +112,13 @@ const formatCurrency = (value) => {
 
 @media (max-width: 768px) {
   .product-card {
-    flex: 0 1 48%;
+    flex: 0 1 48%; /* 48% of the row on smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .product-card {
-    flex: 0 1 100%;
+    flex: 0 1 100%; /* Full width of the row on mobile screens */
   }
 }
 </style>

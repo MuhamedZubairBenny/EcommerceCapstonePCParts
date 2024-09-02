@@ -91,4 +91,15 @@ public class OrderControllerTest {
         System.out.println("Show ALL:");
         System.out.println(response.getBody());
     }
+
+    @Test
+    void f_findCustomer() {
+        String url = BASE_URL + "/findCustomer/" + order1.getOrderId();
+        System.out.println("URL: " + url);
+        ResponseEntity<Customer> response = restTemplate.getForEntity(url, Customer.class);
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        System.out.println(response.getBody());
+        System.out.println("Find customer: " + response.getBody());
+    }
 }
