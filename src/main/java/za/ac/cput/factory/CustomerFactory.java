@@ -1,59 +1,74 @@
 package za.ac.cput.factory;
 
-import za.ac.cput.domain.Contact;
+import za.ac.cput.domain.Cart;
+import za.ac.cput.domain.Product;
+import za.ac.cput.domain.Shipping;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.util.Helper;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerFactory {
-    public static Customer buildCustomer(String customerId, String firstName, String lastName, String password, Contact contact){
-        if (Helper.isNullOrEmpty(customerId)
-                || Helper.isNullOrEmpty(firstName)
-                || Helper.isNullOrEmpty(lastName)
-                || Helper.isNullOrEmpty(password)
-                || !Helper.emailIsValid(contact.getEmail(),"^(.+)@(\\S+)$")
-                || Helper.isNullOrEmpty(contact.getMobile())
-                || Helper.isNullOrEmpty(contact.getAddress())
-                || Helper.isNullOrEmpty(contact.getCity())
-                || Helper.isNullOrEmpty(contact.getState())
-                || Helper.isNullOrEmpty(contact.getZipCode())
-                || Helper.isNullOrEmpty(contact.getCountry()))
+
+    // Method to build Customer with Shipping object
+    public static Customer buildCustomer(String customerId, String firstName, String lastName, String email, String password, String mobileNumber, LocalDate dateOfBirth, Shipping shipping, Cart cart){
+        if (Helper.isNullOrEmpty(customerId) || Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(email) || Helper.isNullOrEmpty(password) || Helper.isNullOrEmpty(mobileNumber) || dateOfBirth == null || shipping == null || cart == null)
             return null;
 
-        return new Customer.Builder().setCustomerId(customerId)
+        return new Customer.Builder()
+                .setCustomer_id(customerId)
                 .setFirstName(firstName)
                 .setLastName(lastName)
+                .setEmail(email)
                 .setPassword(password)
-                .setContact(contact)
+                .setMobileNumber(mobileNumber)
+                .setDateOfBirth(dateOfBirth)
+                .setShipping(shipping)
+                .setCart(cart)
                 .build();
     }
 
-    public static Customer buildCustomer(String customerId, String firstName, String lastName, String password, String email, String mobile, String address, String city, String state, String zipCode, String country){
-        if( Helper.isNullOrEmpty(customerId)
-                || Helper.isNullOrEmpty(firstName)
-                || Helper.isNullOrEmpty(lastName)
-                || Helper.isNullOrEmpty(password)
-                || !Helper.emailIsValid(email,"^(.+)@(\\S+)$")
-                || Helper.isNullOrEmpty(mobile)
-                || Helper.isNullOrEmpty(address)
-                || Helper.isNullOrEmpty(city)
-                || Helper.isNullOrEmpty(state)
-                || Helper.isNullOrEmpty(zipCode)
-                || Helper.isNullOrEmpty(country))
+    public static Customer buildCustomer(String firstName, String lastName, String email, String password, String mobileNumber, LocalDate dateOfBirth, Shipping shipping,Cart cart){
+        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(email) || Helper.isNullOrEmpty(password) || Helper.isNullOrEmpty(mobileNumber) || dateOfBirth == null || shipping == null || cart == null)
             return null;
 
-        Contact contact = new Contact.Builder().setEmail(email)
-                .setMobile(mobile)
-                .setAddress(address)
-                .setCity(city)
-                .setState(state)
-                .setZipCode(zipCode)
-                .setCountry(country)
-                .build();
+        String customerId = Helper.generateId();
 
-        return new Customer.Builder().setCustomerId(customerId)
+        return new Customer.Builder()
+                .setCustomer_id(customerId)
                 .setFirstName(firstName)
                 .setLastName(lastName)
+                .setEmail(email)
                 .setPassword(password)
-                .setContact(contact)
+                .setMobileNumber(mobileNumber)
+                .setDateOfBirth(dateOfBirth)
+                .setShipping(shipping)
+                .setCart(cart)
                 .build();
-    } }
+    }
+
+    public static Customer buildCustomer(String firstName, String lastName, String email, String password){
+        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(email) || Helper.isNullOrEmpty(password))
+            return null;
+
+        String customerId = Helper.generateId();
+        String mobileNumber = "111 222 3456";
+        LocalDate dateOfBirth = LocalDate.of(2000,1,1);
+        List<Product> productList = new ArrayList<>();
+        Cart defaultCart = CartFactory.buildCart(productList);
+        Shipping defaultShipping = ShippingFactory.buildShipping("Placeholder", "Placeholder", "Placeholder", "Placeholder", "Placeholder");
+        return new Customer.Builder()
+                .setCustomer_id(customerId)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setPassword(password)
+                .setMobileNumber(mobileNumber)
+                .setDateOfBirth(dateOfBirth)
+                .setShipping(defaultShipping)
+                .setCart(defaultCart)
+                .build();
+    }
+}

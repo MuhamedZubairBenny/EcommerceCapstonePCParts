@@ -1,65 +1,7 @@
 
 <template xmlns:th="http://www.w3.org/1999/xhtml">
   <div class="homepage-container">
-<!--    &lt;!&ndash; Navigation Tool &ndash;&gt;-->
     <NavigationTool />
-
-<!--    &lt;!&ndash; Header Section &ndash;&gt;-->
-<!--    <header class="header">-->
-<!--      <div class="logo">-->
-<!--        <img :src="require('@/assets/cybertech.png')" alt="Brand Logo" class="brand-logo" />-->
-<!--      </div>-->
-<!--      &lt;!&ndash; Centered Search Bar &ndash;&gt;-->
-<!--      <div class="search-bar">-->
-<!--        <input-->
-<!--            type="text"-->
-<!--            placeholder="Search for products, brands, and more..."-->
-<!--            class="search-input"-->
-<!--            v-model="searchQuery"-->
-<!--            @keyup.enter="handleSearch"-->
-<!--        />-->
-<!--        <button class="search-button" @click="handleSearch">Search</button>-->
-<!--      </div>-->
-<!--      &lt;!&ndash; Search Results &ndash;&gt;-->
-<!--      <div class="product-results" v-if="products.length > 0">-->
-<!--        <div v-for="product in products" :key="product.id" class="product-card">-->
-<!--          <h3>{{ product.name }}</h3>-->
-<!--          <p>{{ product.description }}</p>-->
-<!--          <span>\${{ product.price }}</span>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      &lt;!&ndash; Cart and Account Icons &ndash;&gt;-->
-<!--      <div class="header-buttons">-->
-<!--        <button class="icon-button">-->
-<!--          &lt;!&ndash; Updated Cart Icon SVG &ndash;&gt;-->
-<!--          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon cart-icon">-->
-<!--            <path d="M7 4h-2l-3 7v11h18V11l-3-7h-2l-2 4H9l-2-4zm-2 7h14l2 8H5l2-8zm0 2h8v2H5v-2z"/>-->
-<!--          </svg>-->
-<!--        </button>-->
-<!--        <button class="icon-button">-->
-<!--          &lt;!&ndash; Account Icon SVG &ndash;&gt;-->
-<!--          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon account-icon">-->
-<!--            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6z"/>-->
-<!--          </svg>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </header>-->
-
-<!--    &lt;!&ndash; Navbar for Categories &ndash;&gt;-->
-<!--    <nav class="category-navbar">-->
-<!--      <ul>-->
-<!--        <router-link-->
-<!--            v-for="(category, index) in categories"-->
-<!--            :key="index"-->
-<!--            :to="'/' + category.name.toLowerCase()"-->
-<!--            class="category-item"-->
-<!--        >-->
-<!--          <img :src="category.image.src" :alt="category.image.alt" class="category-image" />-->
-<!--          <span class="category-name">{{ category.name }}</span>-->
-<!--        </router-link>-->
-<!--      </ul>-->
-<!--    </nav>-->
-
 
   <Swiper
         :slides-per-view="1"
@@ -154,7 +96,7 @@ export default {
 .about-us h2 {
   font-size: 40px;
   margin-bottom: 25px;
-  color: #febd69; /
+  color: #febd69;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -224,7 +166,7 @@ export default {
 }
 
 .icon-button .icon {
-  width: 24px; /
+  width: 24px;
   height: 24px;
 }
 

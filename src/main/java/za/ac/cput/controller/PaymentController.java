@@ -5,15 +5,16 @@ import org.springframework.web.bind.annotation.*;
 
 import za.ac.cput.domain.Payment;
 import za.ac.cput.service.IPaymentService;
+import za.ac.cput.service.PaymentService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/payment")
 public class PaymentController {
-
+    private PaymentService paymentService;
     @Autowired
-    private IPaymentService paymentService;
+    PaymentController(PaymentService paymentService){this.paymentService = paymentService;}
 
     @PostMapping("/create")
     public Payment create(@RequestBody Payment payment) {

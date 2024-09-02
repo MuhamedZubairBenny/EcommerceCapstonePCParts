@@ -45,10 +45,10 @@ export default {
   methods: {
     fetchSearchResults(query) {
       if (query) {
-        axios.get(`http://localhost:3000/api/product/search/${query}`)
-            .then(response => {
-              this.products = response.data;
-            })
+        axios.get( `http://localhost:3000/api/product/search/${query}`)
+      .then(response => {
+          this.products = response.data;
+        })
             .catch(error => {
               console.error('Error fetching search results:', error);
             });
@@ -66,10 +66,10 @@ export default {
 }
 
 .product-item {
-  display: block; /* Ensure the product item takes up full width */
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit color from parent */
-  margin: 10px 0; /* Space between items */
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin: 10px 0;
 }
 
 .product-item-content {
@@ -79,8 +79,8 @@ export default {
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
-  cursor: pointer; /* Indicate that the item is clickable */
-  box-sizing: border-box; /* Include padding and border in element’s total width and height */
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .product-item-content:hover {

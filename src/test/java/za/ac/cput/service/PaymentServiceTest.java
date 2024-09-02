@@ -7,6 +7,7 @@ import za.ac.cput.domain.*;
 import za.ac.cput.domain.Order;
 import za.ac.cput.factory.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,22 +20,26 @@ class PaymentServiceTest {
     @Autowired
     private IPaymentService service;
 
+    private Customer customer1;
+    private OrderItem orderItem;
+    private List<OrderItem> orderItemList;
+    private Order order;
+    private Payment payment;
 
-    private static Payment payment;
+    @BeforeEach
+    void a_setUp() {
+        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        assertNotNull(shipping);
+        System.out.println(shipping);
+        List<Product> products = new ArrayList<>();
+        Cart cart = CartFactory.buildCart(products);
 
-    @BeforeAll
-    static void a_setUp() {
-        Contact contact = ContactFactory.buildContact("Mark@gmail.com","0987654321","29 Waterway","Cape Town","Western Province","2604","South Africa");
-        Customer customer = CustomerFactory.buildCustomer("01","Mark","Stevens","Qw123",contact);
-        Brand brand = BrandFactory.buildBrand("2134", "Asus");
-        ProductCategory category = ProductCategoryFactory.buildProductCategory("12345", "GPU");
-        Product product = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
-
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
-        OrderItem orderItem = OrderItemFactory.buildOrderItem("100",product,1,order);
-        payment = PaymentFactory.buildPayment("001",customer,order,"Credit card",1000.00);
-        assertNotNull(payment);
-        System.out.println(payment);
+        //Build Customer
+        customer1 = CustomerFactory.buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
+        assertNotNull(customer1);
+        System.out.println(customer1);
+        order = OrderFactory.buildOrder("001", 14500.00,customer1);
+        payment = PaymentFactory.buildPayment("001", customer1, order, "Credit card", 1000.0);
     }
 
     @Test
@@ -56,7 +61,8 @@ class PaymentServiceTest {
 
     @Test
     void d_update() {
-        Payment updatedPayment = new Payment.Builder().copy(payment).setPaymentTotal(1200.00).build();
+        Payment created = service.create(payment);
+        Payment updatedPayment = new Payment.Builder().copy(created).setPaymentTotal(1200.00).build();
         Payment updated = service.update(updatedPayment);
         assertNotNull(updated);
         assertEquals(1200.00, updated.getPaymentTotal());
@@ -66,14 +72,16 @@ class PaymentServiceTest {
     @Test
     @Disabled
     void delete() {
-        service.delete(payment.getPaymentId());
-        Payment deleted = service.read(payment.getPaymentId());
+        Payment created = service.create(payment);
+        service.delete(created.getPaymentId());
+        Payment deleted = service.read(created.getPaymentId());
         assertNull(deleted);
-        System.out.println("Deleted payment: ");
+        System.out.println("Deleted: " + created.getPaymentId());
     }
 
     @Test
     void f_getAll() {
+        service.create(payment);
         List<Payment> payments = service.getAll();
         assertNotNull(payments);
         assertFalse(payments.isEmpty());
