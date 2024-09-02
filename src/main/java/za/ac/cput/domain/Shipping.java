@@ -1,24 +1,22 @@
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
 @Entity
-public class Contact {
+public class Shipping {
     @Id
-    private String email;
-    private String mobile;
+    private String shippingId;
     private String address;
     private String city;
     private String state;
     private String zipCode;
     private String country;
+    protected Shipping() {}
 
-    protected Contact(){}
-    public Contact(Builder builder) {
-        this.email = builder.email;
-        this.mobile = builder.mobile;
+    public Shipping(Builder builder) {
+        this.shippingId = builder.shippingId;
         this.address = builder.address;
         this.city = builder.city;
         this.state = builder.state;
@@ -26,12 +24,9 @@ public class Contact {
         this.country = builder.country;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getMobile() {
-        return mobile;
+    // Getters
+    public String getShippingId() {
+        return shippingId;
     }
 
     public String getAddress() {
@@ -58,20 +53,24 @@ public class Contact {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Contact contact = (Contact) o;
-        return Objects.equals(email, contact.email) && Objects.equals(mobile, contact.mobile) && Objects.equals(address, contact.address) && Objects.equals(city, contact.city) && Objects.equals(state, contact.state) && Objects.equals(zipCode, contact.zipCode) && Objects.equals(country, contact.country);
+        Shipping shipping = (Shipping) o;
+        return Objects.equals(shippingId, shipping.shippingId) &&
+                Objects.equals(address, shipping.address) &&
+                Objects.equals(city, shipping.city) &&
+                Objects.equals(state, shipping.state) &&
+                Objects.equals(zipCode, shipping.zipCode) &&
+                Objects.equals(country, shipping.country);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, mobile, address, city, state, zipCode, country);
+        return Objects.hash(shippingId, address, city, state, zipCode, country);
     }
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "email='" + email + '\'' +
-                ", mobile='" + mobile + '\'' +
+        return "Shipping{" +
+                "shippingId='" + shippingId + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
@@ -81,21 +80,15 @@ public class Contact {
     }
 
     public static class Builder {
-        private String email;
-        private String mobile;
+        private String shippingId;
         private String address;
         private String city;
         private String state;
         private String zipCode;
         private String country;
 
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder setMobile(String mobile) {
-            this.mobile = mobile;
+        public Builder setShippingId(String shippingId) {
+            this.shippingId = shippingId;
             return this;
         }
 
@@ -124,19 +117,19 @@ public class Contact {
             return this;
         }
 
-        public Builder copy(Contact contact){
-            this.email = contact.email;
-            this.mobile = contact.mobile;
-            this.address = contact.address;
-            this.city = contact.city;
-            this.state = contact.state;
-            this.zipCode = contact.zipCode;
-            this.country = contact.country;
+
+        public Builder copy(Shipping shipping) {
+            this.shippingId = shipping.shippingId;
+            this.address = shipping.address;
+            this.city = shipping.city;
+            this.state = shipping.state;
+            this.zipCode = shipping.zipCode;
+            this.country = shipping.country;
             return this;
         }
 
-        public Contact build() {
-            return new Contact(this);
+        public Shipping build() {
+            return new Shipping(this);
         }
     }
 }

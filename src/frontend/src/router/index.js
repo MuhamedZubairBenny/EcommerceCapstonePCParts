@@ -30,6 +30,11 @@ const router = createRouter({
             props: true
         },
         {
+            path: '/search',
+            name: 'SearchResults',
+            component: () => import('@/components/SearchResults.vue')
+        },
+        {
             path: '/',
             name: 'HomePage',
             component: HomePage
@@ -132,48 +137,7 @@ const router = createRouter({
         component: CoolingCategory
     },
 
-        // {
-        //     path: '/profile',
-        //     name: 'Profile',
-        //     component: Profile,
-        //     children: [
-        //         {
-        //             path: 'account',
-        //             name: 'AccountInformation',
-        //             component: () => import('@/components/Profile/AccountInformation.vue')
-        //         },
-        //         {
-        //             path: 'cart',
-        //             name: 'ProductCart',
-        //             component: () => import('@/components/Profile/Cart.vue')
-        //         },
-        //         {
-        //             path: 'payment',
-        //             name: 'PaymentOption',
-        //             component: () => import('@/components/Profile/Payment.vue')
-        //         },
-        //         {
-        //             path: 'address',
-        //             name: 'ShippingAddress',
-        //             component: () => import('@/components/Profile/ShippingAddress.vue')
-        //         }
-            //]
-       // },
-        // {
-        //     path: '/:category',
-        //     name: 'ProductPage',
-        //     component: ProductPage,
-        //     props: route => ({ category: route.params.category })
-        // },
-        // {
-        //     path: '/category/product',
-        //     name: 'ProductDetailPage',
-        //     component: ProductPage,
-        //     props: route => ({
-        //         category: route.params.category,
-        //         product: route.params.product
-        //     })
-        //}
+
 
     ],
 });

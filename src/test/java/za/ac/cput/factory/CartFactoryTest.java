@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import za.ac.cput.domain.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,6 @@ class CartFactoryTest {
     @Test
     @Order(1)
     void buildCart() {
-        //Build Customer
-        Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
-        assertNotNull(contact);
-        Customer customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
-        assertNotNull(customer);
-
         //Build Product
         ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
         Brand brand = BrandFactory.buildBrand("3456", "Asus");
@@ -35,7 +30,7 @@ class CartFactoryTest {
         productList.add(product2);
 
         //Create Cart
-        Cart cart = CartFactory.buildCart("01", customer, productList);
+        Cart cart = CartFactory.buildCart("01", productList);
         assertNotNull(cart);
         System.out.println(cart);
     }
@@ -43,11 +38,6 @@ class CartFactoryTest {
     @Test
     @Order(2)
     void testBuildCart() {
-        Contact contact  = ContactFactory.buildContact("zbenny@gmail.com","021 112 3345", "29 Bundu Street", "Cape Town", "Western Cape", "7345","South Africa");
-        assertNotNull(contact);
-        Customer customer = CustomerFactory.buildCustomer("01","Muhamed","Zubair", "123", contact);
-        assertNotNull(customer);
-
         //Build Product
         ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
         Brand brand = BrandFactory.buildBrand("3456", "Asus");
@@ -60,7 +50,7 @@ class CartFactoryTest {
         productList.add(product2);
 
         //Create Cart
-        Cart cart = CartFactory.buildCart(customer, productList);
+        Cart cart = CartFactory.buildCart(productList);
         assertNotNull(cart);
         System.out.println(cart);
     }

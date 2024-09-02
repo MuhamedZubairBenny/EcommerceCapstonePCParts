@@ -1,37 +1,47 @@
 package za.ac.cput.factory;
 
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import za.ac.cput.domain.Customer;
-import za.ac.cput.domain.Delivery;
-import za.ac.cput.domain.Order;
-import za.ac.cput.domain.OrderItem;
+import org.junit.jupiter.api.TestMethodOrder;
+import za.ac.cput.domain.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class OrderFactoryTest {
 
     @Test
-    void buildOrder() {
-        Customer customer1 = CustomerFactory.buildCustomer( "43", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer1);
+
+    void a_buildOrder() {
+        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        List<Product> productList = new ArrayList<>();
+        Cart cart = CartFactory.buildCart(productList);
+        Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
+        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
         assertNotNull(order);
         System.out.println(order);
     }
 
     @Test
-    void testBuildOrderNoObjects() {
-        Customer customer = CustomerFactory.buildCustomer( "69", "Charles","Barkley", "ILoveYou","cbarkley@gmail.com", "0744345355"," 21 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
-        Order order = OrderFactory.buildOrder(14500.00,customer);
+    void b_testBuildOrderGeneratedID() {
+        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        List<Product> productList = new ArrayList<>();
+        Cart cart = CartFactory.buildCart(productList);
+        Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
+        Order order = OrderFactory.buildOrder( 14500.00,customer);
         assertNotNull(order);
         System.out.println(order);
     }
 
     @Test
-    void buildOrderFail(){
-        Customer customer = CustomerFactory.buildCustomer( "43", "James","Gunn", "ILoveYou","jamesgunn@gmail.com", "0744345354"," 4 Thomas Bowler", "Cape Town", "Western Cape", "7441", "South Africa");
+    void c_buildOrderFail(){
+        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        List<Product> productList = new ArrayList<>();
+        Cart cart = CartFactory.buildCart(productList);
+        Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
         Order order = OrderFactory.buildOrder("", 14500.00,customer);
         assertNotNull(order);
         System.out.println(order);

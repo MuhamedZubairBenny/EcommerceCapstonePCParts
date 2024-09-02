@@ -5,10 +5,11 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 const product = ref(null);
 
+// Fetch product data based on the product ID from the route
 const fetchProductDetails = () => {
   const productId = route.params.id;
   fetch(`/api/product/read/${productId}`)
-      .then(response => response.json())
+.then(response => response.json())
       .then(data => {
         product.value = data;
       })
@@ -21,11 +22,13 @@ onMounted(() => {
   fetchProductDetails();
 });
 
+// Method to format price as currency
 const formatCurrency = (value) => {
   if (!value) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
 };
 
+// Navigate back to the product list
 const goBack = () => {
   window.history.back();
 };
@@ -38,7 +41,9 @@ const goBack = () => {
       <p class="product-price">{{ formatCurrency(product.price) }}</p>
     </div>
     <div class="product-body">
-      <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image"/>
+      <div class="product-image-container">
+        <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image"/>
+      </div>
       <div class="product-info">
         <div class="info-item">
           <span class="info-label">Description:</span>
@@ -60,7 +65,7 @@ const goBack = () => {
     </div>
     <div class="product-footer">
       <button @click="goBack" class="back-button">Back to Products</button>
-      <button @click="goBack" class="cart-button">Add to cart</button>
+      <button @click="addToCart" class="cart-button">Add to Cart</button>
     </div>
   </div>
 </template>
@@ -85,12 +90,13 @@ const goBack = () => {
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .product-price {
   font-size: 1.75rem;
   color: #28a745;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .product-body {
@@ -100,19 +106,28 @@ const goBack = () => {
   text-align: center;
 }
 
+.product-image-container {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 .product-image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 12px;
   border: 2px solid #ddd;
-  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
 
 .product-info {
   font-size: 1.2rem;
   color: #555;
   text-align: left;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -120,17 +135,19 @@ const goBack = () => {
   margin: 15px 0;
   display: flex;
   justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
 }
 
 .info-label {
   font-weight: bold;
   color: #333;
-  width: 30%;
+  width: 40%;
 }
 
 .info-value {
   color: #666;
-  width: 70%;
+  width: 60%;
 }
 
 .product-footer {
@@ -138,7 +155,7 @@ const goBack = () => {
   margin-top: 30px;
 }
 
-.back-button {
+.back-button, .cart-button {
   padding: 12px 25px;
   font-size: 1.1rem;
   color: #fff;
@@ -147,19 +164,10 @@ const goBack = () => {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  margin-right: 12px;
+  margin: 0 10px;
 }
-.cart-button {
-  padding: 12px 25px;
-  font-size: 1.1rem;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-.back-button:hover {
+
+.back-button:hover, .cart-button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
