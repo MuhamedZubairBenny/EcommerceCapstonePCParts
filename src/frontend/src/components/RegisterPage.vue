@@ -2,25 +2,25 @@
   <div class="register-container">
     <h2>Register</h2>
     <form @submit.prevent="handleRegister">
-      <div>
+      <div class="form-group">
         <label for="firstName">First Name:</label>
-        <input type="text" v-model="firstName" required />
+        <input type="text" id="firstName" v-model="firstName" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="lastName">Last Name:</label>
-        <input type="text" v-model="lastName" required />
+        <input type="text" id="lastName" v-model="lastName" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" v-model="email" required />
+        <input type="email" id="email" v-model="email" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" v-model="password" required />
+        <input type="password" id="password" v-model="password" required />
       </div>
-      <button type="submit">Register</button>
+      <button type="submit" class="register-button">Register</button>
     </form>
-    <p v-if="registerError">Registration failed, please try again.</p>
+    <p v-if="registerError" class="error-message">Registration failed, please try again.</p>
   </div>
 </template>
 
@@ -66,9 +66,63 @@ export default {
 </script>
 
 <style scoped>
-/* Add some basic styling */
+/* Styling for the registration page */
 .register-container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button.register-button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button.register-button:hover {
+  background-color: #218838;
+}
+
+.error-message {
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 1rem;
 }
 </style>

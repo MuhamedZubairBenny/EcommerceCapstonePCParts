@@ -32,12 +32,12 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/swiper-bundle.css';
-import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper';
-
-SwiperCore.use([Autoplay, Pagination, Navigation]);
+ import axios from 'axios';
+// import { Swiper, SwiperSlide } from 'swiper/vue';
+// import 'swiper/swiper-bundle.css';
+// import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper';
+//
+// SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 export default {
   name: 'HomePage',

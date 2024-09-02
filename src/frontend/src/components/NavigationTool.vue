@@ -21,7 +21,7 @@
       <!-- Header Buttons -->
       <div class="header-buttons">
         <!-- Home Button -->
-        <router-link to="/" class="icon-button">
+        <router-link to="/home" class="icon-button">
           <!-- Home Icon SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon home-icon">
             <path d="M12 3l1.45 1.32 7.55 6.68v10.2h-5v-6h-4v6H5V11.2l7.55-6.68L12 3z"/>

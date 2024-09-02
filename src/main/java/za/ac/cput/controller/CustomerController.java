@@ -22,9 +22,9 @@ public class CustomerController {
         Customer updateCustomer = customerService.update(customer);
         return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
     }
-//
-//    @DeleteMapping("/delete/{customerId}")
-//    public void delete(@PathVariable String customerId){customerService.delete(customerId);}
+
+    @DeleteMapping("/delete/{customerId}")
+    public void delete(@PathVariable String customerId){customerService.delete(customerId);}
 
     @GetMapping("/getall")
     public List<Customer> getAll(){
