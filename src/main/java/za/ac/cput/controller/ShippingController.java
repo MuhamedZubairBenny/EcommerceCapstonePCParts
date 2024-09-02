@@ -16,14 +16,14 @@ public class ShippingController {
     @PostMapping("/create")
     public Shipping create(@RequestBody Shipping shipping) {return shippingService.create(shipping);}
 
-    @GetMapping("/read/{email}")
-    public Shipping read(@PathVariable String email) {return shippingService.read(email);}
+    @GetMapping("/read/{id}")
+    public Shipping read(@PathVariable String id) {return shippingService.read(id);}
 
     @PostMapping("/update")
     public Shipping update(@RequestBody Shipping shipping){return shippingService.update(shipping);}
 
-    @DeleteMapping("/delete/{email}")
-    public void delete(@PathVariable String email) {shippingService.delete(email);}
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable String id) {shippingService.delete(id);}
 
     @GetMapping("/getall")
     public List<Shipping> getAll(){return shippingService.getAll();}

@@ -1,9 +1,7 @@
 <template>
   <h1 class="cart-heading">Your Cart</h1>
   <div class="cart-container">
-    <header class="cart-header">
-    </header>
-
+    <!-- Cart Items -->
     <div v-if="cartItems.length > 0" class="cart-items">
       <div class="cart-item" v-for="item in cartItems" :key="item.productId">
         <img :src="item.productPicture" alt="Product Image" class="cart-item-image" />
@@ -16,6 +14,7 @@
         </div>
       </div>
 
+      <!-- Cart Summary -->
       <div class="cart-summary">
         <h3>Cart Summary</h3>
         <p>Total Items: {{ totalItems }}</p>
@@ -24,81 +23,96 @@
       </div>
     </div>
 
+    <!-- Empty Cart Message -->
     <div v-else class="empty-cart">
       <p>Your cart is currently empty.</p>
     </div>
   </div>
 </template>
 
-<script setup>
+<script>
 import { computed, ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
 
-const store = useStore();
-const cartItems = ref([]);
+export default {
+  name: 'UserCart',
+  props: {
+    cartId: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const cartItems = ref([]);
 
-// Assuming cartId is stored in Vuex
-const cartId = store.state.cartId;
+    const fetchCartItems = async () => {
+      try {
+        const response = await fetch(`/api/cart/read/${props.cartId}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Fetched data:', data);
 
-const fetchCartItems = async () => {
-  if (!cartId) return;
-  try {
-    const response = await fetch(`/api/cart/${cartId}`);
-    if (response.ok) {
-      const data = await response.json();
-      cartItems.value = data.products.map(product => ({
-        productId: product.productId,
-        productName: product.productName,
-        productPicture: product.productPicture,
-        price: product.price,
-        quantity: product.quantity
-      })) || [];
-    } else {
-      console.error('Error fetching cart items:', response.statusText);
-      cartItems.value = [];
-    }
-  } catch (error) {
-    console.error('Error fetching cart items:', error);
-    cartItems.value = [];
-  }
-};
+          cartItems.value = data.products.map(product => ({
+            productId: product.productId,
+            productName: product.productName,
+            productPicture: product.productPicture,
+            price: product.price,
+            quantity: 1,
+          })) || [];
+        } else {
+          console.error('Error fetching cart items:', response.statusText);
+          cartItems.value = [];
+        }
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+        cartItems.value = [];
+      }
+    };
 
-const removeFromCart = async (productId) => {
-  if (!cartId) return;
-  try {
-    const response = await fetch(`/api/cart/${cartId}/removeProduct/${productId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const removeFromCart = async (productId) => {
+      try {
+        const response = await fetch(`/api/cart/${props.cartId}/removeProduct/${productId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          cartItems.value = cartItems.value.filter(item => item.productId !== productId);
+          alert('Product removed from cart');
+        } else {
+          console.error('Error removing product from cart:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error removing product from cart:', error);
+      }
+    };
+
+    const proceedToCheckout = () => {
+      alert('Proceeding to checkout');
+    };
+
+    const totalItems = computed(() => {
+      return cartItems.value.reduce((total, item) => total + item.quantity, 0);
     });
 
-    if (response.ok) {
-      cartItems.value = cartItems.value.filter(item => item.productId !== productId);
-      alert('Product removed from cart');
-    } else {
-      console.error('Error removing product from cart:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error removing product from cart:', error);
-  }
+    const totalPrice = computed(() => {
+      return cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
+    });
+
+    onMounted(() => {
+      fetchCartItems();
+    });
+
+    return {
+      cartItems,
+      removeFromCart,
+      proceedToCheckout,
+      totalItems,
+      totalPrice,
+    };
+  },
 };
-
-const proceedToCheckout = () => {
-  alert('Proceeding to checkout');
-};
-
-const totalItems = computed(() => {
-  return cartItems.value.reduce((total, item) => total + item.quantity, 0);
-});
-
-const totalPrice = computed(() => {
-  return cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
-});
-
-onMounted(() => {
-  fetchCartItems();
-});
 </script>
 
 <style scoped>
@@ -117,11 +131,6 @@ onMounted(() => {
 
 .cart-container {
   padding: 20px;
-}
-
-.cart-header {
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 .cart-items {

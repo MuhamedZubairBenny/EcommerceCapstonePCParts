@@ -71,7 +71,7 @@ const fetchCartDetails = async () => {
 const addToCart = async () => {
   if (product.value && cart.value) {
     try {
-      const response = await fetch(`/api/cart/5c27f221-3fad-4310-8028-ae3e869c0933/addProduct/${product.value.productId}`, {
+      const response = await fetch(`/api/cart/'5c27f221-3fad-4310-8028-ae3e869c0933/addProduct/${product.value.productId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
