@@ -26,6 +26,9 @@ import AddBrand from "@/components/AdminProfile/Brand/AddBrand.vue";
 import UpdateBrand from "@/components/AdminProfile/Brand/UpdateBrand.vue";
 import DeleteBrand from "@/components/AdminProfile/Brand/DeleteBrand.vue";
 import AdminPage from "@/components/AdminPage.vue";
+import LoginPage from "@/components/LoginPage.vue";
+import RegisterPage from "@/components/RegisterPage.vue";
+import store from "@/store";
 
 //import Profile from '@/components/Profile/Profile.vue';
 // import ProductPage from '@/components/ProductPage.vue';
@@ -33,6 +36,17 @@ import AdminPage from "@/components/AdminPage.vue";
 const router = createRouter({
     history: createWebHistory(), // Use createWebHistory for Vue 3
     routes: [
+        { path: '/', redirect: '/login' },
+        {
+            path: '/login',
+            name: 'Login',
+            component: LoginPage
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: RegisterPage
+        },
         {
             path: '/search',
             name: 'SearchResults',
@@ -45,7 +59,7 @@ const router = createRouter({
             props: true
         },
         {
-            path: '/',
+            path: '/home',
             name: 'HomePage',
             component: HomePage
         },
@@ -184,6 +198,17 @@ const router = createRouter({
 
 
     ],
+});
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = store.state.isAuthenticated;
+    const publicPages = ['/login', '/register'];
+    const authRequired = !publicPages.includes(to.path);
+
+    if (authRequired && !isAuthenticated) {
+        return next('/login');
+    }
+
+    next();
 });
 
 

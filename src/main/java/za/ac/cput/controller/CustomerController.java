@@ -31,16 +31,10 @@ public class CustomerController {
         return customerService.getAll();
     }
 
-    @GetMapping("/login/{email}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable String email){
-        Customer customer = customerService.getCustomer(email);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
-    }
-
-    @GetMapping("/login/{email}/{password}")
-    public ResponseEntity <Boolean> login(@PathVariable String email, @PathVariable String password){
+    @GetMapping("/login")
+    public ResponseEntity<Boolean> login(@RequestParam String email, @RequestParam String password) {
         boolean verifyLogin = customerService.verifyLogin(email, password);
-        return  new ResponseEntity<>(verifyLogin, HttpStatus.OK);
+        return new ResponseEntity<>(verifyLogin, HttpStatus.OK);
     }
 
     @PostMapping("/register")

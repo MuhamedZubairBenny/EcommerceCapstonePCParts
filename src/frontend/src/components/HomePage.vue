@@ -3,19 +3,19 @@
   <div class="homepage-container">
     <NavigationTool />
 
-  <Swiper
-        :slides-per-view="1"
-        :space-between="10"
-        :pagination="{ clickable: true }"
-        :navigation="true"
-        :loop="true"
-        :autoplay="{ delay: 5000 }"
-        class="mySwiper"
-    >
-      <SwiperSlide v-for="(image, index) in images" :key="index">
-        <img :src="image.src" :alt="image.alt" class="slide-image" />
-      </SwiperSlide>
-    </Swiper>
+<!--  <Swiper-->
+<!--        :slides-per-view="1"-->
+<!--        :space-between="10"-->
+<!--        :pagination="{ clickable: true }"-->
+<!--        :navigation="true"-->
+<!--        :loop="true"-->
+<!--        :autoplay="{ delay: 5000 }"-->
+<!--        class="mySwiper"-->
+<!--    >-->
+<!--      <SwiperSlide v-for="(image, index) in images" :key="index">-->
+<!--        <img :src="image.src" :alt="image.alt" class="slide-image" />-->
+<!--      </SwiperSlide>-->
+<!--    </Swiper>-->
 
     <section id="about-us" class="about-us-section">
     </section>
@@ -33,8 +33,6 @@
 
 <script>
 import axios from 'axios';
-
-
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
 import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper';
@@ -44,19 +42,19 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
 export default {
   name: 'HomePage',
   components: {
-    Swiper,
-    SwiperSlide,
+    // Swiper,
+    // SwiperSlide,
   },
   data() {
     return {
       searchQuery: '',
       products: [],
-      images: [
-        {src: require('@/assets/ryzenslideshow.png'), alt: 'ryzen'},
-        {src: require('@/assets/laptopslideshow.png'), alt: 'laptop'},
-        {src: require('@/assets/alienware.png'), alt: 'alienware'},
-        {src: require('@/assets/computerslideshow.png'), alt: 'computer'}
-      ],
+      // images: [
+      //   {src: require('@/assets/ryzenslideshow.png'), alt: 'ryzen'},
+      //   {src: require('@/assets/laptopslideshow.png'), alt: 'laptop'},
+      //   {src: require('@/assets/alienware.png'), alt: 'alienware'},
+      //   {src: require('@/assets/computerslideshow.png'), alt: 'computer'}
+      // ],
     };
   },
   methods: {
