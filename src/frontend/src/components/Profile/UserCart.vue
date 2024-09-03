@@ -1,6 +1,10 @@
 <template>
   <h1 class="cart-heading">Your Cart</h1>
   <div class="cart-container">
+    <!-- Cart Header -->
+    <header class="cart-header">
+    </header>
+
     <!-- Cart Items -->
     <div v-if="cartItems.length > 0" class="cart-items">
       <div class="cart-item" v-for="item in cartItems" :key="item.productId">
@@ -35,18 +39,12 @@ import { computed, ref, onMounted } from 'vue';
 
 export default {
   name: 'UserCart',
-  props: {
-    cartId: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
     const cartItems = ref([]);
 
     const fetchCartItems = async () => {
       try {
-        const response = await fetch(`/api/cart/read/${props.cartId}`);
+        const response = await fetch('/api/cart/read/1009925c-1668-4e26-92f1-a805d7510c93');
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched data:', data);
@@ -56,7 +54,7 @@ export default {
             productName: product.productName,
             productPicture: product.productPicture,
             price: product.price,
-            quantity: 1,
+            quantity: 1
           })) || [];
         } else {
           console.error('Error fetching cart items:', response.statusText);
@@ -68,9 +66,10 @@ export default {
       }
     };
 
+
     const removeFromCart = async (productId) => {
       try {
-        const response = await fetch(`/api/cart/${props.cartId}/removeProduct/${productId}`, {
+        const response = await fetch(`/api/cart/1009925c-1668-4e26-92f1-a805d7510c93/removeProduct/${productId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -78,6 +77,7 @@ export default {
         });
 
         if (response.ok) {
+
           cartItems.value = cartItems.value.filter(item => item.productId !== productId);
           alert('Product removed from cart');
         } else {
@@ -109,10 +109,10 @@ export default {
       removeFromCart,
       proceedToCheckout,
       totalItems,
-      totalPrice,
+      totalPrice
     };
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
@@ -131,6 +131,11 @@ export default {
 
 .cart-container {
   padding: 20px;
+}
+
+.cart-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .cart-items {
