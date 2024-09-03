@@ -3,22 +3,20 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-// Define reactive variables
 const customer = ref({
-  customerId: '',
+  customer_id: '',
   firstName: '',
   lastName: '',
+  mobileNumber: '',
+  email: '',
+  dateOfBirth: '',
   password: '',
-  contact: {
-    email: '',
-  }
 });
 
 const customerList = ref([]);
 const message = ref('');
 const router = useRouter();
 
-// Fetch all customers when the component is mounted
 onMounted(async () => {
   try {
     const response = await axios.get('http://localhost:3000/api/customer/getall');
@@ -28,12 +26,11 @@ onMounted(async () => {
   }
 });
 
-// Fetch customer details based on selected customer ID
 const fetchCustomerDetails = async () => {
-  if (customer.value.customerId) {
+  if (customer.value.customer_id) {
     try {
-      const response = await axios.get(`http://localhost:3000/api/customer/read/${customer.value.customerId}`);
-      customer.value = {...response.data}; // Update reactive customer object
+      const response = await axios.get(`http://localhost:3000/api/customer/read/${customer.value.customer_id}`);
+      customer.value = {...response.data};
     } catch (error) {
       message.value = `Error fetching customer details: ${error.message}`;
     }
@@ -42,10 +39,9 @@ const fetchCustomerDetails = async () => {
   }
 };
 
-// Submit the form to update the customer
 const submitForm = async () => {
   try {
-    const response = await axios.post('http://localhost:3000/api/customer/update', customer.value);
+    const response = await axios.put('http://localhost:3000/api/customer/update', customer.value);
     message.value = `Customer updated successfully: ${response.data.firstName} ${response.data.lastName}`;
     resetForm();
   } catch (error) {
@@ -53,22 +49,20 @@ const submitForm = async () => {
   }
 };
 
-// Reset the form fields
 const resetForm = () => {
   customer.value = {
-    customerId: '',
+    customer_id: '',
     firstName: '',
     lastName: '',
+    mobileNumber: '',
+    email: '',
+    dateOfBirth: '',
     password: '',
-    contact: {
-      email: '',
-    }
   };
 };
 
-// Navigate back to Admin Page
 const goBack = () => {
-  router.push('/AdminPage'); // Ensure this route is correct
+  router.push('/AdminPage');
 };
 </script>
 
@@ -76,18 +70,16 @@ const goBack = () => {
   <div class="update-customer">
     <h2>Update Customer</h2>
     <form @submit.prevent="submitForm">
-      <!-- Customer Dropdown -->
       <div class="form-group">
         <label for="customerId">Customer ID:</label>
-        <select v-model="customer.customerId" @change="fetchCustomerDetails" id="customerId" required>
+        <select v-model="customer.customer_id" @change="fetchCustomerDetails" id="customerId" required>
           <option value="">Select a customer</option>
-          <option v-for="c in customerList" :key="c.customerId" :value="c.customerId">
-            {{ c.customerId }}
+          <option v-for="c in customerList" :key="c.customer_id" :value="c.customer_id">
+            {{ c.customer_id }}
           </option>
         </select>
       </div>
 
-      <!-- Editable Customer Details -->
       <div class="form-group">
         <label for="firstName">First Name:</label>
         <input v-model="customer.firstName" type="text" id="firstName" required/>
@@ -99,13 +91,21 @@ const goBack = () => {
       </div>
 
       <div class="form-group">
-        <label for="password">Password:</label>
-        <input v-model="customer.password" type="password" id="password" required/>
+        <label for="mobileNumber">Mobile Number:</label>
+        <input v-model="customer.mobileNumber" type="text" id="mobileNumber" required/>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input v-model="customer.email" type="text" id="email" required/>
+      </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Date Of Birth:</label>
+        <input v-model="customer.dateOfBirth" type="text" id="dateOfBirth" required/>
       </div>
 
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input v-model="customer.contact.email" type="email" id="email" required/>
+        <label for="password">Password:</label>
+        <input v-model="customer.password" type="password" id="password" required/>
       </div>
 
       <button type="submit">Update Customer</button>

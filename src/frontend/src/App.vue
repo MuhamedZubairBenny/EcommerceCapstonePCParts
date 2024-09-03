@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- Conditionally render Navigation based on the current route -->
     <Navigation v-if="!isExcludedPage" @nav-toggle="handleNavToggle" />
     <div :class="{ 'content-shift': isNavExpanded && !isExcludedPage }">
       <router-view />
@@ -20,7 +19,6 @@ export default {
   },
   setup() {
     const route = useRoute();
-    // Update the computed property to exclude both login and registration pages
     const isExcludedPage = computed(() => ['/login', '/register'].includes(route.path));
 
     return {

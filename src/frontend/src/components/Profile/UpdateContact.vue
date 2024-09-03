@@ -4,9 +4,8 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 // Define reactive variables
-const contact = ref({
-  email: '',
-  mobile: '',
+const shipping = ref({
+  shippingId: '',
   address: '',
   city: '',
   state: '',
@@ -14,50 +13,47 @@ const contact = ref({
   country: ''
 });
 
-const contactList = ref([]);
+const shippingList = ref([]);
 const message = ref('');
 const router = useRouter();
 
 // Fetch all contacts when the component is mounted
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/contact/getall');
-    contactList.value = response.data;
+    const response = await axios.get('http://localhost:3000/api/shipping/getall');
+    shippingList.value = response.data;
   } catch (error) {
     message.value = `Error fetching contacts: ${error.message}`;
   }
 });
 
-// Fetch contact details based on selected email
 const fetchContactDetails = async () => {
-  if (contact.value.email) {
+  if (shipping.value.shippingId) {
     try {
-      const response = await axios.get(`http://localhost:3000/api/contact/read/${contact.value.email}`);
-      contact.value = {...response.data}; // Update reactive contact object
+      const response = await axios.get(`http://localhost:3000/api/shipping/read/${shipping.value.shippingId}`);
+      shipping.value = {...response.data};
     } catch (error) {
-      message.value = `Error fetching contact details: ${error.message}`;
+      message.value = `Error fetching shipping details: ${error.message}`;
     }
   } else {
-    message.value = 'Please select an email.';
+    message.value = 'Please select an shipping ID.';
   }
 };
 
-// Submit the form to update the contact
 const submitForm = async () => {
   try {
-    const response = await axios.post('http://localhost:3000/api/contact/update', contact.value);
-    message.value = `Contact updated successfully: ${response.data.email}`;
+    const response = await axios.post('http://localhost:3000/api/shipping/update', shipping.value);
+    message.value = `Shipping updated successfully: ${response.data.email}`;
     resetForm();
   } catch (error) {
-    message.value = `Error updating contact: ${error.message}`;
+    message.value = `Error updating shipping: ${error.message}`;
   }
 };
 
 // Reset the form fields
 const resetForm = () => {
-  contact.value = {
-    email: '',
-    mobile: '',
+  shipping.value = {
+    shippingId: '',
     address: '',
     city: '',
     state: '',
@@ -73,52 +69,45 @@ const goBack = () => {
 </script>
 
 <template>
-  <div class="update-contact">
-    <h2>Update Contact</h2>
+  <div class="update-shipping">
+    <h2>Update Shipping Information</h2>
     <form @submit.prevent="submitForm">
-      <!-- Contact Dropdown -->
       <div class="form-group">
-        <label for="email">Email:</label>
-        <select v-model="contact.email" @change="fetchContactDetails" id="email" required>
-          <option value="">Select a contact</option>
-          <option v-for="c in contactList" :key="c.email" :value="c.email">
-            {{ c.email }}
+        <label for="shippingId">Shipping ID:</label>
+        <select v-model="shipping.shippingId" @change="fetchContactDetails" id="shippingId" required>
+          <option value="">Select Shipping Information</option>
+          <option v-for="c in shippingList" :key="c.shippingId" :value="c.shippingId">
+            {{ c.shippingId }}
           </option>
         </select>
       </div>
 
-      <!-- Editable Contact Details -->
-      <div class="form-group">
-        <label for="mobile">Mobile:</label>
-        <input v-model="contact.mobile" type="text" id="mobile" required/>
-      </div>
-
       <div class="form-group">
         <label for="address">Address:</label>
-        <input v-model="contact.address" type="text" id="address" required/>
+        <input v-model="shipping.address" type="text" id="address" required/>
       </div>
 
       <div class="form-group">
         <label for="city">City:</label>
-        <input v-model="contact.city" type="text" id="city" required/>
+        <input v-model="shipping.city" type="text" id="city" required/>
       </div>
 
       <div class="form-group">
         <label for="state">State:</label>
-        <input v-model="contact.state" type="text" id="state" required/>
+        <input v-model="shipping.state" type="text" id="state" required/>
       </div>
 
       <div class="form-group">
         <label for="zipCode">Zip Code:</label>
-        <input v-model="contact.zipCode" type="text" id="zipCode" required/>
+        <input v-model="shipping.zipCode" type="text" id="zipCode" required/>
       </div>
 
       <div class="form-group">
         <label for="country">Country:</label>
-        <input v-model="contact.country" type="text" id="country" required/>
+        <input v-model="shipping.country" type="text" id="country" required/>
       </div>
 
-      <button type="submit">Update Contact</button>
+      <button type="submit">Update Shipping Information</button>
       <button type="button" @click="goBack">Home Page</button>
     </form>
     <p v-if="message" class="message">{{ message }}</p>
@@ -126,7 +115,7 @@ const goBack = () => {
 </template>
 
 <style scoped>
-.update-contact {
+.update-shipping {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
