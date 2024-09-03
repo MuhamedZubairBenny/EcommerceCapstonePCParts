@@ -166,7 +166,7 @@ const router = createRouter({
         component: MotherboardCategory
     },
     {
-        path: '/Monitor',
+        path: '/Monitors',
         name: 'MonitorCategory',
         component: MonitorCategory
     },

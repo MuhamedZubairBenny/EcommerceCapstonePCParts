@@ -21,6 +21,8 @@
       <button type="submit" class="register-button">Register</button>
     </form>
     <p v-if="registerError" class="error-message">Registration failed, please try again.</p>
+    <p class="register-link">Want to login? <router-link to="/login">Login here</router-link></p>
+
   </div>
 </template>
 

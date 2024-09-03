@@ -1,11 +1,5 @@
 <template>
   <h1 class="cpu-heading">CPU Category</h1>
-  <div class="category-info">
-    <img src="@/assets/cputester.png" alt="CPU Category Image" class="category-image"/>
-    <p class="category-description">
-      Explore our wide range of CPUs from top brands like AMD and Intel. Whether you're building a gaming rig or need powerful processors for work, we have the right option for you.
-    </p>
-  </div>
 
     <div class="products-container">
       <ul class="products-list">

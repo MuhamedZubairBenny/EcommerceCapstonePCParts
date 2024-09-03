@@ -13,17 +13,17 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Mobile</th>
-        <th>Address</th>
+<!--        <th>Address</th>-->
       </tr>
       </thead>
       <tbody>
-      <tr v-for="customer in customers" :key="customer.customerId">
-        <td>{{ customer.customerId }}</td>
+      <tr v-for="customer in customers" :key="customer.customer_id">
+        <td>{{ customer.customer_id }}</td>
         <td>{{ customer.firstName }}</td>
         <td>{{ customer.lastName }}</td>
-        <td>{{ customer.contact.email }}</td>
-        <td>{{ customer.contact.mobile }}</td>
-        <td>{{ customer.contact.address }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.mobileNumber }}</td>
+<!--        <td>{{ customer.shipping.address }}</td>-->
       </tr>
       </tbody>
     </table>
