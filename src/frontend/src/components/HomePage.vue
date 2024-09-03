@@ -1,21 +1,8 @@
-<template xmlns:th="http://www.w3.org/1999/xhtml">
+<template>
   <div class="homepage-container">
     <NavigationTool />
 
-
-<!--  <Swiper-->
-<!--        :slides-per-view="1"-->
-<!--        :space-between="10"-->
-<!--        :pagination="{ clickable: true }"-->
-<!--        :navigation="true"-->
-<!--        :loop="true"-->
-<!--        :autoplay="{ delay: 5000 }"-->
-<!--        class="mySwiper"-->
-<!--    >-->
-<!--      <SwiperSlide v-for="(image, index) in images" :key="index">-->
-<!--        <img :src="image.src" :alt="image.alt" class="slide-image" />-->
-<!--      </SwiperSlide>-->
-<!--    </Swiper>-->
+    <!-- Swiper code commented out -->
 
     <section class="product-list" style="background-color: white">
       <h2>Our Products</h2>
@@ -24,7 +11,7 @@
           <li v-if="products.length === 0">
             <p>No products available. Please check back later.</p>
           </li>
-          <li v-for="product in products" :key="product.productId" class="product-item">
+          <li v-for="product in products" :key="product.productId" class="product-item" @click="goToProductPage(product.productId)">
             <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
             <div class="product-details">
               <h3>{{ product.productName }}</h3>
@@ -39,32 +26,20 @@
     <section id="about-us" class="about-us-section"></section>
     <section class="about-us">
       <h2>About Us</h2>
-      <p>Welcome to CyberTech! We are a group of like-minded individuals who have a deep passion for the world of pcs.</p>
-      <p>We are passionate about bringing the best in PC components and technology to enthusiasts nationwide.
-        We are committed to delivering quality products and service to our customers and wanting to make their dreams possible.</p>
+      <p>Welcome to CyberTech! We are a group of like-minded individuals who have a deep passion for the world of PCs.</p>
+      <p>We are passionate about bringing the best in PC components and technology to enthusiasts nationwide. We are committed to delivering quality products and service to our customers and wanting to make their dreams possible.</p>
       <div class="about-icons"></div>
     </section>
-
-    <!-- Product List Section -->
-
   </div>
 </template>
 
-
 <script>
-
- import axios from 'axios';
-// import { Swiper, SwiperSlide } from 'swiper/vue';
-// import 'swiper/swiper-bundle.css';
-// import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper';
-//
-// SwiperCore.use([Autoplay, Pagination, Navigation]);
+import axios from 'axios';
 
 export default {
   name: 'HomePage',
   components: {
-    // Swiper,
-    // SwiperSlide,
+    // Swiper, SwiperSlide, if needed in the future
   },
   data() {
     return {
@@ -108,37 +83,36 @@ export default {
     formatCurrency(value) {
       if (!value) return '';
       return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
+    },
+    goToProductPage(productId) {
+      this.$router.push(`/product/${productId}`);
     }
   },
   mounted() {
-    this.fetchProducts(); // Fetch products when component is mounted
+    this.fetchProducts();
   }
 };
 </script>
 
 <style scoped>
-/* Existing styles */
 
-/* Swiper Section */
 .mySwiper {
   width: 100%;
-  height: 200px; /* Reduce the height of the swiper */
+  height: 200px;
 }
 
 .slide-image {
-  width: 100%; /* Allow the image width to adjust based on height */
-  height: auto; /* Adjust the image height to fit within the swiper */
-  max-height: 300px; /* Limit the max height to reduce image size */
-  object-fit: contain; /* Ensure the images scale proportionally */
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
 }
 
-/* Existing styles */
 .icon-button .icon {
   width: 24px;
   height: 24px;
 }
 
-/* Product List Section */
 .product-list {
   padding: 40px;
   background-color: #f8f9fa;
@@ -166,16 +140,15 @@ export default {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
-  max-width: 180px; /* Control the size of the items */
+  max-width: 180px;
   text-align: center;
   transition: color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
 }
 
-/* Hover effect for product items */
 .products-container li:hover {
-  color: #232f3e; /* Change text color on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+  color: #232f3e;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .products-container li::before {
@@ -225,7 +198,6 @@ export default {
   transform: scale(1.1);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-
 
 .product-details h3 {
   font-size: 16px;
@@ -297,5 +269,4 @@ export default {
     font-size: 18px;
   }
 }
-
 </style>
