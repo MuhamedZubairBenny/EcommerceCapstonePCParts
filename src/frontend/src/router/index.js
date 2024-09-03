@@ -31,6 +31,7 @@ import AdminPage from "@/components/AdminPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import RegisterPage from "@/components/RegisterPage.vue";
 import store from "@/store";
+import ProductPage from "@/components/ProductPage.vue";
 
 //import Profile from '@/components/Profile/Profile.vue';
 // import ProductPage from '@/components/ProductPage.vue';
@@ -64,6 +65,11 @@ const router = createRouter({
             path: '/home',
             name: 'HomePage',
             component: HomePage
+        },
+        {
+            path: '/product/:productId',
+            name: 'ProductPage',
+            component: ProductPage,
         },
         {
             path: '/cpu',
