@@ -13,6 +13,7 @@ import za.ac.cput.domain.User;
 import za.ac.cput.service.UserService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,4 +57,7 @@ public class AuthController {
         response.put("message", "Logout successful");
         return ResponseEntity.ok(response);
     }
+
+//    @GetMapping("/read/{searchString}")
+//    public List<User> searchUserById(@PathVariable String searchString){return userService.loadUserByUsername(searchString);}
 }
