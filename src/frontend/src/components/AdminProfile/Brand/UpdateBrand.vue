@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router'; // Import the router
+import { useRouter } from 'vue-router';
 
 // Define reactive variables
 const brand = ref({
@@ -11,9 +11,9 @@ const brand = ref({
 
 const brandList = ref([]);
 const message = ref('');
-const router = useRouter(); // Initialize the router
+const router = useRouter();
 
-// Fetch all brands on component mount
+
 onMounted(async () => {
   try {
     const response = await axios.get('http://localhost:3000/api/brand/getAll');
@@ -23,7 +23,7 @@ onMounted(async () => {
   }
 });
 
-// Fetch brand details based on selected ID
+
 const fetchBrandDetails = () => {
   const selectedBrand = brandList.value.find(b => b.brandId === brand.value.brandId);
   if (selectedBrand) {
@@ -33,7 +33,7 @@ const fetchBrandDetails = () => {
   }
 };
 
-// Method to handle form submission for updating a brand
+
 const submitForm = async () => {
   try {
     const response = await axios.post('http://localhost:3000/api/brand/update', brand.value);
@@ -44,7 +44,7 @@ const submitForm = async () => {
   }
 };
 
-// Reset form fields
+
 const resetForm = () => {
   brand.value = {
     brandId: '',
@@ -52,7 +52,7 @@ const resetForm = () => {
   };
 };
 
-// Method to navigate back
+
 const goBack = () => {
   router.push('/AdminPage'); // Ensure this route is correct
 };
