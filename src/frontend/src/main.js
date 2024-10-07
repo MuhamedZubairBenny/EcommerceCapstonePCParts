@@ -1,12 +1,12 @@
-
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'swiper/swiper-bundle.css';
-import store from "@/store";
+import store from "./store/index";
+import router from "./router";
 
-createApp(App)
-    .use(router)
-    .use(store)
-    .mount('#app');
+
+const app = createApp(App);
+app.use(router);
+app.use(store);
+app.mount('#app');
+

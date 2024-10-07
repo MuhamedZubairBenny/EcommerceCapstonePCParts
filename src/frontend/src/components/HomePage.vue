@@ -1,7 +1,6 @@
-
 <template xmlns:th="http://www.w3.org/1999/xhtml">
+  <NavigationTool />
   <div class="homepage-container">
-    <NavigationTool />
 
 <!--  <Swiper-->
 <!--        :slides-per-view="1"-->
@@ -29,9 +28,16 @@
         </div>
     </section>
   </div>
+
+    <div>
+      <h1 v-if="isAuthenticated">Welcome Back!</h1>
+      <h1 v-else>Please Log In</h1>
+    </div>
+
 </template>
 
 <script>
+import { mapState } from 'vuex';
  import axios from 'axios';
 // import { Swiper, SwiperSlide } from 'swiper/vue';
 // import 'swiper/swiper-bundle.css';
@@ -40,6 +46,12 @@
 // SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 export default {
+  computed: {
+    ...mapState({
+      isAuthenticated: state => state.isAuthenticated
+    })
+  },
+
   name: 'HomePage',
   components: {
     // Swiper,

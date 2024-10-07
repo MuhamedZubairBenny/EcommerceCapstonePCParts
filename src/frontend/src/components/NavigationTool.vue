@@ -36,6 +36,15 @@
           </svg>
         </router-link>
 
+        <div class="auth-buttons">
+          <!-- Show Login/Register when not authenticated -->
+          <router-link v-if="!isAuthenticated" to="/login" class="auth-button">Login</router-link>
+          <router-link v-if="!isAuthenticated" to="/register" class="auth-button">Register</router-link>
+
+          <!-- Show Logout when authenticated -->
+          <button v-if="isAuthenticated" class="auth-button" @click="logout">Logout</button>
+        </div>
+
         <!-- Account Button with Dropdown -->
         <div class="account-dropdown">
           <button @click="toggleDropdown" class="icon-button">
@@ -76,6 +85,7 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
   name: 'NavbarTool',
@@ -98,6 +108,13 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState(['isAuthenticated', 'user']),
+    isAdmin() {
+      return this.user && this.user.email === 'admin@gmail.com';
+    },
+  },
+
   methods: {
     handleSearch() {
       const query = this.searchQuery.trim().toLowerCase();
@@ -128,9 +145,21 @@ export default {
     },
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible;
+    },
+    logout() {
+      // Dispatch the Vuex 'logout' action, which will handle the AuthService call
+      this.$store.dispatch('logout')
+          .then(() => {
+            // After successful logout, redirect to home
+            window.location.reload();
+          })
+          .catch(error => {
+            // Optionally handle any errors during logout
+            console.error('Logout failed:', error);
+          });
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

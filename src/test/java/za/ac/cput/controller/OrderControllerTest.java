@@ -94,7 +94,7 @@ public class OrderControllerTest {
 
     @Test
     void f_findCustomer() {
-        String url = BASE_URL + "/findCustomer/" + order1.getOrderId();
+        String url = BASE_URL + "/findCustomer/" + order.getOrderId();
         System.out.println("URL: " + url);
         ResponseEntity<Customer> response = restTemplate.getForEntity(url, Customer.class);
         assertNotNull(response);

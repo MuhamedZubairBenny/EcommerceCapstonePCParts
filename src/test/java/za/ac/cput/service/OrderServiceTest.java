@@ -75,7 +75,7 @@ class OrderServiceTest {
 
     @Test
     void g_findCustomerByOrderId() {
-        Customer foundCustomer = orderService.getCustomerByOrderId(order1.getOrderId());
+        Customer foundCustomer = orderService.getCustomerByOrderId(order.getOrderId());
         assertNotNull(foundCustomer);
         System.out.println(foundCustomer);
     }

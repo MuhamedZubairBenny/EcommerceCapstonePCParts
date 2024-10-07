@@ -1,4 +1,3 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'; // Import the correct functions
 import HomePage from '@/components/HomePage.vue';
 import CpuCategory from '@/components/ProductCategories/CpuCategory.vue';
@@ -28,15 +27,13 @@ import DeleteBrand from "@/components/AdminProfile/Brand/DeleteBrand.vue";
 import AdminPage from "@/components/AdminPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import RegisterPage from "@/components/RegisterPage.vue";
-import store from "@/store";
+//import store from "@/store";
 
-//import Profile from '@/components/Profile/Profile.vue';
-// import ProductPage from '@/components/ProductPage.vue';
 // Create a router instance
 const router = createRouter({
-    history: createWebHistory(), // Use createWebHistory for Vue 3
+    history: createWebHistory(),
     routes: [
-        { path: '/', redirect: '/login' },
+           { path: '/', component: HomePage },
         {
             path: '/login',
             name: 'Login',
@@ -199,17 +196,17 @@ const router = createRouter({
 
     ],
 });
-router.beforeEach((to, from, next) => {
-    const isAuthenticated = store.state.isAuthenticated;
-    const publicPages = ['/login', '/register'];
-    const authRequired = !publicPages.includes(to.path);
-
-    if (authRequired && !isAuthenticated) {
-        return next('/login');
-    }
-
-    next();
-});
+// router.beforeEach((to, from, next) => {
+//     const isAuthenticated = store.state.isAuthenticated;
+//     const publicPages = ['/login', '/register'];
+//     const authRequired = !publicPages.includes(to.path);
+//
+//     if (authRequired && !isAuthenticated) {
+//         return next('/login');
+//     }
+//
+//     next();
+// });
 
 
 export default router;
