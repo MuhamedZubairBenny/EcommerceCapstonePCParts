@@ -1,54 +1,3 @@
-<script setup>
-import { ref, onMounted } from 'vue';
-import {useRoute, useRouter} from 'vue-router';
-
-const route = useRoute();
-const router = useRouter();
-const product = ref(null);
-
-const fetchProductDetails = () => {
-  const productId = route.params.id;
-  fetch(`/api/product/read/${productId}`)
-      .then(response => response.json())
-      .then(data => {
-        product.value = data;
-      })
-      .catch(error => {
-        console.error('Error fetching product details:', error);
-      });
-};
-
-onMounted(() => {
-  fetchProductDetails();
-});
-
-const formatCurrency = (value) => {
-  if (!value) return '';
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
-};
-
-const addToCart = () => {
-  if (product.value) {
-    fetch(`/api/cart/1009925c-1668-4e26-92f1-a805d7510c93/addProduct/${product.value.productId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    alert('Product successfully added to cart!');
-    router.push('/cart');
-  }
-};
-
-
-
-
-const goBack = () => {
-  window.history.back();
-};
-</script>
-
 <template>
   <div v-if="product" class="product-details-container">
     <div class="product-header">
@@ -78,10 +27,91 @@ const goBack = () => {
     </div>
     <div class="product-footer">
       <button @click="goBack" class="back-button">Back to Products</button>
-      <button @click="addToCart" class="cart-button">Add to Cart</button>
     </div>
   </div>
+  <div v-else>
+    <p>Loading product details...</p> <!-- Loading state -->
+  </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+ import { useRoute } from 'vue-router';
+// import { useStore } from 'vuex';
+
+ const route = useRoute();
+// const router = useRouter();
+// const store = useStore();
+
+const product = ref(null);
+
+
+const fetchProductDetails = async () => {
+  const productId = route.params.id;
+  try {
+    const response = await fetch(`/api/product/read/${productId}`);
+    const data = await response.json();
+    console.log('Fetched Product Data:', data); // Log the data for debugging
+    product.value = data;
+    console.log('Product after assignment:', product.value); // Log after assignment
+  } catch (error) {
+    console.error('Error fetching product details:', error);
+  }
+};
+
+// const fetchCartDetails = async () => {
+//   const customerId = store.state.id; // Assuming customerId is stored in Vuex
+//   try {
+//     const response = await fetch(`/api/cart/read/${Id}`);
+//     const data = await response.json();
+//     cart.value = data;
+//   } catch (error) {
+//     console.error('Error fetching cart details:', error);
+//   }
+// };
+
+// const addToCart = async () => {
+//   if (product.value && cart.value) {
+//     try {
+//       const token = store.state.authToken; // Get the authentication token from Vuex
+//       const response = await fetch(`/api/cart/{cartId}/addProduct/{productId}`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': `Bearer ${token}`, // Add the auth token to headers
+//         },
+//         body: JSON.stringify({ productId: product.value.productId })
+//       });
+//
+//       if (response.ok) {
+//         alert('Product added to cart!');
+//         router.push('/cart');
+//       } else {
+//         console.error('Error adding product to cart:', response.status, response.statusText);
+//       }
+//     } catch (error) {
+//       console.error('Error adding product to cart:', error);
+//     }
+//   } else {
+//     console.error('Product or cart not available');
+//   }
+// };
+//
+
+const goBack = () => {
+  window.history.back();
+};
+
+onMounted(() => {
+  fetchProductDetails();
+  // fetchCartDetails();
+});
+
+const formatCurrency = (value) => {
+  if (!value) return '';
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
+};
+</script>
 
 <style scoped>
 .product-details-container {

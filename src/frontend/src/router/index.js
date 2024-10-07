@@ -1,4 +1,3 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'; // Import the correct functions
 import HomePage from '@/components/HomePage.vue';
 import CpuCategory from '@/components/ProductCategories/CpuCategory.vue';
@@ -19,8 +18,6 @@ import StorageCategory from "@/components/ProductCategories/StorageCategory.vue"
 import RAMCategory from "@/components/ProductCategories/RAMCategory.vue";
 import PSUCategory from "@/components/ProductCategories/PSUCategory.vue";
 import PeripheralCategory from "@/components/ProductCategories/PeripheralCategory.vue";
-import UpdateCustomer from "@/components/Profile/UpdateCustomer.vue";
-import UpdateContact from "@/components/Profile/UpdateContact.vue";
 import AddCategory from "@/components/AdminProfile/Category/AddCategory.vue";
 import UpdateCategory from "@/components/AdminProfile/Category/UpdateCategory.vue";
 import DeleteCategory from "@/components/AdminProfile/Category/DeleteCategory.vue";
@@ -30,16 +27,15 @@ import DeleteBrand from "@/components/AdminProfile/Brand/DeleteBrand.vue";
 import AdminPage from "@/components/AdminPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import RegisterPage from "@/components/RegisterPage.vue";
-import store from "@/store";
-import ProductPage from "@/components/ProductPage.vue";
+import UpdateCustomer from "@/components/Profile/UpdateCustomer.vue";
+import UpdateContact from "@/components/Profile/UpdateContact.vue";
+//import store from "@/store";
 
-//import Profile from '@/components/Profile/Profile.vue';
-// import ProductPage from '@/components/ProductPage.vue';
 // Create a router instance
 const router = createRouter({
-    history: createWebHistory(), // Use createWebHistory for Vue 3
+    history: createWebHistory(),
     routes: [
-        { path: '/', redirect: '/login' },
+           { path: '/', component: HomePage },
         {
             path: '/login',
             name: 'Login',
@@ -65,11 +61,6 @@ const router = createRouter({
             path: '/home',
             name: 'HomePage',
             component: HomePage
-        },
-        {
-            path: '/product/:productId',
-            name: 'ProductPage',
-            component: ProductPage,
         },
         {
             path: '/cpu',
@@ -117,18 +108,6 @@ const router = createRouter({
             meta: { hideNavbar: true },
         },
         {
-            path: '/UpdateCustomer',
-            name:'UpdateCustomer',
-            component: UpdateCustomer,
-            meta: { hideNavbar: true},
-        },
-        {
-            path: '/UpdateContact',
-            name:'UpdateContact',
-            component: UpdateContact,
-            meta: { hideNavbar: true},
-        },
-        {
             path: '/cart',
             name: 'UserCart',
             component: UserCart,
@@ -138,6 +117,18 @@ const router = createRouter({
             path: '/UpdateProducts',
             name: 'UpdateProducts',
             component: UpdateProducts,
+            meta: { hideNavbar: true },
+        },
+        {
+            path: '/UpdateCustomer',
+            name: 'UpdateCustomer',
+            component: UpdateCustomer,
+            meta: { hideNavbar: true },
+        },
+        {
+            path: '/UpdateContact',
+            name: 'UpdateContact',
+            component: UpdateContact,
             meta: { hideNavbar: true },
         },
     {
@@ -219,17 +210,17 @@ const router = createRouter({
 
     ],
 });
-router.beforeEach((to, from, next) => {
-    const isAuthenticated = store.state.isAuthenticated;
-    const publicPages = ['/login', '/register'];
-    const authRequired = !publicPages.includes(to.path);
-
-    if (authRequired && !isAuthenticated) {
-        return next('/login');
-    }
-
-    next();
-});
+// router.beforeEach((to, from, next) => {
+//     const isAuthenticated = store.state.isAuthenticated;
+//     const publicPages = ['/login', '/register'];
+//     const authRequired = !publicPages.includes(to.path);
+//
+//     if (authRequired && !isAuthenticated) {
+//         return next('/login');
+//     }
+//
+//     next();
+// });
 
 
 export default router;
