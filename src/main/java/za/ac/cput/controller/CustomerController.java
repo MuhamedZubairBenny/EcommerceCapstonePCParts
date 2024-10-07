@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.dto.CustomerDto;
 import za.ac.cput.service.CustomerService;
@@ -25,6 +26,11 @@ public class CustomerController {
 
     @DeleteMapping("/delete/{customerId}")
     public void delete(@PathVariable String customerId){customerService.delete(customerId);}
+
+    @GetMapping("/read/{id}")
+    public Customer read(@PathVariable String id) {
+        return customerService.read(id);
+    }
 
     @GetMapping("/getall")
     public List<Customer> getAll(){

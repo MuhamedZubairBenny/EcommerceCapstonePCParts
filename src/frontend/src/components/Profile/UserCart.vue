@@ -1,29 +1,22 @@
 <template>
-  <h1 class="cart-heading">Your Cart</h1>
   <div class="cart-container">
-    <!-- Cart Items -->
-    <div v-if="cartItems.length > 0" class="cart-items">
+    <h2 class="cart-heading">Your Cart</h2>
+    <div v-if="cartItems.length > 0">
       <div class="cart-item" v-for="item in cartItems" :key="item.productId">
-        <img :src="item.productPicture" alt="Product Image" class="cart-item-image" />
+        <img :src="item.productPicture" alt="Product Image" />
         <div class="cart-item-details">
-          <h2 class="cart-item-title">{{ item.productName }}</h2>
-          <p class="cart-item-price">R{{ item.price.toFixed(2) }}</p>
-          <p class="cart-item-quantity">Quantity: {{ item.quantity }}</p>
-          <p class="cart-item-total">Total: R{{ (item.price * item.quantity).toFixed(2) }}</p>
+          <h3>{{ item.productName }}</h3>
+          <p>Price: {{ formatCurrency(item.price) }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
           <button @click="removeFromCart(item.productId)" class="remove-button">Remove</button>
         </div>
       </div>
-
-      <!-- Cart Summary -->
       <div class="cart-summary">
-        <h3>Cart Summary</h3>
         <p>Total Items: {{ totalItems }}</p>
-        <p>Total Price: R{{ totalPrice.toFixed(2) }}</p>
+        <p>Total Price: {{ formatCurrency(totalPrice) }}</p>
         <button @click="proceedToCheckout" class="checkout-button">Proceed to Checkout</button>
       </div>
     </div>
-
-    <!-- Empty Cart Message -->
     <div v-else class="empty-cart">
       <p>Your cart is currently empty.</p>
     </div>
@@ -32,31 +25,28 @@
 
 <script>
 import { computed, ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'UserCart',
-  props: {
-    cartId: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
+    const router = useRouter();
     const cartItems = ref([]);
+    const cartTotal = computed(() => {
+      return cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
+    });
 
     const fetchCartItems = async () => {
       try {
-        const response = await fetch(`/api/cart/read/${props.cartId}`);
+        const response = await fetch('/api/cart/read/1009925c-1668-4e26-92f1-a805d7510c93');
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched data:', data);
-
           cartItems.value = data.products.map(product => ({
             productId: product.productId,
             productName: product.productName,
             productPicture: product.productPicture,
             price: product.price,
-            quantity: 1,
+            quantity: 1
           })) || [];
         } else {
           console.error('Error fetching cart items:', response.statusText);
@@ -70,7 +60,7 @@ export default {
 
     const removeFromCart = async (productId) => {
       try {
-        const response = await fetch(`/api/cart/${props.cartId}/removeProduct/${productId}`, {
+        const response = await fetch(`/api/cart/1009925c-1668-4e26-92f1-a805d7510c93/removeProduct/${productId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -89,7 +79,11 @@ export default {
     };
 
     const proceedToCheckout = () => {
-      alert('Proceeding to checkout');
+      alert('Proceeding to checkout!');
+      router.push({
+        path: '/PaymentOption',
+        query: { cartTotal: cartTotal.value }
+      });
     };
 
     const totalItems = computed(() => {
@@ -110,12 +104,20 @@ export default {
       proceedToCheckout,
       totalItems,
       totalPrice,
+      formatCurrency: (amount) => new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'ZAR',
+      }).format(amount),
     };
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
+.cart-container {
+  padding: 20px;
+}
+
 .cart-heading {
   text-align: center;
   font-size: 2.5rem;
@@ -129,25 +131,17 @@ export default {
   letter-spacing: 1.5px;
 }
 
-.cart-container {
-  padding: 20px;
-}
-
-.cart-items {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .cart-item {
   display: flex;
   align-items: center;
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 4px;
+  background-color: #fff;
+  margin-bottom: 10px;
 }
 
-.cart-item-image {
+.cart-item img {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -158,14 +152,12 @@ export default {
   flex: 1;
 }
 
-.cart-item-title {
+.cart-item h3 {
   font-size: 18px;
   margin: 0;
 }
 
-.cart-item-price,
-.cart-item-quantity,
-.cart-item-total {
+.cart-item p {
   margin: 5px 0;
 }
 
@@ -176,6 +168,10 @@ export default {
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #ff4d4d;
 }
 
 .cart-summary {
@@ -192,8 +188,15 @@ export default {
   cursor: pointer;
 }
 
+.checkout-button:hover {
+  background-color: #005600;
+}
+
 .empty-cart {
   text-align: center;
   margin-top: 20px;
 }
 </style>
+
+
+

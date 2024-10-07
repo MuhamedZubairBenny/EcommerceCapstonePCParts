@@ -18,19 +18,14 @@
         <button class="search-button" @click="handleSearch">Search</button>
       </div>
 
-      <!-- Header Buttons -->
       <div class="header-buttons">
-        <!-- Home Button -->
         <router-link to="/home" class="icon-button">
-          <!-- Home Icon SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon home-icon">
             <path d="M12 3l1.45 1.32 7.55 6.68v10.2h-5v-6h-4v6H5V11.2l7.55-6.68L12 3z"/>
           </svg>
         </router-link>
 
-        <!-- Cart Button -->
         <router-link to="/cart" class="icon-button">
-          <!-- Updated Cart Icon SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon cart-icon">
             <path d="M7 4h-2l-3 7v11h18V11l-3-7h-2l-2 4H9l-2-4zm-2 7h14l2 8H5l2-8zm0 2h8v2H5v-2z"/>
           </svg>
@@ -48,7 +43,6 @@
         <!-- Account Button with Dropdown -->
         <div class="account-dropdown">
           <button @click="toggleDropdown" class="icon-button">
-            <!-- Account Icon SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon account-icon">
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6z"/>
             </svg>
@@ -58,16 +52,14 @@
             <router-link to="/AccountInformation">Account Information</router-link>
             <router-link to="/PaymentOption">Payment Option</router-link>
             <router-link to="/ShippingAddress">Shipping Address</router-link>
-            <router-link to="/UpdateProducts">Update Products</router-link>
             <router-link to="/UpdateCustomer">Update Customer</router-link>
-            <router-link to="/UpdateContact">Update Contact</router-link>
+            <router-link to="/UpdateContact">Update Shipping Details</router-link>
             <router-link to="/AdminPage">Admin Page</router-link>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Navbar for Categories -->
     <nav v-if="!$route.meta.hideNavbar" class="category-navbar">
 
       <ul>
@@ -95,7 +87,7 @@ export default {
     return {
       searchQuery: '',
       products: [],
-      isDropdownVisible: false, // Dropdown visibility state
+      isDropdownVisible: false,
       categories: [
         {name: 'CPU', image: {src: require('@/assets/cpuprocessor.png'), alt: 'CPU'}},
         {name: 'GPU', image: {src: require('@/assets/gpu.png'), alt: 'GPU'}},
@@ -121,14 +113,12 @@ export default {
     handleSearch() {
       const query = this.searchQuery.trim().toLowerCase();
 
-      // Check if the query matches a category
       const matchingCategory = this.categories.find(category => category.name.toLowerCase() === query);
       if (matchingCategory) {
         this.$router.push('/' + matchingCategory.name.toLowerCase());
         return;
       }
 
-      // Search for products by name or brand
       if (query !== '') {
         axios.get(`http://localhost:3000/api/product/search/${query}`)
       .then(response => {
@@ -169,7 +159,6 @@ export default {
   width: 100%;
 }
 
-/* Header Section */
 .header {
   display: flex;
   align-items: center;
@@ -232,7 +221,6 @@ export default {
   background-color: #69feca;
 }
 
-/* Header Buttons */
 .header-buttons {
   display: flex;
   align-items: center;
@@ -264,7 +252,6 @@ export default {
   fill: currentColor;
 }
 
-/* Account Dropdown */
 .account-dropdown {
   position: relative;
   z-index: 1010;
@@ -296,17 +283,16 @@ export default {
   background-color: #57d6c2;
 }
 
-/* Navbar for Categories */
 .category-navbar {
   display: flex;
   justify-content: center;
-  background-color: #232f3e; /* Dark background for contrast */
-  padding: 15px 0; /* Add padding for better spacing */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  border-bottom: 2px solid #69feca; /* Stylish bottom border */
-  position: sticky; /* Stick to the top of the page */
+  background-color: #232f3e;
+  padding: 15px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #69feca;
+  position: sticky;
   top: 0;
-  z-index: 1000; /* Ensure navbar stays above other elements */
+  z-index: 1000;
 }
 
 .category-navbar ul {
@@ -316,7 +302,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px; /* Add more space between categories */
+  gap: 40px;
 }
 
 .category-item {
@@ -325,7 +311,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 120px; /* Fix width for consistent sizing */
+  width: 120px;
   color: white;
   position: relative;
   transition: color 0.3s ease;
@@ -337,22 +323,22 @@ export default {
   left: 50%;
   width: 0;
   height: 0;
-  background-color: rgba(255, 255, 255, 0.1); /* Add semi-transparent white background */
-  border: 2px solid #69feca; /* Border color */
-  border-radius: 8px; /* Rounded corners for smooth effect */
-  transform: translate(-50%, -50%); /* Center the pseudo-element */
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid #69feca;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
   transition: all 0.3s ease;
-  z-index: -1; /* Place the background behind the content */
+  z-index: -1;
 }
 
 .category-item:hover::before {
-  width: 140px; /* Expand width on hover */
-  height: 140px; /* Expand height on hover */
-  opacity: 1; /* Ensure it's visible */
+  width: 140px;
+  height: 140px;
+  opacity: 1;
 }
 
 .category-image {
-  height: 80px; /* Adjust image height for uniformity */
+  height: 80px;
   width: auto;
   display: block;
   margin: 0 auto;
@@ -360,54 +346,54 @@ export default {
 }
 
 .category-item:hover {
-  color: #69feca; /* Change color on hover */
+  color: #69feca;
 }
 .category-image:hover {
-  transform: scale(1.2); /* Enlarge image on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  transform: scale(1.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .category-name {
-  font-size: 16px; /* Increase font size for readability */
+  font-size: 16px;
   margin-top: 8px;
   color: white;
-  text-transform: uppercase; /* Make category names uppercase for style */
+  text-transform: uppercase;
   font-weight: bold;
 }
 
 @media (max-width: 768px) {
   .category-navbar ul {
-    gap: 20px; /* Reduce gap for smaller screens */
+    gap: 20px;
   }
 
   .category-item {
-    width: 100px; /* Reduce width on smaller screens */
+    width: 100px;
   }
 
   .category-image {
-    height: 60px; /* Smaller images on mobile */
+    height: 60px;
   }
 
   .category-name {
-    font-size: 14px; /* Adjust font size for mobile */
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
   .category-navbar ul {
-    gap: 10px; /* Further reduce gap for very small screens */
+    gap: 10px;
   }
 
   .category-item {
-    width: 80px; /* Adjust width further for small devices */
+    width: 80px;
   }
 
   .category-image {
-    height: 50px; /* Adjust image size for small devices */
+    height: 50px;
   }
 
   .category-name {
-    font-size: 12px; /* Smaller font size for small screens */
+    font-size: 12px;
   }
-} /* Closing brace was missing previously */
+}
 </style>
