@@ -27,6 +27,8 @@ import DeleteBrand from "@/components/AdminProfile/Brand/DeleteBrand.vue";
 import AdminPage from "@/components/AdminPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import RegisterPage from "@/components/RegisterPage.vue";
+import UpdateCustomer from "@/components/Profile/UpdateCustomer.vue";
+import UpdateContact from "@/components/Profile/UpdateContact.vue";
 //import store from "@/store";
 
 // Create a router instance
@@ -115,6 +117,18 @@ const router = createRouter({
             path: '/UpdateProducts',
             name: 'UpdateProducts',
             component: UpdateProducts,
+            meta: { hideNavbar: true },
+        },
+        {
+            path: '/UpdateCustomer',
+            name: 'UpdateCustomer',
+            component: UpdateCustomer,
+            meta: { hideNavbar: true },
+        },
+        {
+            path: '/UpdateContact',
+            name: 'UpdateContact',
+            component: UpdateContact,
             meta: { hideNavbar: true },
         },
     {
