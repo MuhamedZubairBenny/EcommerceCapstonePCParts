@@ -1,28 +1,28 @@
 <template>
   <div class="payment-container">
-
     <form @submit.prevent="handleSubmit" class="payment-form">
       <h2>Payment Details</h2>
 
       <div class="form-group">
         <label for="card-number">Card Number</label>
-        <input type="text" id="card-number" v-model="cardNumber" placeholder="1234 5678 9012 3456"  />
+        <input type="text" id="card-number" v-model="cardNumber" placeholder="1234 5678 9012 3456" />
       </div>
 
       <div class="form-group">
         <label for="card-expiry">Expiry Date</label>
-        <input type="text" id="card-expiry" v-model="expiryDate" placeholder="MM/YY"  />
+        <input type="text" id="card-expiry" v-model="expiryDate" placeholder="MM/YY" />
       </div>
 
       <div class="form-group">
         <label for="card-cvv">CVV</label>
-        <input type="text" id="card-cvv" v-model="cvv" placeholder="123"  />
+        <input type="text" id="card-cvv" v-model="cvv" placeholder="123" />
       </div>
 
       <div class="form-group">
         <label for="card-name">Cardholder's Name</label>
-        <input type="text" id="card-name" v-model="cardName" placeholder="John Doe"  />
+        <input type="text" id="card-name" v-model="cardName" placeholder="John Doe" />
       </div>
+
       <div class="price-details">
         <div class="price-item">
           <span>Subtotal:</span>
@@ -44,31 +44,25 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
 import axios from 'axios';
 
 export default {
   name: 'PaymentPage',
-  props: {
-    orderId: {
-      type: String,
-      default: '001',
-    },
-    overallPrice: {
-      default: 0,
-    }
-  },
   data() {
     return {
       cardNumber: '',
       expiryDate: '',
       cvv: '',
       cardName: '',
-      subtotal: 0,
       vatRate: 0.15,
-      customer: null,
+      cartTotal: 0, // Initialize cartTotal here
     };
   },
   computed: {
+    subtotal() {
+      return this.cartTotal;
+    },
     vat() {
       return this.subtotal * this.vatRate;
     },
@@ -76,28 +70,18 @@ export default {
       return this.subtotal + this.vat;
     },
   },
-  async mounted() {
-    if (this.orderId) {
-      try {
-        const orderResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}`);
-        this.subtotal = orderResponse.data.overallPrice;
-        const customerResponse = await axios.get(`http://localhost:3000/api/order/read/${this.orderId}/customer`);
-        this.customer = customerResponse.data;
-      } catch (error) {
-        console.error('Failed to fetch order or customer data:', error);
-      }
-    }
+  mounted() {
+    const route = useRoute();
+    this.cartTotal = parseFloat(route.query.cartTotal) || 0;
   },
   methods: {
     async handleSubmit() {
       try {
-
         const paymentData = {
           paymentId: '',
           order: {
-            orderId: this.orderId,
+            orderId: 'someOrderId', // Replace with actual order ID if needed
           },
-          customer: this.customer,
           paymentType: 'Credit Card',
           paymentTotal: this.total,
         };
