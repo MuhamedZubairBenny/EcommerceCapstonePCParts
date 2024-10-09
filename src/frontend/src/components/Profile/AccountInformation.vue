@@ -1,41 +1,9 @@
-<script setup>
-
-</script>
-
-<template>
-  <div class="container">
-    <h1>Account Information</h1>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Mobile</th>
-<!--        <th>Address</th>-->
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="customer in customers" :key="customer.customer_id">
-        <td>{{ customer.customer_id }}</td>
-        <td>{{ customer.firstName }}</td>
-        <td>{{ customer.lastName }}</td>
-        <td>{{ customer.email }}</td>
-        <td>{{ customer.mobileNumber }}</td>
-<!--        <td>{{ customer.shipping.address }}</td>-->
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'AccountInformation',
   data() {
     return {
-      customers: []
+      user: null // Only the logged-in user
     }
   },
   mounted() {
@@ -43,18 +11,60 @@ export default {
   },
   methods: {
     fetchData() {
-      fetch("/api/customer/getall")
+      fetch("http://localhost:8080/auth/me", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}` // Include auth token if using JWT
+        }
+      })
           .then((response) => response.json())
           .then((data) => {
-            this.customers = data;
+            this.user = data;
           })
           .catch((error) => {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching authenticated user:', error);
           });
     }
   }
 }
 </script>
+
+<template>
+  <div class="container">
+    <h1>Account Information</h1>
+    <div v-if="user">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Mobile</th>
+          <th>Date of Birth</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ user.mobileNumber }}</td>
+          <td>{{ user.dateOfBirth }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else>
+      <p>No user information available. Please log in.</p>
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .account-info-container {
   max-width: 900px;

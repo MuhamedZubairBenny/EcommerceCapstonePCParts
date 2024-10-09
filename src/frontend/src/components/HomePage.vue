@@ -2,77 +2,54 @@
   <NavigationTool />
   <div class="homepage-container">
 
-<!--  <Swiper-->
-<!--        :slides-per-view="1"-->
-<!--        :space-between="10"-->
-<!--        :pagination="{ clickable: true }"-->
-<!--        :navigation="true"-->
-<!--        :loop="true"-->
-<!--        :autoplay="{ delay: 5000 }"-->
-<!--        class="mySwiper"-->
-<!--    >-->
-<!--      <SwiperSlide v-for="(image, index) in images" :key="index">-->
-<!--        <img :src="image.src" :alt="image.alt" class="slide-image" />-->
-<!--      </SwiperSlide>-->
-<!--    </Swiper>-->
-
     <section id="about-us" class="about-us-section">
     </section>
 
     <section class="about-us">
       <h2>About Us</h2>
-      <p>Welcome to CyberTech! We are a group of like-minded individuals who have a deep passion for the world of pcs.</p>
-      <p>We are passionate about bringing the best in PC components and technology to enthusiasts nationwide.
-        We are committed to delivering quality products and service to our customers and wanting to make their dreams possible.  </p>
+      <p>Welcome to CyberTech! We are a group of like-minded individuals who have a deep passion for the world of PCs.</p>
+      <p>We are passionate about bringing the best in PC components and technology to enthusiasts nationwide. We are committed to delivering quality products and service to our customers and wanting to make their dreams possible.</p>
       <div class="about-icons">
-        </div>
+      </div>
     </section>
   </div>
 
-    <div>
-      <h1 v-if="isAuthenticated">Welcome Back!</h1>
-      <h1 v-else>Please Log In</h1>
-    </div>
+  <div>
+    <h1 v-if="isAuthenticated">Welcome Back, {{ user.id }}!</h1>
+    <h1 v-else>Please Log In</h1>
+  </div>
 
 </template>
 
 <script>
 import { mapState } from 'vuex';
- import axios from 'axios';
-// import { Swiper, SwiperSlide } from 'swiper/vue';
-// import 'swiper/swiper-bundle.css';
-// import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper';
-//
-// SwiperCore.use([Autoplay, Pagination, Navigation]);
+import {axios} from 'axios';
+import AuthService from "@/AuthService";
 
 export default {
   computed: {
     ...mapState({
-      isAuthenticated: state => state.isAuthenticated
+      isAuthenticated: state => state.isAuthenticated,
+      userId: state => state.user.id // Assuming 'user' is the property where user details are stored
     })
   },
 
   name: 'HomePage',
   components: {
-    // Swiper,
-    // SwiperSlide,
+    // Your other components
   },
   data() {
     return {
       searchQuery: '',
       products: [],
-      // images: [
-      //   {src: require('@/assets/ryzenslideshow.png'), alt: 'ryzen'},
-      //   {src: require('@/assets/laptopslideshow.png'), alt: 'laptop'},
-      //   {src: require('@/assets/alienware.png'), alt: 'alienware'},
-      //   {src: require('@/assets/computerslideshow.png'), alt: 'computer'}
-      // ],
+      user: {}
     };
   },
   methods: {
     handleSearch() {
       console.log('Search button clicked!');
       const query = this.searchQuery.trim().toLowerCase();
+      // Assuming you have a 'categories' property in your data or computed
       const matchingCategory = this.categories.find(category => category.name.toLowerCase() === query);
       if (matchingCategory) {
         this.$router.push('/' + matchingCategory.name.toLowerCase());
@@ -85,6 +62,20 @@ export default {
               console.error('Error fetching products:', error);
             });
       }
+    },
+    fetchUserDetails() {
+      AuthService.getUserById(this.userId)
+          .then(response => {
+            this.user = response.data; // Assuming the response contains user details
+          })
+          .catch(error => {
+            console.error('Error fetching user details:', error);
+          });
+    }
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.fetchUserDetails(); // Fetch user details if authenticated
     }
   }
 };

@@ -27,6 +27,7 @@
     </div>
     <div class="product-footer">
       <button @click="goBack" class="back-button">Back to Products</button>
+      <button @click="addToCart" class="cart-button">Add to Cart</button>
     </div>
   </div>
   <div v-else>
@@ -36,12 +37,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
- import { useRoute } from 'vue-router';
-// import { useStore } from 'vuex';
+import {useRoute, useRouter} from 'vue-router';
+import { useStore } from 'vuex';
 
- const route = useRoute();
-// const router = useRouter();
-// const store = useStore();
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
 
 const product = ref(null);
 
@@ -59,44 +60,54 @@ const fetchProductDetails = async () => {
   }
 };
 
-// const fetchCartDetails = async () => {
-//   const customerId = store.state.id; // Assuming customerId is stored in Vuex
-//   try {
-//     const response = await fetch(`/api/cart/read/${Id}`);
-//     const data = await response.json();
-//     cart.value = data;
-//   } catch (error) {
-//     console.error('Error fetching cart details:', error);
-//   }
-// };
+const cart = ref(null); // Ensure cart is defined as a ref
 
-// const addToCart = async () => {
-//   if (product.value && cart.value) {
-//     try {
-//       const token = store.state.authToken; // Get the authentication token from Vuex
-//       const response = await fetch(`/api/cart/{cartId}/addProduct/{productId}`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${token}`, // Add the auth token to headers
-//         },
-//         body: JSON.stringify({ productId: product.value.productId })
-//       });
-//
-//       if (response.ok) {
-//         alert('Product added to cart!');
-//         router.push('/cart');
-//       } else {
-//         console.error('Error adding product to cart:', response.status, response.statusText);
-//       }
-//     } catch (error) {
-//       console.error('Error adding product to cart:', error);
-//     }
-//   } else {
-//     console.error('Product or cart not available');
-//   }
-// };
-//
+const fetchCartDetails = async () => {
+  try {
+    const response = await fetch(`/api/cart/read/6ceed7ce-0bf3-4976-8755-c573b815288b`);
+    const data = await response.json();
+    cart.value = data;
+    console.log('Fetched Cart:', cart.value); // Debug log
+  } catch (error) {
+    console.error('Error fetching cart details:', error);
+  }
+};
+
+const addToCart = async () => {
+  console.log('addToCart called'); // Log when the function is called
+
+  if (product.value && cart.value) {
+    console.log('Product and cart are available'); // Check if they are set
+
+    try {
+      const token = store.state.authToken;
+      const productId = product.value.productId;
+
+      console.log('Product ID:', productId); // Log the product ID
+
+      const response = await fetch(`/api/cart/6ceed7ce-0bf3-4976-8755-c573b815288b/addProduct/${productId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId })
+      });
+
+      if (response.ok) {
+        alert('Product added to cart!');
+        router.push('/cart');
+      } else {
+        console.error('Error adding product to cart:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  } else {
+    console.error('Product or cart not available');
+  }
+};
+
 
 const goBack = () => {
   window.history.back();
@@ -104,7 +115,7 @@ const goBack = () => {
 
 onMounted(() => {
   fetchProductDetails();
-  // fetchCartDetails();
+  fetchCartDetails();
 });
 
 const formatCurrency = (value) => {

@@ -1,5 +1,6 @@
 package za.ac.cput.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.User;
+import za.ac.cput.dto.CustomerDto;
+import za.ac.cput.dto.UserDto;
 import za.ac.cput.service.UserService;
 
 import java.util.HashMap;
@@ -17,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
@@ -29,8 +32,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user){
-        return userService.saveUser(user);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody UserDto userDto) {
+        try {
+            userService.saveUser(userDto);
+            return ResponseEntity.ok("User registered successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during registration");
+        }
     }
 
     @PostMapping("/login")
@@ -58,6 +67,19 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-//    @GetMapping("/read/{searchString}")
-//    public List<User> searchUserById(@PathVariable String searchString){return userService.loadUserByUsername(searchString);}
+    @GetMapping("/read/{id}")
+    public User searchUserById(@PathVariable Long id){return userService.findById(id);}
+
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getLoggedInUser(Authentication authentication) {
+        if (authentication != null) {
+            // You can cast this to your custom User object if needed
+            UserService userDetails = (UserService) authentication.getPrincipal();
+            return ResponseEntity.ok(userDetails);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
+    }
 }
+
+

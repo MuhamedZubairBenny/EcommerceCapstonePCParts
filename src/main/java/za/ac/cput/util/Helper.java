@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
 
 public class Helper {
@@ -34,6 +35,10 @@ public class Helper {
         return UUID.randomUUID().toString();
     }
 
+    private static final AtomicLong counter = new AtomicLong(0);
+    public static Long generateLongId() {
+        return counter.incrementAndGet();
+    }
     public static boolean emailIsValid(String emailAddress, String regexPattern) {
         return Pattern.compile(regexPattern)
                 .matcher(emailAddress)

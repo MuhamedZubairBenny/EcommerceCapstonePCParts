@@ -14,6 +14,10 @@ class AuthService {
     logout(user){
         return axios.post(`${API_BASE_URL}/logout`, user);
     }
+
+    getUserById(userId) {
+        return axios.get(`${API_BASE_URL}/read/${userId}`)
+    }
 }
 
 export default new AuthService();

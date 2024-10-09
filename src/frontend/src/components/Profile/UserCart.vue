@@ -38,7 +38,7 @@ export default {
 
     const fetchCartItems = async () => {
       try {
-        const response = await fetch('/api/cart/read/1009925c-1668-4e26-92f1-a805d7510c93');
+        const response = await fetch('/api/cart/read/6ceed7ce-0bf3-4976-8755-c573b815288b');
         if (response.ok) {
           const data = await response.json();
           cartItems.value = data.products.map(product => ({

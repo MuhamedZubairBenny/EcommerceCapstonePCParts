@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
+import za.ac.cput.dto.UserDto;
+import za.ac.cput.factory.UserFactory;
 import za.ac.cput.repository.UserRepository;
 
 import java.util.Collections;
@@ -23,14 +25,30 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User saveUser(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public void saveUser(UserDto userDto){
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        User user = UserFactory.buildUser(
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getEmail(),
+                userDto.getPassword()
+        );
+        if (user == null){
+            throw new IllegalArgumentException("Invalid user data");
+        }
+        userRepository.save(user);
     }
+
+    public User create(User user) {return userRepository.save(user);}
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -41,4 +59,5 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), Collections.emptyList());
     }
+
 }
