@@ -15,8 +15,13 @@ class AuthService {
         return axios.post(`${API_BASE_URL}/logout`, user);
     }
 
-    getUserById(userId) {
-        return axios.get(`${API_BASE_URL}/read/${userId}`)
+    getUserByEmail(email) {
+        return axios.get(`${API_BASE_URL}/findByEmail/${email}`)
+            .then(response => response.data)
+            .catch(error => {
+                console.error('Error fetching user by email:', error);
+                throw error; // Rethrow the error for further handling
+            });
     }
 }
 

@@ -68,18 +68,40 @@ public class AuthController {
     }
 
     @GetMapping("/read/{id}")
-    public User searchUserById(@PathVariable Long id){return userService.findById(id);}
+    public User searchUserById(@PathVariable("id") Long id){return userService.findById(id);}
+
+    @GetMapping("/findByEmail/{email}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable("email") String email) {
+        User user = userService.findByEmail(email);
+        if (user != null) {
+            return ResponseEntity.ok(user); // Return the found user
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Return 404 if user not found
+        }
+    }
 
 
     @GetMapping("/me")
-    public ResponseEntity<?> getLoggedInUser(Authentication authentication) {
-        if (authentication != null) {
-            // You can cast this to your custom User object if needed
-            UserService userDetails = (UserService) authentication.getPrincipal();
-            return ResponseEntity.ok(userDetails);
+    public ResponseEntity<User> getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+
+            if (principal instanceof User) {
+                User user = (User) principal; // Assuming User is your user object
+
+                // Convert User to DTO if necessary and return
+                return ResponseEntity.ok(user); // Return the logged-in user's details
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // Return 401 if principal is not User
+            }
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // Return 401 if not authenticated
     }
+
+
 }
 
 

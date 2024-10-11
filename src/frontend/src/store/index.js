@@ -4,13 +4,14 @@ import AuthService from "@/AuthService";
 export const store = createStore({
     state: {
         isAuthenticated: false,
-        user: null,
+        user: {},
         error: null, // To store error messages
         loading: false // To manage loading state
     },
     mutations: {
         SET_AUTHENTICATION(state, status) {
             state.isAuthenticated = status;
+            localStorage.setItem('user', JSON.stringify(status));
         },
         SET_USER(state, user) {
             state.user = user;
@@ -18,30 +19,48 @@ export const store = createStore({
         SET_ERROR(state, error) {
             state.error = error; // Set error message
         },
+        SET_ADMIN_STATUS(state, isAdmin) {
+            state.isAdmin = isAdmin; // or however you manage admin status in your state
+        },
         SET_LOADING(state, loading) {
             state.loading = loading; // Set loading state
         }
     },
     actions: {
+        initializeStore({ commit }) {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                commit('SET_AUTHENTICATION', user);
+            }
+        },
+        fetchUserByEmail({ commit }, email) {
+            return AuthService.getUserByEmail(email)
+                .then(userFetched => {
+                    commit('SET_USER', userFetched); // Commit the mutation to update user state
+                });
+        },
         async login({ commit }, user) {
-            commit('SET_LOADING', true); // Start loading
-            commit('SET_ERROR', null); // Clear any previous errors
+            commit('SET_LOADING', true);
+            commit('SET_ERROR', null);
             try {
-                const response = await AuthService.login(user); // Call the API
-                commit('SET_AUTHENTICATION', true); // Update authentication state
-                commit('SET_USER', response.data); // Store user info
+                const response = await AuthService.login(user);
+                commit('SET_AUTHENTICATION', true);
+                commit('SET_USER', response.data);
 
-                // Optionally, set admin status based on email
                 if (user.email === 'admin@gmail.com') {
                     commit('SET_ADMIN_STATUS', true);
                 } else {
                     commit('SET_ADMIN_STATUS', false);
                 }
+
+                // Redirect to the homepage after successful login
+                this.$router.push('/home'); // Adjust the route as needed
+
             } catch (error) {
                 console.error("Login failed:", error);
-                commit('SET_ERROR', "Invalid email or password."); // Set error message
+                commit('SET_ERROR', "Invalid email or password.");
             } finally {
-                commit('SET_LOADING', false); // End loading
+                commit('SET_LOADING', false);
             }
         },
         async register({ commit }, user) {
@@ -71,6 +90,7 @@ export const store = createStore({
                 commit('SET_AUTHENTICATION', false);
                 commit('SET_USER', null);
                 commit('SET_ERROR', null); // Clear errors on logout
+                localStorage.removeItem('user');
             } catch (error) {
                 console.error("Logout failed:", error);
                 commit('SET_ERROR', "Logout failed. Please try again."); // Optionally handle logout errors

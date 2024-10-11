@@ -1,85 +1,68 @@
 <template xmlns:th="http://www.w3.org/1999/xhtml">
   <NavigationTool />
   <div class="homepage-container">
-
-    <section id="about-us" class="about-us-section">
-    </section>
-
+    <section id="about-us" class="about-us-section"></section>
     <section class="about-us">
       <h2>About Us</h2>
       <p>Welcome to CyberTech! We are a group of like-minded individuals who have a deep passion for the world of PCs.</p>
       <p>We are passionate about bringing the best in PC components and technology to enthusiasts nationwide. We are committed to delivering quality products and service to our customers and wanting to make their dreams possible.</p>
-      <div class="about-icons">
-      </div>
+      <div class="about-icons"></div>
     </section>
   </div>
 
   <div>
-    <h1 v-if="isAuthenticated">Welcome Back, {{ user.id }}!</h1>
+    <h1 v-if="isAuthenticated && isUserLoaded">Welcome Back, {{ user.firstName }}!</h1>
     <h1 v-else>Please Log In</h1>
   </div>
-
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import {axios} from 'axios';
-import AuthService from "@/AuthService";
+
 
 export default {
+  name: 'HomePage',
   computed: {
     ...mapState({
       isAuthenticated: state => state.isAuthenticated,
-      userId: state => state.user.id // Assuming 'user' is the property where user details are stored
-    })
-  },
-
-  name: 'HomePage',
-  components: {
-    // Your other components
-  },
-  data() {
-    return {
-      searchQuery: '',
-      products: [],
-      user: {}
-    };
-  },
-  methods: {
-    handleSearch() {
-      console.log('Search button clicked!');
-      const query = this.searchQuery.trim().toLowerCase();
-      // Assuming you have a 'categories' property in your data or computed
-      const matchingCategory = this.categories.find(category => category.name.toLowerCase() === query);
-      if (matchingCategory) {
-        this.$router.push('/' + matchingCategory.name.toLowerCase());
-      } else if (query !== '') {
-        axios.get(`api/product/category/${this.searchQuery}`)
-            .then(response => {
-              this.products = response.data;
-            })
-            .catch(error => {
-              console.error('Error fetching products:', error);
-            });
-      }
-    },
-    fetchUserDetails() {
-      AuthService.getUserById(this.userId)
-          .then(response => {
-            this.user = response.data; // Assuming the response contains user details
-          })
-          .catch(error => {
-            console.error('Error fetching user details:', error);
-          });
+      user: state => state.user,
+    }),
+    isUserLoaded() {
+      return !!this.user && !!this.user.email;
     }
   },
-  mounted() {
+  methods: {
+    fetchUserDetailsByEmail() {
+      if (this.user.email) {
+        this.$store.dispatch('fetchUserByEmail', this.user.email)
+            .then(() => {
+              // Optional: Additional logic after fetching the user
+            })
+            .catch(error => {
+              console.error('Error fetching user details:', error);
+            });
+      } else {
+        console.error('User email is not available');
+      }
+    }
+  },
+  created() {
+    this.$store.dispatch('initializeStore');
     if (this.isAuthenticated) {
-      this.fetchUserDetails(); // Fetch user details if authenticated
+      this.fetchUserDetailsByEmail();
+    }
+  },
+  watch: {
+    isAuthenticated(newVal) {
+      if (newVal) {
+        this.fetchUserDetailsByEmail();
+      }
     }
   }
 };
 </script>
+
+
 
 <style scoped>
 
