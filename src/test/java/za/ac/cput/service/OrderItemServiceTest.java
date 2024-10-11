@@ -41,7 +41,7 @@ public class OrderItemServiceTest {
         ProductCategory category = ProductCategoryFactory.buildProductCategory("02", "CPU");
         Brand brand = BrandFactory.buildBrand("101", "AMD");
         product = ProductFactory.buildProduct("001","Ryzen 5 5600X", category, brand, "Ryzen CPU", 3999.00, 23, "10cm", "2 years", "Ryzen5Products/Ryzen_5_5600.png");
-        order = OrderFactory.buildOrder("10", 15000, customer);
+        order = OrderFactory.buildOrder("10", 15000);
 
         orderItem = OrderItemFactory.buildOrderItem("100",product,1,order);
         assertNotNull(orderItem);

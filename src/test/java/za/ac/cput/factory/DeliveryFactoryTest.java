@@ -21,7 +21,7 @@ class DeliveryFactoryTest {
         Cart cart = CartFactory.buildCart("01", productList);
 
         Customer customer = new CustomerFactory().buildCustomer("Cust01","ID10", "Zubair", "Benny", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         OrderItem orderItem = OrderItemFactory.buildOrderItem("100",product,1,order);
         System.out.println(orderItem);
         Payment payment = PaymentFactory.buildPayment("001",customer,order,"Credit card",1000.00);
@@ -40,7 +40,7 @@ class DeliveryFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart("01", productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","ID10", "Zubair", "Benny", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         OrderItem orderItem = OrderItemFactory.buildOrderItem("100",product,1,order);
         System.out.println(orderItem);
         Payment payment = PaymentFactory.buildPayment("001",customer,order,"Credit card",1000.00);
@@ -59,7 +59,7 @@ class DeliveryFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart("01", productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","ID10", "Zubair", "Benny", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         OrderItem orderItem = OrderItemFactory.buildOrderItem("100",product,1,order);
         System.out.println(orderItem);
         Payment payment = PaymentFactory.buildPayment("001",customer,order,"Credit card",1000.00);

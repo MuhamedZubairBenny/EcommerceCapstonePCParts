@@ -38,7 +38,7 @@ class PaymentServiceTest {
         customer1 = CustomerFactory.buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
         assertNotNull(customer1);
         System.out.println(customer1);
-        order = OrderFactory.buildOrder("001", 14500.00,customer1);
+        order = OrderFactory.buildOrder("001", 14500.00);
         payment = PaymentFactory.buildPayment("001", customer1, order, "Credit card", 1000.0);
     }
 

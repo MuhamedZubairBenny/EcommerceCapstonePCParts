@@ -63,7 +63,6 @@ public class Payment {
         return "Payment{" +
                 "paymentId='" + paymentId + '\'' +
                 ", order=" + order +
-                ", customer=" + customer +
                 ", paymentType='" + paymentType + '\'' +
                 ", paymentTotal=" + paymentTotal +
                 '}';

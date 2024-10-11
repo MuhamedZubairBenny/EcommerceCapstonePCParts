@@ -20,7 +20,7 @@ class OrderFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         assertNotNull(order);
         System.out.println(order);
     }
@@ -31,7 +31,7 @@ class OrderFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder( 14500.00,customer);
+        Order order = OrderFactory.buildOrder( 14500.00);
         assertNotNull(order);
         System.out.println(order);
     }
@@ -42,7 +42,7 @@ class OrderFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("", 14500.00);
         assertNotNull(order);
         System.out.println(order);
     }

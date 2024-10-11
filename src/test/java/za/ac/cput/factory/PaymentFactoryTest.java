@@ -22,7 +22,7 @@ class PaymentFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","ID10", "Zubair", "Benny", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         ProductCategory category = new ProductCategoryFactory().buildProductCategory("2345", "Motherboard");
         Brand brand = new BrandFactory().buildBrand("3456", "Asus");
         Product p = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
@@ -43,7 +43,7 @@ class PaymentFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","ID10", "Zubair", "Benny", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         ProductCategory category = new ProductCategoryFactory().buildProductCategory("2345", "Motherboard");
         Brand brand = new BrandFactory().buildBrand("3456", "Asus");
         Product p = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
@@ -51,7 +51,7 @@ class PaymentFactoryTest {
         List<OrderItem> orderItemList = new ArrayList<OrderItem>();
         orderItemList.add(orderItem);
 
-        Payment payment = PaymentFactory.buildPayment(customer,order,"Credit card",1000.00);
+        Payment payment = PaymentFactory.buildPayment(order,"Credit card",1000.00);
         assertNotNull(payment);
         System.out.println(payment);
     }
@@ -64,7 +64,7 @@ class PaymentFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         Customer customer = new CustomerFactory().buildCustomer("Cust01","ID10", "Zubair", "Benny", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         ProductCategory category = new ProductCategoryFactory().buildProductCategory("2345", "Motherboard");
         Brand brand = new BrandFactory().buildBrand("3456", "Asus");
         Product p = ProductFactory.buildProduct("12345","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");

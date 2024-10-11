@@ -20,6 +20,8 @@ public class User {
     private Shipping shipping;
     @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Payment payment;
 
     protected User(){}
     public User(Builder builder){
@@ -32,6 +34,7 @@ public class User {
         this.dateOfBirth = builder.dateOfBirth;
         this.shipping = builder.shipping;
         this.cart = builder.cart;
+        this.payment = builder.payment;
     }
 
     public Long getId() {
@@ -69,18 +72,19 @@ public class User {
     public Cart getCart() {
         return cart;
     }
+    public Payment getPayment(){return payment;}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(mobileNumber, user.mobileNumber) && Objects.equals(dateOfBirth, user.dateOfBirth) && Objects.equals(shipping, user.shipping) && Objects.equals(cart, user.cart);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(mobileNumber, user.mobileNumber) && Objects.equals(dateOfBirth, user.dateOfBirth) && Objects.equals(shipping, user.shipping) && Objects.equals(cart, user.cart) && Objects.equals(payment, user.payment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password, mobileNumber, dateOfBirth, shipping, cart);
+        return Objects.hash(id, firstName, lastName, email, password, mobileNumber, dateOfBirth, shipping, cart, payment);
     }
 
     @Override
@@ -95,6 +99,7 @@ public class User {
                 ", dateOfBirth=" + dateOfBirth +
                 ", shipping=" + shipping +
                 ", cart=" + cart +
+                ", payment=" + payment +
                 '}';
     }
 
@@ -108,6 +113,7 @@ public class User {
         private LocalDate dateOfBirth;
         private Shipping shipping;
         private Cart cart;
+        private Payment payment;
 
         public Builder setId(Long id) {
             this.id = id;
@@ -153,6 +159,10 @@ public class User {
             this.cart = cart;
             return this;
         }
+        public Builder setPayment(Payment payment) {
+            this.payment = payment;
+            return this;
+        }
         public Builder copy(User user){
             this.id = user.id;
             this.firstName = user.firstName;
@@ -163,6 +173,7 @@ public class User {
             this.dateOfBirth = user.dateOfBirth;
             this.shipping = user.shipping;
             this.cart = user.cart;
+            this.payment = user.payment;
             return this;
         }
 

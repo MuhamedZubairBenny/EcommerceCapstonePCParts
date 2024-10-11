@@ -4,10 +4,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import za.ac.cput.domain.Cart;
-import za.ac.cput.domain.Product;
-import za.ac.cput.domain.Shipping;
-import za.ac.cput.domain.User;
+import za.ac.cput.domain.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,9 +27,13 @@ class UserFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         System.out.println(cart);
+        za.ac.cput.domain.Order order = OrderFactory.buildOrder(100);
+        System.out.println(order);
+        Payment payment = PaymentFactory.buildPayment(order,"credit card", 100);
+        System.out.println(payment);
 
         //Build User
-        User user = UserFactory.buildUser(1234L, "Bob", "McDonald", "bm@gmail.com", "12345", "111 121 1111", LocalDate.of(2000,1, 1), shipping, cart);
+        User user = UserFactory.buildUser( 2647L,"Bob", "McDonald", "bm@gmail.com", "12345", "111 121 1111", LocalDate.of(2000,1, 1), shipping, cart, payment);
         assertNotNull(user);
         System.out.println(user);
     }

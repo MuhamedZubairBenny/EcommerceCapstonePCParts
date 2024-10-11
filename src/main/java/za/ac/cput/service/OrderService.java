@@ -27,7 +27,6 @@ public class OrderService implements IOrderService {
     @Override
     @Transactional
     public Order create(Order order) {
-        customerRepository.save(order.getCustomer());
         return repository.save(order);
     }
 
@@ -39,7 +38,6 @@ public class OrderService implements IOrderService {
     @Override
     @Transactional
     public Order update(Order order) {
-        customerRepository.save(order.getCustomer());
         return repository.save(order);
     }
     @Override
@@ -50,10 +48,10 @@ public class OrderService implements IOrderService {
     public List<Order> getAll() {
         return repository.findAll();
     }
-    // OrderService.java
-    public Customer getCustomerByOrderId(String orderId) {
-        Order order = repository.findById(orderId).orElse(null);
-        return order.getCustomer();
+//    // OrderService.java
+//    public Customer getCustomerByOrderId(String orderId) {
+//        Order order = repository.findById(orderId).orElse(null);
+//        return order.getUser();
     }
 
-}
+//}

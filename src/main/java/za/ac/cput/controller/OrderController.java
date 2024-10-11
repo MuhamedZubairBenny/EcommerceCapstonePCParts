@@ -32,8 +32,8 @@ public class OrderController {
     @GetMapping("/getall")
     public List<Order> getAll() {return orderService.getAll();}
 
-    @GetMapping("/findCustomer/{id}")
-    public Customer findCustomer(@PathVariable String id){return orderService.getCustomerByOrderId(id);}
+//    @GetMapping("/findCustomer/{id}")
+//    public Customer findCustomer(@PathVariable String id){return orderService.getCustomerByOrderId(id);}
 
 
 }

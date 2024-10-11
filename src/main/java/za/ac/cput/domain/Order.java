@@ -14,8 +14,7 @@ public class Order {
     @Column(name = "order_id", nullable = false, unique = true)
     private String orderId;
     private double overallPrice;
-    @OneToOne
-    private Customer customer;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItem;
 
@@ -24,7 +23,6 @@ public class Order {
     public Order(Builder builder){
     this.orderId = builder.orderId;
     this.overallPrice = builder.overallPrice;
-    this.customer = builder.customer;
     }
 
     public String getOrderId() {
@@ -35,21 +33,18 @@ public class Order {
         return overallPrice;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Double.compare(overallPrice, order.overallPrice) == 0 && Objects.equals(orderId, order.orderId) && Objects.equals(customer, order.customer);
+        return Double.compare(overallPrice, order.overallPrice) == 0 && Objects.equals(orderId, order.orderId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, overallPrice, customer);
+        return Objects.hash(orderId, overallPrice);
     }
 
     @Override
@@ -57,14 +52,12 @@ public class Order {
         return "Order{" +
                 "orderId='" + orderId + '\'' +
                 ", overallPrice=" + overallPrice +
-                ", customer=" + customer +
                 '}';
     }
 
     public static class Builder{
         private String orderId;
         private double overallPrice;
-        private Customer customer;
 
         public Builder setOrderId(String orderId) {
             this.orderId = orderId;
@@ -76,15 +69,11 @@ public class Order {
             return this;
         }
 
-        public Builder setCustomer(Customer customer) {
-            this.customer = customer;
-            return this;
-        }
+
 
         public Builder copy(Order order){
             this.orderId = order.orderId;
             this.overallPrice = order.overallPrice;
-            this.customer = order.customer;
             return this;
         }
         public Order build(){

@@ -21,7 +21,7 @@ public class PaymentFactory {
                 .build();
     }
 
-    public static Payment buildPayment (Customer customer, Order order, String paymentType, double paymentTotal) {
+    public static Payment buildPayment ( Order order, String paymentType, double paymentTotal) {
         if (Helper.isNullOrEmpty(paymentType) || paymentTotal <= 0) {
             return null;
         }
@@ -30,7 +30,6 @@ public class PaymentFactory {
 
         return new Payment.Builder()
                 .setPaymentId(paymentId)
-                .setCustomer(customer)
                 .setOrder(order)
                 .setPaymentType(paymentType)
                 .setPaymentTotal(paymentTotal)

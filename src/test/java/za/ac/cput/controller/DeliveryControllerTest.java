@@ -44,7 +44,7 @@ class DeliveryControllerTest {
         Customer customer1 = CustomerFactory.buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
         assertNotNull(customer1);
         System.out.println(customer1);
-        Order order = OrderFactory.buildOrder("001", 14500.00,customer1);
+        Order order = OrderFactory.buildOrder("001", 14500.00);
         Payment payment = PaymentFactory.buildPayment("001", customer1, order, "Credit card", 1000.0);
 
         delivery = DeliveryFactory.buildDelivery("001",customer1,order, payment,"15/05/2024","23/05/2024");
