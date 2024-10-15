@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import AuthService from "@/AuthService";
+import axios from "axios";
 
 export const store = createStore({
     state: {
@@ -24,6 +25,11 @@ export const store = createStore({
         },
         SET_LOADING(state, loading) {
             state.loading = loading; // Set loading state
+        },
+        SET_SHIPPING(state, shipping) {
+            if (state.user) {
+                state.user.shipping = shipping;
+            }
         }
     },
     actions: {
@@ -95,7 +101,17 @@ export const store = createStore({
                 console.error("Logout failed:", error);
                 commit('SET_ERROR', "Logout failed. Please try again."); // Optionally handle logout errors
             }
-        }
+        },
+        async updateShipping({ commit }, shipping) {
+            try {
+                const response = await axios.post('/api/shipping/update', shipping);
+                commit('SET_SHIPPING', response.data); // Update the shipping details in Vuex store
+                return response.data;
+            } catch (error) {
+                console.error('Failed to update shipping:', error);
+                throw error;
+            }
+        },
     },
 });
 

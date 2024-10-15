@@ -1,9 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
+import {ref} from 'vue';
+import {useStore} from 'vuex'; // Access the Vuex store
 
-// Define reactive variables
 const shipping = ref({
   shippingId: '',
   address: '',
@@ -13,73 +11,40 @@ const shipping = ref({
   country: ''
 });
 
-const shippingList = ref([]);
 const message = ref('');
-const router = useRouter();
+const store = useStore(); // Access the Vuex store
 
-// Fetch all contacts when the component is mounted
-onMounted(async () => {
-  try {
-    const response = await axios.get('http://localhost:3000/api/shipping/getall');
-    shippingList.value = response.data;
-  } catch (error) {
-    message.value = `Error fetching contacts: ${error.message}`;
-  }
-});
+// Fetch the logged-in user's shipping information from Vuex store
+const user = store.state.user;
+shipping.value = user ? user.shipping : {};
 
-const fetchContactDetails = async () => {
-  if (shipping.value.shippingId) {
-    try {
-      const response = await axios.get(`http://localhost:3000/api/shipping/read/${shipping.value.shippingId}`);
-      shipping.value = {...response.data};
-    } catch (error) {
-      message.value = `Error fetching shipping details: ${error.message}`;
-    }
-  } else {
-    message.value = 'Please select an shipping ID.';
-  }
-};
-
+// Method to submit the form and update the shipping information
 const submitForm = async () => {
   try {
-    const response = await axios.post('http://localhost:3000/api/shipping/update', shipping.value);
-    message.value = `Shipping updated successfully: ${response.data.email}`;
+    // Dispatch the Vuex action to update shipping
+    const updatedShipping = await store.dispatch('updateShipping', shipping.value);
+    shipping.value = updatedShipping;
+    message.value = 'Shipping information updated successfully!';
     resetForm();
   } catch (error) {
     message.value = `Error updating shipping: ${error.message}`;
   }
 };
 
-// Reset the form fields
+// Reset the form fields (optional)
 const resetForm = () => {
-  shipping.value = {
-    shippingId: '',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    country: ''
-  };
-};
-
-// Navigate back to Admin Page
-const goBack = () => {
-  router.push('/AdminPage');
+  shipping.value = user.shipping;
 };
 </script>
 
 <template>
-  <div class="update-shipping">
-    <h2>Update Shipping Information</h2>
-    <form @submit.prevent="submitForm">
+  <div class="update-shipping-container">
+    <h2>Update Your Shipping Information</h2>
+    <form @submit.prevent="submitForm" class="shipping-form">
+      <!-- Form Fields for Shipping Details -->
       <div class="form-group">
         <label for="shippingId">Shipping ID:</label>
-        <select v-model="shipping.shippingId" @change="fetchContactDetails" id="shippingId" required>
-          <option value="">Select Shipping Information</option>
-          <option v-for="c in shippingList" :key="c.shippingId" :value="c.shippingId">
-            {{ c.shippingId }}
-          </option>
-        </select>
+        <input v-model="shipping.shippingId" type="text" id="shippingId" readonly/>
       </div>
 
       <div class="form-group">
@@ -107,91 +72,79 @@ const goBack = () => {
         <input v-model="shipping.country" type="text" id="country" required/>
       </div>
 
-      <button type="submit">Update Shipping Information</button>
-      <button type="button" @click="goBack">Home Page</button>
+      <button type="submit" class="submit-btn">Update Shipping Information</button>
     </form>
+
     <p v-if="message" class="message">{{ message }}</p>
   </div>
 </template>
 
 <style scoped>
-.update-shipping {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.update-shipping-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   text-align: center;
-  color: #333;
   margin-bottom: 20px;
+  color: #333;
+}
+
+.shipping-form {
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
+.form-group label {
   font-size: 16px;
-  color: #333;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #555;
 }
 
-input:focus, select:focus {
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-group input:focus {
   border-color: #007bff;
   outline: none;
 }
 
-button {
-  padding: 12px 20px;
-  color: #fff;
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 5px;
   font-size: 16px;
-  margin-right: 10px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:first-of-type {
-  background-color: #46c699;
-}
-
-button:first-of-type:hover {
-  background-color: #059090;
-}
-
-button:last-of-type {
-  background-color: #6c757d;
-}
-
-button:last-of-type:hover {
-  background-color: #5a6268;
-}
-
-.message.success {
-  margin-top: 20px;
-  text-align: center;
-  color: #5bc0de;
+.submit-btn:hover {
+  background-color: #0056b3;
 }
 
 .message {
-  margin-top: 20px;
   text-align: center;
-  color: #5bc0de;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #28a745;
 }
 </style>

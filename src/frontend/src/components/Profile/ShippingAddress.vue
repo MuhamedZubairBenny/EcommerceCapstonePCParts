@@ -24,6 +24,8 @@
         </tr>
         </tbody>
       </table>
+      <!-- Button to Update Contact Info -->
+      <button class="update-contact-button" @click="navigateToUpdateContact">Update Contact Information</button>
     </div>
     <div v-else>
       <p class="no-shipping-message">No shipping information available.</p>
@@ -32,7 +34,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import {mapState} from 'vuex';
 
 export default {
   name: 'ShippingAddress',
@@ -55,6 +57,10 @@ export default {
               console.error('Error fetching user data:', error);
             });
       }
+    },
+    navigateToUpdateContact() {
+      // Redirect to /UpdateContact page
+      this.$router.push('/UpdateContact');
     }
   }
 };
@@ -102,6 +108,21 @@ h1 {
   color: #666;
   font-size: 18px;
 }
+
+/* Button Styles */
+.update-contact-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.update-contact-button:hover {
+  background-color: #0056b3;
+}
 </style>
-
-
