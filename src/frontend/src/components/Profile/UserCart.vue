@@ -25,56 +25,67 @@
 
 <script>
 import { computed, ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 export default {
   name: 'UserCart',
   setup() {
     const router = useRouter();
+    const store = useStore();
     const cartItems = ref([]);
+
     const cartTotal = computed(() => {
       return cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
     });
 
     const fetchCartItems = async () => {
-      try {
-        const response = await fetch('/api/cart/read/6ceed7ce-0bf3-4976-8755-c573b815288b');
-        if (response.ok) {
-          const data = await response.json();
-          cartItems.value = data.products.map(product => ({
-            productId: product.productId,
-            productName: product.productName,
-            productPicture: product.productPicture,
-            price: product.price,
-            quantity: 1
-          })) || [];
-        } else {
-          console.error('Error fetching cart items:', response.statusText);
+      const user = store.state.user; // Fetch the logged-in user from Vuex
+      if (user && user.cart) {
+        const cartId = user.cart.cartId; // Get the cartId from the user object
+        try {
+          const response = await fetch(`/api/cart/read/${cartId}`);
+          if (response.ok) {
+            const data = await response.json();
+            cartItems.value = data.products.map(product => ({
+              productId: product.productId,
+              productName: product.productName,
+              productPicture: product.productPicture,
+              price: product.price,
+              quantity: 1
+            })) || [];
+          } else {
+            console.error('Error fetching cart items:', response.statusText);
+            cartItems.value = [];
+          }
+        } catch (error) {
+          console.error('Error fetching cart items:', error);
           cartItems.value = [];
         }
-      } catch (error) {
-        console.error('Error fetching cart items:', error);
-        cartItems.value = [];
       }
     };
 
     const removeFromCart = async (productId) => {
-      try {
-        const response = await fetch(`/api/cart/1009925c-1668-4e26-92f1-a805d7510c93/removeProduct/${productId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+      const user = store.state.user;
+      if (user && user.cart) {
+        const cartId = user.cart.cartId;
+        try {
+          const response = await fetch(`/api/cart/${cartId}/removeProduct/${productId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-        if (response.ok) {
-          cartItems.value = cartItems.value.filter(item => item.productId !== productId);
-          alert('Product removed from cart');
-        } else {
-          console.error('Error removing product from cart:', response.statusText);
+          if (response.ok) {
+            cartItems.value = cartItems.value.filter(item => item.productId !== productId);
+            alert('Product removed from cart');
+          } else {
+            console.error('Error removing product from cart:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error removing product from cart:', error);
         }
-      } catch (error) {
-        console.error('Error removing product from cart:', error);
       }
     };
 

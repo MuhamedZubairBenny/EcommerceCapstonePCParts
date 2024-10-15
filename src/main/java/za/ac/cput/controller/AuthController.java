@@ -67,6 +67,16 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UserDto userDto) {
+        User updatedUser = userService.updateUser(userDto);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser); // Return the updated user details
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"); // Return 404 if user not found
+        }
+    }
+
     @GetMapping("/read/{id}")
     public User searchUserById(@PathVariable("id") Long id){return userService.findById(id);}
 

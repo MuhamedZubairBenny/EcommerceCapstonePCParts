@@ -25,8 +25,12 @@ export default {
       } else {
         console.error('User email is not available');
       }
+    },
+    editUser() {
+      this.$router.push('/UpdateCustomer');
     }
   },
+
   created() {
     this.$store.dispatch('initializeStore');
     if (this.isAuthenticated) {
@@ -68,6 +72,7 @@ export default {
         </tr>
         </tbody>
       </table>
+      <button @click="editUser" class="update-user-button">Edit Details</button>
     </div>
     <div v-else>
       <p class="no-user-message">No user information available. Please log in.</p>
@@ -116,5 +121,21 @@ h1 {
   text-align: center;
   color: #666;
   font-size: 18px;
+}
+
+.update-user-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.update-user-button:hover {
+  background-color: #0056b3;
 }
 </style>

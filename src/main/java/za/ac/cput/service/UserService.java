@@ -39,6 +39,25 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    public User updateUser(UserDto userDto) {
+        User existingUser = findByEmail(userDto.getEmail());
+        if (existingUser != null) {
+            // Use the builder pattern to create a new user object with updated details
+            User updatedUser = UserFactory.buildUser(existingUser.getId()
+                    , userDto.getFirstName()
+                    , userDto.getLastName()
+                    , userDto.getEmail()
+                    , userDto.getPassword()
+                    , userDto.getMobileNumber()
+                    , userDto.getDateOfBirth()
+                    , existingUser.getShipping()
+                    , existingUser.getCart());
+
+            return userRepository.save(updatedUser);
+        }
+        return null;
+    }
+
     public User create(User user) {return userRepository.save(user);}
 
     public User findByEmail(String email) {

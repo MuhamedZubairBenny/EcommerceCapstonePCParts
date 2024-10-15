@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from 'vue';
-import {useStore} from 'vuex'; // Access the Vuex store
+import {useStore} from 'vuex';
 
 const shipping = ref({
   shippingId: '',
@@ -12,16 +12,15 @@ const shipping = ref({
 });
 
 const message = ref('');
-const store = useStore(); // Access the Vuex store
+const store = useStore();
 
-// Fetch the logged-in user's shipping information from Vuex store
+
 const user = store.state.user;
 shipping.value = user ? user.shipping : {};
 
-// Method to submit the form and update the shipping information
+
 const submitForm = async () => {
   try {
-    // Dispatch the Vuex action to update shipping
     const updatedShipping = await store.dispatch('updateShipping', shipping.value);
     shipping.value = updatedShipping;
     message.value = 'Shipping information updated successfully!';
@@ -31,7 +30,6 @@ const submitForm = async () => {
   }
 };
 
-// Reset the form fields (optional)
 const resetForm = () => {
   shipping.value = user.shipping;
 };
@@ -41,7 +39,6 @@ const resetForm = () => {
   <div class="update-shipping-container">
     <h2>Update Your Shipping Information</h2>
     <form @submit.prevent="submitForm" class="shipping-form">
-      <!-- Form Fields for Shipping Details -->
       <div class="form-group">
         <label for="shippingId">Shipping ID:</label>
         <input v-model="shipping.shippingId" type="text" id="shippingId" readonly/>

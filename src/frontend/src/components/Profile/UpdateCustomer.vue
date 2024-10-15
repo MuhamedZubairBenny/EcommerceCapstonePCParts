@@ -2,47 +2,37 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import store from "@/store";
 
 const customer = ref({
-  customer_id: '',
+  id: '',
   firstName: '',
   lastName: '',
-  mobileNumber: '',
   email: '',
-  dateOfBirth: '',
   password: '',
+  mobileNumber: '',
+  dateOfBirth: '',
 });
 
-const customerList = ref([]);
 const message = ref('');
 const router = useRouter();
 
-onMounted(async () => {
-  try {
-    const response = await axios.get('http://localhost:3000/api/customer/getall');
-    customerList.value = response.data;
-  } catch (error) {
-    message.value = `Error fetching customers: ${error.message}`;
+onMounted(() => {
+  const user = store.state.user; // Fetch the current user from Vuex
+  if (user) {
+    // Populate the form with existing user data
+    customer.value = { ...user };
+  } else {
+    message.value = 'No user information available. Please log in.';
   }
 });
 
-const fetchCustomerDetails = async () => {
-  if (customer.value.customer_id) {
-    try {
-      const response = await axios.get(`http://localhost:3000/api/customer/read/${customer.value.customer_id}`);
-      customer.value = {...response.data};
-    } catch (error) {
-      message.value = `Error fetching customer details: ${error.message}`;
-    }
-  } else {
-    message.value = 'Please select a customer ID.';
-  }
-};
-
 const submitForm = async () => {
   try {
-    const response = await axios.put('http://localhost:3000/api/customer/update', customer.value);
+    const response = await axios.put('http://localhost:8080/auth/update', customer.value);
     message.value = `Customer updated successfully: ${response.data.firstName} ${response.data.lastName}`;
+    // Optionally, you can update the Vuex store with the new user data
+    store.commit('SET_USER', response.data); // Assuming you have a mutation to set the user
     resetForm();
   } catch (error) {
     message.value = `Error updating customer: ${error.message}`;
@@ -51,13 +41,14 @@ const submitForm = async () => {
 
 const resetForm = () => {
   customer.value = {
-    customer_id: '',
+    id: '',
     firstName: '',
     lastName: '',
-    mobileNumber: '',
     email: '',
-    dateOfBirth: '',
     password: '',
+    mobileNumber: '',
+    dateOfBirth: '',
+
   };
 };
 
@@ -71,16 +62,6 @@ const goBack = () => {
     <h2>Update Customer</h2>
     <form @submit.prevent="submitForm">
       <div class="form-group">
-        <label for="customerId">Customer ID:</label>
-        <select v-model="customer.customer_id" @change="fetchCustomerDetails" id="customerId" required>
-          <option value="">Select a customer</option>
-          <option v-for="c in customerList" :key="c.customer_id" :value="c.customer_id">
-            {{ c.customer_id }}
-          </option>
-        </select>
-      </div>
-
-      <div class="form-group">
         <label for="firstName">First Name:</label>
         <input v-model="customer.firstName" type="text" id="firstName" required/>
       </div>
@@ -91,16 +72,18 @@ const goBack = () => {
       </div>
 
       <div class="form-group">
+        <label for="dateOfBirth">Date Of Birth:</label>
+        <input v-model="customer.dateOfBirth" type="date" id="dateOfBirth" required/>
+      </div>
+
+      <div class="form-group">
         <label for="mobileNumber">Mobile Number:</label>
         <input v-model="customer.mobileNumber" type="text" id="mobileNumber" required/>
       </div>
+
       <div class="form-group">
         <label for="email">Email:</label>
         <input v-model="customer.email" type="text" id="email" required/>
-      </div>
-      <div class="form-group">
-        <label for="dateOfBirth">Date Of Birth:</label>
-        <input v-model="customer.dateOfBirth" type="text" id="dateOfBirth" required/>
       </div>
 
       <div class="form-group">
