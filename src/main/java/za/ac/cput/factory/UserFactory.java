@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserFactory {
 
-    public static User buildUser(Long id, String firstName, String lastName, String email, String password, String mobileNumber, LocalDate dateOfBirth, Shipping shipping, Cart cart, Payment payment){
+    public static User buildUser(Long id, String firstName, String lastName, String email, String password, String mobileNumber, LocalDate dateOfBirth, Shipping shipping, Cart cart){
         if (id == null || Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName) || Helper.isNullOrEmpty(email) || Helper.isNullOrEmpty(password) || Helper.isNullOrEmpty(mobileNumber) || dateOfBirth == null || shipping == null || cart == null)
             return null;
 
@@ -23,7 +23,6 @@ public class UserFactory {
                 .setDateOfBirth(dateOfBirth)
                 .setShipping(shipping)
                 .setCart(cart)
-                .setPayment(payment)
                 .build();
     }
 
@@ -35,9 +34,9 @@ public class UserFactory {
         LocalDate dateOfBirth = LocalDate.of(2000,1,1);
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
-       Order order = OrderFactory.buildOrder(1000);
+        //Order order = OrderFactory.buildOrder(1000);
         Shipping shipping = ShippingFactory.buildShipping("Placeholder", "Placeholder", "Placeholder", "Placeholder", "Placeholder");
-        Payment payment = PaymentFactory.buildPayment(order,"Credit card",100);
+        //Payment payment = PaymentFactory.buildPayment(order,"Credit card",100);
 
         return new User.Builder()
                 .setId(id)
@@ -49,7 +48,6 @@ public class UserFactory {
                 .setDateOfBirth(dateOfBirth)
                 .setShipping(shipping)
                 .setCart(cart)
-                .setPayment(payment)
                 .build();
     }
 }
