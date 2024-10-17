@@ -3,11 +3,7 @@ package za.ac.cput.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Order;
-
-import za.ac.cput.domain.OrderItem;
-import za.ac.cput.domain.Payment;
 import za.ac.cput.repository.CustomerRepository;
 import za.ac.cput.repository.OrderRepository;
 
@@ -31,7 +27,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order read(String id) {
+    public Order read(Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -41,7 +37,7 @@ public class OrderService implements IOrderService {
         return repository.save(order);
     }
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
     @Override

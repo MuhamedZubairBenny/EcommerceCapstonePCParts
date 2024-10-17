@@ -6,6 +6,6 @@ import za.ac.cput.domain.Cart;
 import za.ac.cput.domain.Payment;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<Payment, String> {
-    Payment findByPaymentId(String paymentId);
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
+    Payment findByPaymentId(Long paymentId);
 }

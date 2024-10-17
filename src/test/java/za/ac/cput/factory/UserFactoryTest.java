@@ -27,13 +27,11 @@ class UserFactoryTest {
         List<Product> productList = new ArrayList<>();
         Cart cart = CartFactory.buildCart(productList);
         System.out.println(cart);
-        za.ac.cput.domain.Order order = OrderFactory.buildOrder(100);
+        za.ac.cput.domain.Order order = OrderFactory.buildOrder(100, cart);
         System.out.println(order);
-        Payment payment = PaymentFactory.buildPayment(order,"credit card", 100);
-        System.out.println(payment);
 
         //Build User
-        User user = UserFactory.buildUser( 2647L,"Bob", "McDonald", "bm@gmail.com", "12345", "111 121 1111", LocalDate.of(2000,1, 1), shipping, cart, payment);
+        User user = UserFactory.buildUser( 2647L,"Bob", "McDonald", "bm@gmail.com", "12345", "111 121 1111", LocalDate.of(2000,1, 1), shipping, cart);
         assertNotNull(user);
         System.out.println(user);
     }

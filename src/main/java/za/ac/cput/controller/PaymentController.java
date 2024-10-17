@@ -22,7 +22,7 @@ public class PaymentController {
     }
 
     @GetMapping("/read/{paymentId}")
-    public Payment read(@PathVariable String paymentId) {
+    public Payment read(@PathVariable Long paymentId) {
         return paymentService.read(paymentId);
     }
 
@@ -32,7 +32,7 @@ public class PaymentController {
     }
 
     @DeleteMapping("/delete/{paymentId}")
-    public void delete(@PathVariable String paymentId) {
+    public void delete(@PathVariable Long paymentId) {
         paymentService.delete(paymentId);
     }
 

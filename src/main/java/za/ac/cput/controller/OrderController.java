@@ -21,13 +21,13 @@ public class OrderController {
    public Order create(@RequestBody Order order) {return orderService.create(order);}
 
     @GetMapping("/read/{id}")
-    public Order read (@PathVariable String id) {return orderService.read(id);}
+    public Order read (@PathVariable Long id) {return orderService.read(id);}
 
     @PostMapping("/update")
     public Order update(@RequestBody Order order) {return orderService.update(order);}
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable String id) {orderService.delete(id);}
+    public void delete(@PathVariable Long id) {orderService.delete(id);}
 
     @GetMapping("/getall")
     public List<Order> getAll() {return orderService.getAll();}

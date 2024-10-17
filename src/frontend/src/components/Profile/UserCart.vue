@@ -93,7 +93,9 @@ export default {
       alert('Proceeding to checkout!');
       router.push({
         path: '/PaymentOption',
-        query: { cartTotal: cartTotal.value }
+        query: {
+          cartTotal: cartTotal.value,
+          cart: JSON.stringify(cartItems.value) }
       });
     };
 

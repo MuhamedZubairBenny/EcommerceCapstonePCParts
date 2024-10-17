@@ -29,6 +29,7 @@ import LoginPage from "@/components/LoginPage.vue";
 import RegisterPage from "@/components/RegisterPage.vue";
 import UpdateCustomer from "@/components/Profile/UpdateCustomer.vue";
 import UpdateContact from "@/components/Profile/UpdateContact.vue";
+import OrderPage from "@/components/Profile/OrderPage.vue";
 //import store from "@/store";
 
 // Create a router instance
@@ -61,6 +62,11 @@ const router = createRouter({
             path: '/home',
             name: 'HomePage',
             component: HomePage
+        },
+        {
+            path: '/OrderPage',
+            name: 'OrderPage',
+            component: OrderPage,
         },
         {
             path: '/cpu',

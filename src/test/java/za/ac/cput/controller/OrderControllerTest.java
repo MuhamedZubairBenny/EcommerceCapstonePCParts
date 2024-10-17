@@ -38,7 +38,7 @@ public class OrderControllerTest {
 
         //Build Customer
         Customer customer = CustomerFactory.buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        order = OrderFactory.buildOrder("001", 14500.00);
+        order = OrderFactory.buildOrder(001L, 14500.00, cart);
         assertNotNull(order);
         System.out.println(order);
     }

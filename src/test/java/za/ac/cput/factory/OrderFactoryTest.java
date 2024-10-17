@@ -14,35 +14,47 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderFactoryTest {
 
     @Test
-
     void a_buildOrder() {
-        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        //Build Product
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
+        Brand brand = BrandFactory.buildBrand("3456", "Asus");
+        Product product = ProductFactory.buildProduct("prod01","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+        Product product2 = ProductFactory.buildProduct("prod02","GTX 1080", category, brand, "Gaming GPU", 49995.00, 10, "10cm", "5 years", "Picture URL");
+
+        //Create list of Products
         List<Product> productList = new ArrayList<>();
-        Cart cart = CartFactory.buildCart(productList);
-        Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("001", 14500.00);
+        productList.add(product);
+        productList.add(product2);
+
+        //Create Cart
+        Cart cart = CartFactory.buildCart("01", productList);
+        assertNotNull(cart);
+        System.out.println(cart);
+
+        Order order = OrderFactory.buildOrder(001L, 14500.00, cart);
         assertNotNull(order);
         System.out.println(order);
     }
 
     @Test
     void b_testBuildOrderGeneratedID() {
-        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
-        List<Product> productList = new ArrayList<>();
-        Cart cart = CartFactory.buildCart(productList);
-        Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder( 14500.00);
-        assertNotNull(order);
-        System.out.println(order);
-    }
+        //Build Product
+        ProductCategory category = ProductCategoryFactory.buildProductCategory("2345", "Motherboard");
+        Brand brand = BrandFactory.buildBrand("3456", "Asus");
+        Product product = ProductFactory.buildProduct("prod01","ROG Strix", category, brand, "TRX40-E Gaming Motherboard", 49995.00, 10, "10cm", "5 years", "Picture URL");
+        Product product2 = ProductFactory.buildProduct("prod02","GTX 1080", category, brand, "Gaming GPU", 49995.00, 10, "10cm", "5 years", "Picture URL");
 
-    @Test
-    void c_buildOrderFail(){
-        Shipping shipping = ShippingFactory.buildShipping("Ship01", "21 Savage Street", "Cape Town", "Western Cape", "7230", "South Africa");
+        //Create list of Products
         List<Product> productList = new ArrayList<>();
-        Cart cart = CartFactory.buildCart(productList);
-        Customer customer = new CustomerFactory().buildCustomer("Cust01","Zubi", "Benny", "benzub@gmail.com", "user", "111 121 1111", LocalDate.of(2000,1,1), shipping, cart);
-        Order order = OrderFactory.buildOrder("", 14500.00);
+        productList.add(product);
+        productList.add(product2);
+
+        //Create Cart
+        Cart cart = CartFactory.buildCart("01", productList);
+        assertNotNull(cart);
+        System.out.println(cart);
+
+        Order order = OrderFactory.buildOrder( 14500.00,cart);
         assertNotNull(order);
         System.out.println(order);
     }

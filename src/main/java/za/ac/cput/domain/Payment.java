@@ -1,19 +1,22 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 import java.util.Objects;
 
 @Entity
+
 public class Payment {
     @Id
-    private String paymentId;
+    @GeneratedValue
+    private Long paymentId;
     @OneToOne
     private Order order;
     @OneToOne
-    private Customer customer;
+    private User user;
     private String paymentType;
     private double paymentTotal;
 
@@ -21,12 +24,12 @@ public class Payment {
     private Payment(Builder builder) {
         this.paymentId = builder.paymentId;
         this.order = builder.order;
-        this.customer = builder.customer;
+        this.user = builder.user;
         this.paymentType = builder.paymentType;
         this.paymentTotal = builder.paymentTotal;
     }
 
-    public String getPaymentId() {
+    public Long getPaymentId() {
         return paymentId;
     }
 
@@ -34,8 +37,8 @@ public class Payment {
         return order;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
     public String getPaymentType() {
@@ -50,12 +53,12 @@ public class Payment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Payment payment)) return false;
-        return Double.compare(getPaymentTotal(), payment.getPaymentTotal()) == 0 && Objects.equals(getPaymentId(), payment.getPaymentId()) && Objects.equals(getOrder(), payment.getOrder()) && Objects.equals(getCustomer(), payment.getCustomer()) && Objects.equals(getPaymentType(), payment.getPaymentType());
+        return Double.compare(getPaymentTotal(), payment.getPaymentTotal()) == 0 && Objects.equals(getPaymentId(), payment.getPaymentId()) && Objects.equals(getOrder(), payment.getOrder()) && Objects.equals(getUser(), payment.getUser()) && Objects.equals(getPaymentType(), payment.getPaymentType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPaymentId(), getOrder(), getCustomer(), getPaymentType(), getPaymentTotal());
+        return Objects.hash(getPaymentId(), getOrder(), getUser(), getPaymentType(), getPaymentTotal());
     }
 
     @Override
@@ -68,13 +71,13 @@ public class Payment {
                 '}';
     }
     public static class Builder {
-        private String paymentId;
+        private Long paymentId;
         private Order order;
-        private Customer customer;
+        private User user;
         private String paymentType;
         private double paymentTotal;
 
-        public Builder setPaymentId(String paymentId) {
+        public Builder setPaymentId(Long paymentId) {
             this.paymentId = paymentId;
             return this;
         }
@@ -84,8 +87,8 @@ public class Payment {
             return this;
         }
 
-        public Builder setCustomer(Customer customer) {
-            this.customer = customer;
+        public Builder setUser(User user) {
+            this.user = user;
             return this;
         }
 
@@ -101,7 +104,7 @@ public class Payment {
         public Builder copy(Payment payment){
             this.paymentId = payment.paymentId;
             this.order = payment.order;
-            this.customer = payment.customer;
+            this.user = payment.user;
             this.paymentType = payment.paymentType;
             this.paymentTotal = payment.paymentTotal;
             return this;

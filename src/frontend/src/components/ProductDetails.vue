@@ -37,61 +37,41 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
-
 const product = ref(null);
-
 
 const fetchProductDetails = async () => {
   const productId = route.params.id;
   try {
     const response = await fetch(`/api/product/read/${productId}`);
     const data = await response.json();
-    console.log('Fetched Product Data:', data); // Log the data for debugging
     product.value = data;
-    console.log('Product after assignment:', product.value); // Log after assignment
   } catch (error) {
     console.error('Error fetching product details:', error);
   }
 };
 
-const cart = ref(null); // Ensure cart is defined as a ref
-
-const fetchCartDetails = async () => {
-  try {
-    const response = await fetch(`/api/cart/read/6ceed7ce-0bf3-4976-8755-c573b815288b`);
-    const data = await response.json();
-    cart.value = data;
-    console.log('Fetched Cart:', cart.value); // Debug log
-  } catch (error) {
-    console.error('Error fetching cart details:', error);
-  }
-};
+const cart = ref(null);
+const { user } = store.state;
+cart.value = user.cart;
 
 const addToCart = async () => {
-  console.log('addToCart called'); // Log when the function is called
-
   if (product.value && cart.value) {
-    console.log('Product and cart are available'); // Check if they are set
-
     try {
       const token = store.state.authToken;
       const productId = product.value.productId;
-
-      console.log('Product ID:', productId); // Log the product ID
-
-      const response = await fetch(`/api/cart/6ceed7ce-0bf3-4976-8755-c573b815288b/addProduct/${productId}`, {
+      const response = await fetch(`/api/cart/${cart.value.cartId}/addProduct/${productId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ productId })
+        body: JSON.stringify({ productId }),
       });
 
       if (response.ok) {
@@ -103,11 +83,8 @@ const addToCart = async () => {
     } catch (error) {
       console.error('Error adding product to cart:', error);
     }
-  } else {
-    console.error('Product or cart not available');
   }
 };
-
 
 const goBack = () => {
   window.history.back();
@@ -115,7 +92,6 @@ const goBack = () => {
 
 onMounted(() => {
   fetchProductDetails();
-  fetchCartDetails();
 });
 
 const formatCurrency = (value) => {

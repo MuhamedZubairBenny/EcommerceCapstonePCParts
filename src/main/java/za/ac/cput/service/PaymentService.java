@@ -22,7 +22,7 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public Payment read(String id) {
+    public Payment read(Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -32,7 +32,7 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
     @Override
