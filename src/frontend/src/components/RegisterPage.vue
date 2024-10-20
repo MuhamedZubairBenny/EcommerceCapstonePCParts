@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -50,9 +50,15 @@ export default {
   },
   methods: {
     registerUser() {
-      AuthService.register(this.user).then(response => {
-        console.log(response.data);
-      });
+      AuthService.register(this.user)
+          .then(response => {
+            console.log(response.data);
+            // Redirect to the login page after successful registration
+            this.$router.push('/login');
+          })
+          .catch(error => {
+            console.error("There was an error registering the user:", error);
+          });
     }
   }
 };
