@@ -60,10 +60,11 @@ export default {
     registerUser() {
       AuthService.register(this.user)
           .then(response => {
-
-            this.successMessage = response.data;
+            this.successMessage = response.data; // Success message from the server
             this.errorMessage = '';
-            this.resetForm();
+            this.resetForm(); // Reset the form after successful registration
+            // Redirect to the login page after successful registration
+            this.$router.push('/login');
           })
           .catch(error => {
             this.successMessage = '';
@@ -79,15 +80,6 @@ export default {
       this.user.lastName = '';
       this.user.email = '';
       this.user.password = '';
-
-            console.log(response.data);
-            // Redirect to the login page after successful registration
-            this.$router.push('/login');
-          })
-          .catch(error => {
-            console.error("There was an error registering the user:", error);
-          });
-
     }
   }
 };
