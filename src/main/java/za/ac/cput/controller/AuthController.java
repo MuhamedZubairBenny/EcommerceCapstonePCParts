@@ -35,10 +35,12 @@ public class AuthController {
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserDto userDto) {
         try {
             userService.saveUser(userDto);
-            return ResponseEntity.ok("User registered successfully");
+            return ResponseEntity.ok("You have successfully registered."); // Success message
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email has already been registered.");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during registration");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Email has already been registered.");
         }
     }
 
