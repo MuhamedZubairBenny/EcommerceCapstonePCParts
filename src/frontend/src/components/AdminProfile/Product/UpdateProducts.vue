@@ -106,7 +106,7 @@ const updateProduct = async () => {
 };
 
 const goBack = () => {
-  router.push('/admin');
+  router.push('/AdminPage');
 };
 </script>
 

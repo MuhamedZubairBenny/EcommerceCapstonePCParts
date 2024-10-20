@@ -5,9 +5,13 @@ import axios from "axios";
 export const store = createStore({
     state: {
         isAuthenticated: false,
-        user: {},
-        error: null, // To store error messages
-        loading: false // To manage loading state
+        user: {
+            order: {},
+            payment: {},
+            shipping:{},
+        },
+        error: null,
+        loading: false
     },
     mutations: {
         SET_AUTHENTICATION(state, status) {
@@ -18,17 +22,27 @@ export const store = createStore({
             state.user = user;
         },
         SET_ERROR(state, error) {
-            state.error = error; // Set error message
+            state.error = error;
         },
         SET_ADMIN_STATUS(state, isAdmin) {
-            state.isAdmin = isAdmin; // or however you manage admin status in your state
+            state.isAdmin = isAdmin;
         },
         SET_LOADING(state, loading) {
-            state.loading = loading; // Set loading state
+            state.loading = loading;
         },
         SET_SHIPPING(state, shipping) {
             if (state.user) {
                 state.user.shipping = shipping;
+            }
+        },
+        SET_PAYMENT(state, payment) {
+            if (state.user) {
+                state.user.payment = payment;
+            }
+        },
+        SET_ORDER(state, order) {
+            if (state.user) {
+                state.user.order = order;
             }
         }
     },

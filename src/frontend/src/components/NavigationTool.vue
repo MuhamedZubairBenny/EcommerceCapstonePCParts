@@ -54,16 +54,18 @@
             <router-link to="/AccountInformation">Account Information</router-link>
             <router-link to="/PaymentOption">Payment Option</router-link>
             <router-link to="/ShippingAddress">Shipping Address</router-link>
-            <router-link to="/UpdateCustomer">Update Customer</router-link>
-            <router-link to="/UpdateContact">Update Shipping Details</router-link>
-            <router-link to="/AdminPage">Admin Page</router-link>
+            <router-link to="/OrderPage">Order Summary</router-link>
           </div>
         </div>
+
+        <!-- Admin Home Button (Visible only to admin) -->
+        <router-link v-if="isAdmin" to="/adminPage" class="icon-button admin-home-button">
+          Admin Home
+        </router-link>
       </div>
     </header>
 
     <nav v-if="!$route.meta.hideNavbar" class="category-navbar">
-
       <ul>
         <router-link
             v-for="(category, index) in categories"
@@ -408,5 +410,17 @@ export default {
   .category-name {
     font-size: 12px;
   }
+  .admin-home-button {
+    background-color: #ffcc00; /* Use a color that stands out */
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .admin-home-button:hover {
+    background-color: #e6b800; /* Darker shade on hover */
+  }
+
 }
 </style>
