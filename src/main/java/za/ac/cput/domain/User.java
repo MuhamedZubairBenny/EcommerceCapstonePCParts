@@ -9,9 +9,12 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String email;
     private String password;
     private String mobileNumber;

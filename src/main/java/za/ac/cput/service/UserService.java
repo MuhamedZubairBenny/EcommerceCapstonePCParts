@@ -26,6 +26,12 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(UserDto userDto){
+        User existingUser = userRepository.findByEmail(userDto.getEmail());
+        if (existingUser != null) {
+            throw new IllegalArgumentException("Email is already registered.");
+        }
+
+        // Proceed with password encryption and user creation
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User user = UserFactory.buildUser(
                 userDto.getFirstName(),
@@ -33,6 +39,7 @@ public class UserService implements UserDetailsService {
                 userDto.getEmail(),
                 userDto.getPassword()
         );
+
         if (user == null){
             throw new IllegalArgumentException("Invalid user data");
         }
