@@ -4,27 +4,27 @@
 
     <div class="order-details">
       <h3>Order Details</h3>
-      <p><strong>Order ID:</strong> {{ order.orderId }}</p>
-      <p><strong>Total Price:</strong> {{ formatCurrency(order.overallPrice) }}</p>
+      <p v-if="order.cart.cartTotal"><strong>Total Price:</strong> {{ formatCurrency(order.cart.cartTotal) }}</p>
       <h4>Items:</h4>
       <ul>
         <li v-for="(item, index) in order.cart.products" :key="index" class="product-item">
-          <img :src="item.image" alt="Product Image" class="product-image" />
+          <img :src="item.productPicture" alt="Product Image" class="product-image" />
           <div class="product-details">
-            <strong>{{ item.productName }}</strong> - {{ formatCurrency(item.price) }} (Quantity: {{ item.quantity }})
-            <p><small>Brand: {{ item.brand }}</small></p>
-            <p><small>Category: {{ item.category }}</small></p>
+            <strong>{{ item.productName }}</strong> - {{ formatCurrency(item.price) }}
+            <p><small>Brand: {{ item.brand.brandName }}</small></p>
+            <p><small>Category: {{ item.category.categoryName }}</small></p>
           </div>
         </li>
       </ul>
     </div>
 
-    <div class="payment-details">
-      <h3>Payment Details</h3>
-      <p><strong>Payment ID:</strong> {{ payment.paymentId }}</p>
-      <p><strong>Payment Type:</strong> {{ payment.paymentType }}</p>
-      <p><strong>Payment Total:</strong> {{ formatCurrency(payment.paymentTotal) }}</p>
-      <p><strong>Cardholder Name:</strong> {{ payment.user.firstName }} {{ payment.user.lastName }}</p>
+    <div class="shipping-details">
+      <h3>Shipping Details</h3>
+      <p v-if="order.shipping.address"><strong>Address:</strong> {{ order.shipping.address }}</p>
+      <p v-if="order.shipping.city"><strong>City:</strong> {{ order.shipping.city }}</p>
+      <p v-if="order.shipping.state"><strong>State:</strong> {{ order.shipping.state }}</p>
+      <p v-if="order.shipping.zipCode"><strong>Zip Code:</strong> {{ order.shipping.zipCode }}</p>
+      <p v-if="order.shipping.country"><strong>Country:</strong> {{ order.shipping.country }}</p>
     </div>
 
     <router-link to="/UserCart" class="back-button">Back to Cart</router-link>
@@ -32,15 +32,15 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'OrderPage',
   setup() {
-    const route = useRoute();
-
-    const order = JSON.parse(route.query.order || '{}');
-    const payment = JSON.parse(route.query.payment || '{}');
+    const store = useStore();
+    const order = computed(() => store.state.user || {});
+    const user = computed(() =>  store.state.user || {})
 
     const formatCurrency = (amount) => {
       return new Intl.NumberFormat('en-US', {
@@ -51,7 +51,7 @@ export default {
 
     return {
       order,
-      payment,
+      user,
       formatCurrency,
     };
   },
@@ -70,7 +70,7 @@ h2 {
 }
 
 .order-details,
-.payment-details {
+.shipping-details {
   margin-bottom: 30px;
   padding: 15px;
   border: 1px solid #ccc;

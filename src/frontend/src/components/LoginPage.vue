@@ -59,8 +59,11 @@ export default defineComponent({
           const userData = response.data; // User details in response
           await this.$store.dispatch('login', userData); // Assuming your Vuex store can handle user data
           console.log("User data:", userData); // Log user data to see all details
-          this.router.push('/home'); // Navigate to home
-        } else {
+          if (this.user.email === "admin@gmail.com") {
+            this.router.push('/adminPage'); // Redirect to admin page
+          } else {
+            this.router.push('/home'); // Navigate to home for regular users
+          }
           throw new Error("Invalid response from server.");
         }
       } catch (error) {

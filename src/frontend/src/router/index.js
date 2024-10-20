@@ -210,7 +210,8 @@ const router = createRouter({
         {
             path: '/AdminPage',
             name: 'AdminPage',
-            component: AdminPage
+            component: AdminPage,
+            meta: { hideNavbar: true },
         },
 
 
