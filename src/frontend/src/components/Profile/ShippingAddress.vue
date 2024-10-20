@@ -1,6 +1,6 @@
 <template>
   <div class="shipping-container">
-    <h1>Shipping Address</h1>
+    <h1 class="shipping-information">Shipping Address</h1>
     <div v-if="shipping">
       <table class="table table-striped">
         <thead>
@@ -67,6 +67,19 @@ export default {
 </script>
 
 <style scoped>
+.shipping-information{
+  text-align: center;
+  font-size: 2.5rem;
+  color: #232f3e;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #69feca;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+}
 .shipping-container {
   max-width: 800px;
   margin: 0 auto;

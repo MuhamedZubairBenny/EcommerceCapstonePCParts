@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'; // Import the correct functions
+import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/components/HomePage.vue';
 import CpuCategory from '@/components/ProductCategories/CpuCategory.vue';
 import GpuCategory from '@/components/ProductCategories/GpuCategory.vue';
@@ -30,9 +30,7 @@ import RegisterPage from "@/components/RegisterPage.vue";
 import UpdateCustomer from "@/components/Profile/UpdateCustomer.vue";
 import UpdateContact from "@/components/Profile/UpdateContact.vue";
 import OrderPage from "@/components/Profile/OrderPage.vue";
-//import store from "@/store";
 
-// Create a router instance
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -67,6 +65,7 @@ const router = createRouter({
             path: '/OrderPage',
             name: 'OrderPage',
             component: OrderPage,
+            meta: { hideNavbar: true },
         },
         {
             path: '/cpu',
@@ -180,32 +179,38 @@ const router = createRouter({
         {
             path: '/AddCategory',
             name: 'AddCategory',
-            component: AddCategory
+            component: AddCategory,
+            meta: { hideNavbar: true },
         },
         {
             path: '/UpdateCategory',
             name: 'UpdateCategory',
-            component: UpdateCategory
+            component: UpdateCategory,
+            meta: { hideNavbar: true },
         },
         {
             path: '/DeleteCategory',
             name: 'DeleteCategory',
-            component: DeleteCategory
+            component: DeleteCategory,
+            meta: { hideNavbar: true },
         },
         {
             path: '/AddBrand',
             name: 'AddBrand',
-            component: AddBrand
+            component: AddBrand,
+            meta: { hideNavbar: true },
         },
         {
             path: '/UpdateBrand',
             name: 'UpdateBrand',
-            component: UpdateBrand
+            component: UpdateBrand,
+            meta: { hideNavbar: true },
         },
         {
             path: '/DeleteBrand',
             name: 'DeleteBrand',
-            component: DeleteBrand
+            component: DeleteBrand,
+            meta: { hideNavbar: true },
         },
         {
             path: '/AdminPage',
@@ -217,17 +222,4 @@ const router = createRouter({
 
     ],
 });
-// router.beforeEach((to, from, next) => {
-//     const isAuthenticated = store.state.isAuthenticated;
-//     const publicPages = ['/login', '/register'];
-//     const authRequired = !publicPages.includes(to.path);
-//
-//     if (authRequired && !isAuthenticated) {
-//         return next('/login');
-//     }
-//
-//     next();
-// });
-
-
 export default router;

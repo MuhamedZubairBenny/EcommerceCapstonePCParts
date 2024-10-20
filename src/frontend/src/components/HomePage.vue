@@ -1,5 +1,24 @@
 <template xmlns:th="http://www.w3.org/1999/xhtml">
   <NavigationTool />
+
+  <section class="product-list" style="background-color: white">
+    <h1 class="products-heading">Our Products</h1>
+    <div class="products-container">
+      <ul>
+        <li v-if="products.length === 0">
+          <p>No products available. Please check back later.</p>
+        </li>
+        <li v-for="product in products" :key="product.productId" class="product-item" @click="goToProductPage(product.productId)">
+          <img :src="`/${product.productPicture}`" :alt="product.productName" class="product-image" />
+          <div class="product-details">
+            <h3>{{ product.productName }}</h3>
+            <p class="price">{{ formatCurrency(product.price) }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <div class="homepage-container">
 
     <section id="about-us" class="about-us-section"></section>
@@ -10,16 +29,11 @@
       <div class="about-icons"></div>
     </section>
   </div>
-
-  <div>
-    <h1 v-if="isAuthenticated && isUserLoaded">Welcome Back, {{ user.firstName }}!</h1>
-    <h1 v-else>Please Log In</h1>
-  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-
+import axios from 'axios';
 
 export default {
   name: 'HomePage',
@@ -32,7 +46,53 @@ export default {
       return !!this.user && !!this.user.email;
     }
   },
+  data() {
+    return {
+      searchQuery: '',
+      products: [],
+    };
+  },
   methods: {
+    handleSearch() {
+      console.log('Search button clicked!');
+      const query = this.searchQuery.trim().toLowerCase();
+      const matchingCategory = this.categories.find(category => category.name.toLowerCase() === query);
+      if (matchingCategory) {
+        this.$router.push('/' + matchingCategory.name.toLowerCase());
+      } else if (query !== '') {
+        axios.get(`api/product/category/${this.searchQuery}`)
+            .then(response => {
+              this.products = response.data;
+            })
+            .catch(error => {
+              console.error('Error fetching products:', error);
+            });
+      }
+    },
+    selectRandomProducts() {
+      const shuffled = this.products.sort(() => 0.5 - Math.random());
+      this.randomProducts = shuffled.slice(0, 10);
+    },
+
+    fetchProducts() {
+      axios.get('/api/product/getall')
+          .then((response) => {
+            this.products = response.data;
+            this.selectRandomProducts();
+            console.log(this.products);
+            console.log(this.randomProducts);
+          })
+          .catch((error) => {
+            console.error('Error fetching products:', error);
+          });
+    },
+    formatCurrency(value) {
+      if (!value) return '';
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'ZAR' }).format(value);
+    },
+    goToProductPage(productId) {
+      this.$router.push(`/product/${productId}`);
+    },
     fetchUserDetailsByEmail() {
       if (this.user.email) {
         this.$store.dispatch('fetchUserByEmail', this.user.email)
@@ -46,6 +106,9 @@ export default {
         console.error('User email is not available');
       }
     }
+  },
+  mounted() {
+    this.fetchProducts();
   },
   created() {
     this.$store.dispatch('initializeStore');
@@ -66,6 +129,114 @@ export default {
 
 
 <style scoped>
+.products-heading{
+  text-align: center;
+  font-size: 2.5rem;
+  color: #232f3e;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #69feca;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+}
+.product-list {
+  padding: 40px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.product-list h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.products-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.products-container li {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 180px;
+  text-align: center;
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.products-container li:hover {
+  color: #232f3e;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.products-container li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid #232f3e;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  z-index: -1;
+  opacity: 0;
+}
+
+.products-container li:hover::before {
+  opacity: 1;
+}
+
+.product-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  max-width: 180px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #232f3e;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.products-container li:hover .product-image {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.product-details h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.product-details .price {
+  font-size: 14px;
+  color: #007bff;
+}
 
 .about-us {
   background: linear-gradient(135deg, #5f7b8a, #131921);

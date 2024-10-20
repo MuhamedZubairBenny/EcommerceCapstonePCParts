@@ -1,7 +1,7 @@
 <template>
   <div class="payment-container">
     <form @submit.prevent="handleSubmit" class="payment-form">
-      <h2>Payment Details</h2>
+      <h2 class="payment-information">Payment Details</h2>
 
       <div class="form-group">
         <label for="card-number">Card Number</label>
@@ -141,6 +141,19 @@ export default {
 </script>
 
 <style scoped>
+.payment-information{
+  text-align: center;
+  font-size: 2.5rem;
+  color: #232f3e;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #69feca;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+}
 .payment-container {
   width: 100%;
   max-width: 450px;

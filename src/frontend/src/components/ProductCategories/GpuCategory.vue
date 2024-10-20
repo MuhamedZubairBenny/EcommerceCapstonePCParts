@@ -1,5 +1,5 @@
 <template>
-  <h1 class="gpu-heading">GPU Category</h1>
+  <h1 class="gpu-heading">GPU</h1>
   <div class="products-container">
     <ul class="products-list">
       <li
@@ -50,14 +50,15 @@ const formatCurrency = (value) => {
 .gpu-heading {
   text-align: center;
   font-size: 2.5rem;
-  color: #007bff;
+  color: #232f3e;
   margin: 30px 0;
   padding: 10px;
-  background-color: #e9f4fe;
+  background-color: #69feca;
   border-radius: 10px;
   text-transform: uppercase;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .category-navbar ul {

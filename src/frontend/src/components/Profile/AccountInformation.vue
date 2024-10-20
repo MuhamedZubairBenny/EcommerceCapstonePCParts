@@ -50,7 +50,7 @@ export default {
 
 <template>
   <div class="account-info-container">
-    <h1>Account Information</h1>
+    <h1 class="account-information">Account Information</h1>
     <div v-if="user">
       <table class="table table-striped">
         <thead>
@@ -81,6 +81,19 @@ export default {
 </template>
 
 <style scoped>
+.account-information{
+  text-align: center;
+  font-size: 2.5rem;
+  color: #232f3e;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #69feca;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+}
 .account-info-container {
   max-width: 800px;
   margin: 0 auto;

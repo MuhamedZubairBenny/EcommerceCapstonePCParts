@@ -4,7 +4,7 @@
     <header class="header">
       <div class="logo">
         <img :src="require('@/assets/cybertech.png')" alt="Brand Logo" class="brand-logo" />
-        <!-- Text next to the logo -->
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
         <span class="brand-name">CYBERTECH</span>
       </div>
 
@@ -33,17 +33,7 @@
           </svg>
         </router-link>
 
-        <div class="auth-buttons">
-          <!-- Show Login/Register when not authenticated -->
-          <router-link v-if="!isAuthenticated" to="/login" class="auth-button">Login</router-link>
-          <router-link v-if="!isAuthenticated" to="/register" class="auth-button">Register</router-link>
-
-          <!-- Show Logout when authenticated -->
-          <button v-if="isAuthenticated" class="auth-button" @click="logout">Logout</button>
-        </div>
-
-        <!-- Account Button with Dropdown -->
-        <div class="account-dropdown">
+        <div v-if="isAuthenticated || isAdmin"   class="account-dropdown">
           <button @click="toggleDropdown" class="icon-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon account-icon">
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6z"/>
@@ -57,11 +47,15 @@
             <router-link to="/OrderPage">Order Summary</router-link>
           </div>
         </div>
-
-        <!-- Admin Home Button (Visible only to admin) -->
         <router-link v-if="isAdmin" to="/adminPage" class="icon-button admin-home-button">
           Admin Home
         </router-link>
+
+        <div class="auth-buttons">
+          <button v-if="isAuthenticated" class="auth-button logout" @click="logout">Logout</button>
+          <button v-if="!isAuthenticated" class="auth-button login" @click="login">Login</button>
+          <button v-if="!isAuthenticated" class="auth-button register" @click="register">Register</button>
+        </div>
       </div>
     </header>
 
@@ -143,22 +137,83 @@ export default {
       this.isDropdownVisible = !this.isDropdownVisible;
     },
     logout() {
-      // Dispatch the Vuex 'logout' action, which will handle the AuthService call
       this.$store.dispatch('logout')
           .then(() => {
-            // After successful logout, redirect to home
             window.location.reload();
           })
           .catch(error => {
-            // Optionally handle any errors during logout
             console.error('Logout failed:', error);
           });
+    },
+    login(){
+      this.$router.push('/login')
+    },
+    register(){
+      this.$router.push('/register')
     }
   },
 };
 </script>
 
 <style scoped>
+.admin-home-button {
+  background-color: #ffcc00;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.admin-home-button:hover {
+  background-color: #e6b800;
+}
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 10px
+}
+
+.auth-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.login {
+  background-color: #69feca;
+  color: black;
+}
+
+.login:hover {
+  background-color: #417865;
+  transform: scale(1.05);
+}
+
+
+.register {
+  background-color: #69feca;
+  color: black;
+}
+
+.register:hover {
+  background-color: #417865;
+  transform: scale(1.05);
+}
+
+.logout {
+  background-color: #69feca;
+  color: black;
+}
+
+.logout:hover {
+  background-color: #417865;
+  transform: scale(1.05);
+}
 .homepage-container {
   width: 100%;
 }
@@ -184,12 +239,12 @@ export default {
   transition: transform 0.3s;
 }
 .brand-name {
-  font-size: 36px; /* Adjust size as needed */
+  font-size: 36px;
   font-weight: bold;
   color: white;
-  margin-left: 5px; /* Decrease this value to move the text to the left */
-  font-family: 'Arial', sans-serif; /* Use a clean sans-serif font */
-  letter-spacing: 1px; /* Optional: Adds slight spacing between letters */
+  margin-left: 70px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
 }
 
 .brand-name:hover {
@@ -374,6 +429,7 @@ export default {
   color: white;
   text-transform: uppercase;
   font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -410,17 +466,5 @@ export default {
   .category-name {
     font-size: 12px;
   }
-  .admin-home-button {
-    background-color: #ffcc00; /* Use a color that stands out */
-    color: black;
-    padding: 10px;
-    border-radius: 5px;
-    text-decoration: none;
-  }
-
-  .admin-home-button:hover {
-    background-color: #e6b800; /* Darker shade on hover */
-  }
-
 }
 </style>

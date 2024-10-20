@@ -2,32 +2,38 @@
   <div class="order-summary-container">
     <h2>Order Summary</h2>
 
-    <div class="order-details">
-      <h3>Order Details</h3>
-      <p v-if="order.cart.cartTotal"><strong>Total Price:</strong> {{ formatCurrency(order.cart.cartTotal) }}</p>
-      <h4>Items:</h4>
-      <ul>
-        <li v-for="(item, index) in order.cart.products" :key="index" class="product-item">
-          <img :src="item.productPicture" alt="Product Image" class="product-image" />
-          <div class="product-details">
-            <strong>{{ item.productName }}</strong> - {{ formatCurrency(item.price) }}
-            <p><small>Brand: {{ item.brand.brandName }}</small></p>
-            <p><small>Category: {{ item.category.categoryName }}</small></p>
-          </div>
-        </li>
-      </ul>
+    <!-- Check if there is an order -->
+    <div v-if="!order.cart || !order.cart.products.length">
+      <p>No order has been placed yet. Please add items to your cart and proceed to checkout.</p>
     </div>
 
-    <div class="shipping-details">
-      <h3>Shipping Details</h3>
-      <p v-if="order.shipping.address"><strong>Address:</strong> {{ order.shipping.address }}</p>
-      <p v-if="order.shipping.city"><strong>City:</strong> {{ order.shipping.city }}</p>
-      <p v-if="order.shipping.state"><strong>State:</strong> {{ order.shipping.state }}</p>
-      <p v-if="order.shipping.zipCode"><strong>Zip Code:</strong> {{ order.shipping.zipCode }}</p>
-      <p v-if="order.shipping.country"><strong>Country:</strong> {{ order.shipping.country }}</p>
-    </div>
+    <div v-else>
+      <div class="order-details">
+        <h3>Order Details</h3>
+        <p v-if="order.cart.cartTotal"><strong>Total Price:</strong> {{ formatCurrency(order.cart.cartTotal) }}</p>
+        <h4>Items:</h4>
+        <ul>
+          <li v-for="(item, index) in order.cart.products" :key="index" class="product-item">
+            <img :src="item.productPicture" alt="Product Image" class="product-image" />
+            <div class="product-details">
+              <strong>{{ item.productName }}</strong> - {{ formatCurrency(item.price) }}
+              <p><small>Brand: {{ item.brand.brandName }}</small></p>
+              <p><small>Category: {{ item.category.categoryName }}</small></p>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-    <router-link to="/UserCart" class="back-button">Back to Cart</router-link>
+      <div class="shipping-details">
+        <h3>Shipping Details</h3>
+        <p v-if="order.shipping.shippingId"><strong>Shipping ID:</strong> {{ order.shipping.shippingId }}</p>
+        <p v-if="order.shipping.address"><strong>Address:</strong> {{ order.shipping.address }}</p>
+        <p v-if="order.shipping.city"><strong>City:</strong> {{ order.shipping.city }}</p>
+        <p v-if="order.shipping.state"><strong>State:</strong> {{ order.shipping.state }}</p>
+        <p v-if="order.shipping.zipCode"><strong>Zip Code:</strong> {{ order.shipping.zipCode }}</p>
+        <p v-if="order.shipping.country"><strong>Country:</strong> {{ order.shipping.country }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,7 +46,6 @@ export default {
   setup() {
     const store = useStore();
     const order = computed(() => store.state.user || {});
-    const user = computed(() =>  store.state.user || {})
 
     const formatCurrency = (amount) => {
       return new Intl.NumberFormat('en-US', {
@@ -51,7 +56,6 @@ export default {
 
     return {
       order,
-      user,
       formatCurrency,
     };
   },
@@ -67,6 +71,16 @@ export default {
 
 h2 {
   text-align: center;
+  font-size: 2.5rem;
+  color: #232f3e;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #69feca;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .order-details,

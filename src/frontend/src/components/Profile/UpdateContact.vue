@@ -37,7 +37,7 @@ const resetForm = () => {
 
 <template>
   <div class="update-shipping-container">
-    <h2>Update Your Shipping Information</h2>
+    <h2 class="shipping-information">Update Your Shipping Information</h2>
     <form @submit.prevent="submitForm" class="shipping-form">
       <div class="form-group">
         <label for="shippingId">Shipping ID:</label>
@@ -77,6 +77,19 @@ const resetForm = () => {
 </template>
 
 <style scoped>
+.shipping-information{
+  text-align: center;
+  font-size: 2.5rem;
+  color: #232f3e;
+  margin: 30px 0;
+  padding: 10px;
+  background-color: #69feca;
+  border-radius: 10px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+}
 .update-shipping-container {
   max-width: 600px;
   margin: 50px auto;
