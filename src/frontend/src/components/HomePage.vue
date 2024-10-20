@@ -1,6 +1,7 @@
 <template xmlns:th="http://www.w3.org/1999/xhtml">
   <NavigationTool />
   <div class="homepage-container">
+
     <section id="about-us" class="about-us-section"></section>
     <section class="about-us">
       <h2>About Us</h2>

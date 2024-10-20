@@ -4,6 +4,8 @@
     <header class="header">
       <div class="logo">
         <img :src="require('@/assets/cybertech.png')" alt="Brand Logo" class="brand-logo" />
+        <!-- Text next to the logo -->
+        <span class="brand-name">CYBERTECH</span>
       </div>
 
       <!-- Centered Search Bar -->
@@ -170,6 +172,8 @@ export default {
 
 .logo {
   flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .brand-logo {
@@ -177,9 +181,18 @@ export default {
   width: auto;
   transition: transform 0.3s;
 }
+.brand-name {
+  font-size: 36px; /* Adjust size as needed */
+  font-weight: bold;
+  color: white;
+  margin-left: 5px; /* Decrease this value to move the text to the left */
+  font-family: 'Arial', sans-serif; /* Use a clean sans-serif font */
+  letter-spacing: 1px; /* Optional: Adds slight spacing between letters */
+}
 
-.brand-logo:hover {
-  transform: scale(1.05);
+.brand-name:hover {
+  color: #69feca; /* Adds a playful hover color */
+  transform: scale(1.1); /* Adds a slight scaling effect on hover */
 }
 
 .search-bar {
